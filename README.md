@@ -105,3 +105,7 @@ These are rebuilt when your `tina` config changes.
 ## LICENSE
 
 Licensed under the [Apache 2.0 license](./LICENSE).
+
+git add .
+git commit -m "maj 1.0 maquette"
+git push -u origin main
