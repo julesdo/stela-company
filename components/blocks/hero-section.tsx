@@ -1,7 +1,6 @@
 // components/ArtisticHeroFull.tsx
 "use client"
 
-import dynamic from "next/dynamic"
 import { useRef, useEffect } from "react"
 import { motion } from "framer-motion"
 import { gsap } from "gsap"
@@ -9,16 +8,6 @@ import SplitText from "gsap/SplitText"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { Button } from "../ui/button"
 import Link from "next/link"
-
-// 1) Dynamically import client-only modules
-const ShaderGradientCanvas = dynamic(
-  () => import("@shadergradient/react").then((mod) => mod.ShaderGradientCanvas),
-  { ssr: false }
-)
-const ShaderGradient = dynamic(
-  () => import("@shadergradient/react").then((mod) => mod.ShaderGradient),
-  { ssr: false }
-)
 
 
 gsap.registerPlugin(SplitText, ScrollTrigger)

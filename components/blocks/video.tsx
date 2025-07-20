@@ -14,7 +14,7 @@ export const Video = ({ data }: { data: PageBlocksVideo }) => {
   }
   return (
     <Section background={data.background!} className={`aspect-video ${data.color}`}>
-      <ReactPlayer width='100%' height='100%' style={{ margin: 'auto' }} playing={!!data.autoPlay} loop={!!data.loop} controls={true} url={data.url} />
+      <ReactPlayer width='100%' height='100%' style={{ margin: 'auto' }} playing={!!data.autoPlay} loop={!!data.loop} controls={true} />
     </Section>
   );
 };
