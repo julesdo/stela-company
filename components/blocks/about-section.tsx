@@ -59,7 +59,7 @@ export default function AboutSectionScrollSync() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative bg-primary overflow-hidden py-16 px-6 md:px-12 lg:px-24 text-center">
+    <section ref={sectionRef} className="relative overflow-hidden py-16 px-6 md:px-12 lg:px-24 text-center">
       {/* Logo animé */}
       <div ref={logoRef} className=" inline-block">
         <Image src={logoUrl} alt="Logo" width={128} height={128} priority />
@@ -69,10 +69,10 @@ export default function AboutSectionScrollSync() {
 
       {/* Contenu textuel */}
       <div className="relative z-10 max-w-3xl mx-auto space-y-16">
-        <h2 ref={titleRef} className="text-4xl md:text-5xl font-heading uppercase text-foreground">
+        <h2 ref={titleRef} className="text-4xl md:text-5xl font-heading uppercase">
           À propos de La Stela Company
         </h2>
-        <div ref={textRef} className="text-lg text-foreground/80 space-y-6">
+        <div ref={textRef} className="text-lg text-black/80 space-y-6">
           <p>Stela Elena Stankovic tisse des ponts entre théâtre, danse, musique et langues.</p>
           <p>L’art devient un vecteur de connexion, de liberté et d’émotion partagée.</p>
           <p>Un laboratoire créatif en ébullition, reliant France, Allemagne et Serbie.</p>

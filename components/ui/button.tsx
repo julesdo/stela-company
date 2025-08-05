@@ -37,7 +37,7 @@ const buttonVariants = cva(
       variant: {
         default: [
           "bg-[var(--color-primary)]",                  // fond primaire :contentReference[oaicite:3]{index=3}
-          "text-[var(--color-primary-foreground)]",     // texte primaire :contentReference[oaicite:4]{index=4}
+          "text-white",     // texte primaire :contentReference[oaicite:4]{index=4}
           "shadow-md",
           "hover:bg-[var(--color-primary)]/90",
           "active:scale-95",                             // feedback haptique :contentReference[oaicite:5]{index=5}

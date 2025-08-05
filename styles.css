@@ -43,11 +43,17 @@
 }
 
 :root {
+
+  --font-sans: Corinthia, serif;
+  --font-serif: Playfair Display, serif;
+  --font-mono: Nunito, monospace;
   --radius: 0.625rem;
 
-    /* Fond et texte */
-    --background: oklch(0.98 0.02 90);
-  --foreground: oklch(0.20 0.01 40);
+  /* Palette sophistiquée et épurée - moins girly */
+  
+  /* Fond et texte - Tons neutres chauds */
+  --background: oklch(98% 0.002 80);              /* Blanc cassé très subtil */
+  --foreground: oklch(0.15 0.005 45);             /* Charbon profond */
 
   /* Cartes et popovers */
   --card: var(--background);
@@ -55,36 +61,36 @@
   --popover: var(--background);
   --popover-foreground: var(--foreground);
 
-  /* Couleurs principales */
-  --primary: oklch(0.76 0.06 27);
-  --primary-foreground: var(--foreground);
+  /* Couleur principale - Terracotta sophistiquée */
+  --primary: oklch(0.55 0.08 35);                 /* Terracotta élégante */
+  --primary-foreground: oklch(98% 0.002 80);
 
-  /* Couleurs secondaires */
-  --secondary: oklch(0.82 0.05 132);
-  --secondary-foreground: var(--foreground);
+  /* Couleur secondaire - Gris anthracite */
+  --secondary: oklch(0.35 0.01 240);              /* Anthracite bleuté */
+  --secondary-foreground: oklch(98% 0.002 80);
 
-  /* Teintes atténuées */
-  --muted: oklch(0.85 0.04 86);
-  --muted-foreground: oklch(0.15 0.01 42);
+  /* Teintes atténuées - Gris pierre */
+  --muted: oklch(0.88 0.008 60);                  /* Gris pierre clair */
+  --muted-foreground: oklch(0.40 0.01 50);        /* Gris moyen */
 
-  /* Accent léger */
-  --accent: oklch(0.74 0.07 345);
-  --accent-foreground: var(--foreground);
+  /* Accent - Bleu profond */
+  --accent: oklch(0.45 0.06 220);                 /* Bleu nuit sophistiqué */
+  --accent-foreground: oklch(98% 0.002 80);
 
-  /* Destructif / Erreur */
-  --destructive: oklch(0.72 0.10 40);
+  /* Destructif / Erreur - Rouille */
+  --destructive: oklch(0.50 0.12 25);             /* Rouge rouille */
 
-  /* Bordures & Inputs */
-  --border: oklch(0.90 0.01 45);
+  /* Bordures & Inputs - Tons neutres */
+  --border: oklch(0.85 0.005 50);                 /* Gris très clair */
   --input: var(--border);
-  --ring: oklch(0.88 0.03 200);
+  --ring: oklch(0.65 0.04 220);                   /* Bleu muted pour focus */
 
-  /* Chartes (exemples) */
-  --chart-1: oklch(0.76 0.06 27);
-  --chart-2: oklch(0.85 0.04 86);
-  --chart-3: oklch(0.98 0.01 92);
-  --chart-4: oklch(0.82 0.05 132);
-  --chart-5: oklch(0.74 0.07 345);
+  /* Chartes harmonieuses */
+  --chart-1: var(--primary);                     /* Terracotta */
+  --chart-2: var(--secondary);                   /* Anthracite */
+  --chart-3: oklch(0.70 0.05 80);               /* Ocre doux */
+  --chart-4: var(--accent);                     /* Bleu profond */
+  --chart-5: oklch(0.60 0.04 160);              /* Vert sauge */
 
   /* Sidebar */
   --sidebar: var(--background);
@@ -98,54 +104,54 @@
 }
 
 .dark {
-  /* Fond et texte inversés pour le mode sombre */
-  --background: oklch(0.12 0.02 30);             /* bleu-gris sombre très doux */
-  --foreground: oklch(0.95 0.01 40);             /* crème clair pour le texte */
+  /* Mode sombre sophistiqué */
+  --background: oklch(0.08 0.01 240);             /* Noir bleuté profond */
+  --foreground: oklch(0.92 0.005 80);             /* Blanc cassé chaud */
 
   /* Cartes et popovers */
-  --card: var(--background);
+  --card: oklch(0.12 0.01 240);                   /* Gris très sombre */
   --card-foreground: var(--foreground);
-  --popover: var(--background);
+  --popover: var(--card);
   --popover-foreground: var(--foreground);
 
-  /* Couleurs principales (rose pastel foncé) */
-  --primary: oklch(0.64 0.05 27);                /* rose poudré sombre (#D99AA8) */
+  /* Couleur principale - Terracotta plus vif en sombre */
+  --primary: oklch(0.65 0.10 35);                 /* Terracotta plus saturée */
   --primary-foreground: var(--foreground);
 
-  /* Couleurs secondaires (menthe foncée) */
-  --secondary: oklch(0.68 0.05 132);             /* menthe profonde (#89C7A7) */
+  /* Couleur secondaire - Gris clair */
+  --secondary: oklch(0.25 0.01 240);              /* Gris anthracite sombre */
   --secondary-foreground: var(--foreground);
 
   /* Teintes atténuées */
-  --muted: oklch(0.30 0.03 80);                  /* gris neutre foncé */
-  --muted-foreground: oklch(0.90 0.02 30);        /* presque blanc */
+  --muted: oklch(0.18 0.01 240);                  /* Gris foncé */
+  --muted-foreground: oklch(0.70 0.01 80);        /* Gris clair */
 
-  /* Accent (bleu céleste foncé) */
-  --accent: oklch(0.65 0.06 345);                 /* bleu ciel foncé (#8ABEDB) */
+  /* Accent - Bleu plus vif */
+  --accent: oklch(0.55 0.08 220);                 /* Bleu plus vif en sombre */
   --accent-foreground: var(--foreground);
 
-  /* Destructif / Erreur (corail foncé) */
-  --destructive: oklch(0.62 0.09 40);             /* corail doux foncé (#E39C6F) */
+  /* Destructif - Rouille vive */
+  --destructive: oklch(0.60 0.15 25);             /* Rouge rouille vif */
 
   /* Bordures & Inputs */
-  --border: oklch(0.20 0.02 30);                  /* gris bleuâtre foncé */
+  --border: oklch(0.20 0.01 240);                 /* Bordure sombre */
   --input: var(--border);
-  --ring: oklch(0.40 0.03 200);                   /* hint de bleu pastel pour focus */
+  --ring: oklch(0.50 0.06 220);                   /* Bleu focus */
 
-  /* Chartes (version sombre) */
+  /* Chartes harmonieuses sombre */
   --chart-1: var(--primary);
-  --chart-2: var(--muted);
-  --chart-3: oklch(0.85 0.02 90);                 /* jaune pastel foncé (#DDDFA2) */
-  --chart-4: var(--secondary);
-  --chart-5: var(--accent);
+  --chart-2: var(--secondary);
+  --chart-3: oklch(0.60 0.06 80);                /* Ocre vif */
+  --chart-4: var(--accent);
+  --chart-5: oklch(0.50 0.05 160);               /* Vert sauge foncé */
 
   /* Sidebar */
   --sidebar: var(--background);
   --sidebar-foreground: var(--foreground);
   --sidebar-primary: var(--primary);
-  --sidebar-primary-foreground: var(--foreground);
+  --sidebar-primary-foreground: var(--primary-foreground);
   --sidebar-accent: var(--secondary);
-  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-accent-foreground: var(--secondary-foreground);
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
 }
@@ -156,8 +162,9 @@
     @apply border-border outline-ring/50;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-cinzel);
-    font-weight: 500;
+    font-family: var(--font-corinthia);
+    font-weight: 600;
+    line-height: 1.1;
   }
   body {
     @apply bg-background text-foreground;
@@ -222,6 +229,7 @@ html.lenis, html.lenis body {
 /* Edge/IE Legacy */
 body {
   -ms-overflow-style: scrollbar;
+  cursor: none;
 }
 
 /* Optionnel : utilitaire Tailwind pour masquer complètement */
