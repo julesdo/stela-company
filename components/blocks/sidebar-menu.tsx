@@ -61,7 +61,7 @@ export default function SidebarMenu() {
         className="fixed right-0 top-0 h-screen w-20 bg-white/90 backdrop-blur-sm border-l border-gray-200/50 z-40 lg:flex flex-col justify-center items-center hidden"
         initial="hidden"
         animate="visible"
-        variants={containerVariants}
+        variants={containerVariants as any}
       >
         <nav className="flex flex-col space-y-6">
           {MENU_ITEMS.map((item, index) => {
@@ -70,7 +70,7 @@ export default function SidebarMenu() {
             return (
               <motion.div
                 key={item.href}
-                variants={itemVariants}
+                variants={itemVariants as any}
                 className="group relative"
                 whileHover="hover"
                 animate={isActive ? "active" : "idle"}

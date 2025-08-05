@@ -61,7 +61,7 @@ export default function MobileMenu() {
         {isOpen && (
           <motion.div
             className="fixed inset-0 bg-white/95 backdrop-blur-md z-40 lg:hidden flex flex-col justify-center items-center"
-            variants={menuVariants}
+            variants={menuVariants as any}
             initial="closed"
             animate="open"
             exit="closed"
