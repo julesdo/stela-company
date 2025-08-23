@@ -3,6 +3,7 @@ import { Metadata } from "next"
 import ContactHero from "@/components/blocks/contact-hero"
 import ContactInfo from "@/components/blocks/contact-info"
 import ContactConnect from "@/components/blocks/contact-connect"
+import ContactSplit from "@/components/blocks/contact-split"
 
 export const metadata: Metadata = {
   title: "Contact | La Stela Company",
@@ -17,9 +18,9 @@ export default function ContactPage() {
       
       {/* Informations de contact */}
       <ContactInfo />
-      
-      {/* Connexion */}
-      <ContactConnect />
+
+      {/* Informations de contact */}
+      <ContactSplit/>
     </>
   )
 }

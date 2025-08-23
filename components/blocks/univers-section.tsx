@@ -8,24 +8,24 @@ import Link from "next/link"
 export default function UniversSection() {
   const univers = [
     {
-      title: 'Danse',
+      title: 'Créations',
       subtitle: 'Expression corporelle',
       image: '/dance.jpg',
-      href: '/danse',
+      href: '/creations',
       number: '01'
     },
     {
-      title: 'Théâtre',
+      title: 'Ateliers',
       subtitle: 'Art dramatique',
       image: '/theatre.jpg',
-      href: '/theatre',
+      href: '/ateliers',
       number: '02'
     },
     {
-      title: 'Langues',
+      title: 'Engagements',
       subtitle: 'Communication',
       image: '/language.jpg',
-      href: '/langues',
+      href: '/engagements',
       number: '03'
     }
   ]

@@ -88,7 +88,7 @@ export default function HeroPrincipal() {
           variants={baselineVariants as any}
           className="mb-12"
         >
-          <h1 className="text-2xl md:text-3xl font-light text-gray-800 tracking-wide">
+          <h1 className="text-2xl md:text-8xl font-light text-gray-800 tracking-wide">
             L'art sous toutes ses formes
           </h1>
           <p className="text-lg text-gray-600 mt-4 font-light">

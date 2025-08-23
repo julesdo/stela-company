@@ -12,10 +12,8 @@ const buttonVariants = cva(
     "items-center",
     "justify-center",
     "gap-2",
-    "whitespace-nowrap",
-    "rounded-xl",                          // coins généreux
-    "text-base",                           // taille de texte plus douce
-    "font-semibold",
+    "whitespace-nowrap",                         // coins généreux
+    "text-sm",                           // taille de texte plus douce
     "uppercase",
     "transition-all",
     "disabled:pointer-events-none",

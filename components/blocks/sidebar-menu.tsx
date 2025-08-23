@@ -6,9 +6,9 @@ import { motion } from "framer-motion"
 import { usePathname } from "next/navigation"
 
 const MENU_ITEMS = [
+  { label: "À propos", href: "/about" },
   { label: "Agenda", href: "/agenda" },
   { label: "Equipe", href: "/equipe" },
-  { label: "À propos", href: "/about" },
   { label: "Contact", href: "/contact" },
 ]
 
