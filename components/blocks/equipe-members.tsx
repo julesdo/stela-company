@@ -11,19 +11,19 @@ const teamMembers = [
     name: "Stela Elena Stankovic",
     role: "Fondatrice & Directrice Artistique",
     description: "Artiste pluridisciplinaire franco-germano-serbe, elle orchestre la vision créative de la compagnie entre danse, théâtre et langues.",
-    image: "/team/stela.jpg"
+    image: "/stela.png"
   },
   {
     name: "Marie Dubois",
     role: "Chorégraphe Associée",
     description: "Spécialiste de la danse contemporaine, elle apporte sa sensibilité poétique aux créations de la compagnie.",
-    image: "/team/marie.jpg"
+    image: "/stela.png"
   },
   {
     name: "Thomas Müller",
     role: "Metteur en Scène",
     description: "Dramaturge et metteur en scène, il explore les territoires narratifs entre les langues et les cultures.",
-    image: "/team/thomas.jpg"
+    image: "/stela.png"
   }
 ]
 
@@ -34,7 +34,7 @@ const extendedDetails: Record<
 > = {
   "Stela Elena Stankovic": {
     long:
-      "Formée entre Paris et Berlin, Stela tisse des ponts entre danse, théâtre et musicalité des langues. Elle dirige des projets multilingues où le geste devient une syntaxe et le silence, une respiration dramaturgique.",
+      "Formée entre Paris et Berlin, Stela tisse des ponts entre danse, théâtre et musicalité des langues. Elle dirige des projets multilingues où le geste devient une syntaxe et le silence, une respiration dramaturgique. Sa direction artistique se distingue par une exigence chorégraphique et une attention aux dramaturgies du corps, faisant dialoguer les scènes européennes autour d’esthétiques épurées et puissantes.",
     highlights: [
       "Direction de 12 créations originales depuis 2016",
       "Résidences : Radialsystem Berlin, CN D Pantin",
@@ -48,7 +48,7 @@ const extendedDetails: Record<
   },
   "Marie Dubois": {
     long:
-      "Chorégraphe de formation contemporaine, Marie mêle écriture précise et improvisation guidée. Elle sculpte des trajectoires organiques, joue des ruptures et des contrepoints pour faire émerger des images sensibles.",
+      "Chorégraphe de formation contemporaine, Marie mêle écriture précise et improvisation guidée. Elle sculpte des trajectoires organiques, joue des ruptures et des contrepoints pour faire émerger des images sensibles. Sa pratique cherche l’équilibre entre virtuosité et écoute, pour des pièces justes, incarnées et délicates.",
     highlights: [
       "Lauréate Jeune Scène Chorégraphique 2022",
       "Collab. : musiciens live & scénographes lumière",
@@ -62,7 +62,7 @@ const extendedDetails: Record<
   },
   "Thomas Müller": {
     long:
-      "Dramaturge et metteur en scène, Thomas construit des architectures scéniques où texte, corps et espace dialoguent. Son approche documentaire-poétique puise dans la pluralité des cultures européennes.",
+      "Dramaturge et metteur en scène, Thomas construit des architectures scéniques où texte, corps et espace dialoguent. Son approche documentaire-poétique puise dans la pluralité des cultures européennes et interroge nos récits communs. Il signe des dispositifs minimalistes à haute densité symbolique, pour une expérience scénique claire et mémorable.",
     highlights: [
       "Adaptations multilingues (FR/DE/EN)",
       "Recherche : théâtre postdramatique & chœur",
@@ -137,9 +137,14 @@ export default function EquipeMembers() {
                     onClick={() => setSelectedMember(member)}
                     className="w-full aspect-[3/4] relative bg-muted "
                   >
-                    <div className="w-full h-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center">
-                      <span className="text-muted-foreground font-playfair text-lg">{member.name.split(" ")[0]}</span>
-                    </div>
+                    <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 40vw"
+                    priority
+                    />
                   </button>
                 </motion.div>
 
@@ -166,105 +171,170 @@ export default function EquipeMembers() {
         </div>
       </motion.div>
 
-      {/* Modale */}
+      {/* Modale (élargie + éléments visibles dès l'entête) */}
       <AnimatePresence>
         {selectedMember && (
           <motion.div
             key="backdrop"
-            className="fixed inset-0 z-50 flex items-end md:items-center justify-center"
+            className="fixed inset-0 z-50 flex items-center justify-center"
             initial="hidden"
             animate="visible"
             exit="exit"
             variants={backdropVariants}
           >
             <div className="absolute inset-0 bg-black/60" onClick={() => setSelectedMember(null)} />
+
             <motion.div
               key="modal"
-              className="relative z-10 w-full md:max-w-3xl bg-background  shadow-xl mx-0 md:mx-6 p-6 md:p-8"
+              className="relative z-10 w-[96vw] max-w-7xl h-[95vh] bg-background border border-border/70 shadow-2xl overflow-hidden"
               variants={modalVariants as any}
+              role="dialog"
+              aria-modal="true"
             >
+              {/* Fermer */}
               <button
                 onClick={() => setSelectedMember(null)}
                 className="absolute right-3 top-3 h-9 w-9 rounded-full border border-border/60 hover:bg-muted"
+                aria-label="Fermer"
               >
                 ×
               </button>
 
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-8">
-                <div className="md:col-span-2">
-                  <div className="aspect-[3/4] relative overflow-hidden bg-muted">
-                    <div className="w-full h-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center">
-                      <span className="text-muted-foreground font-playfair text-lg">
-                        {selectedMember.name.split(" ")[0]}
-                      </span>
+              <div className="grid grid-cols-1 md:grid-cols-5 h-full">
+                {/* Colonne gauche */}
+                <div className="md:col-span-2 h-full bg-muted/20 border-r border-border/60">
+                  <div className="h-full overflow-y-auto">
+                    <div className="relative w-full h-1/2 bg-muted">
+                      <Image
+                        src={selectedMember.image}
+                        alt={selectedMember.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 40vw"
+                        priority
+                      />
+                    </div>
+
+                    {/* Fiche rapide */}
+                    <div className="p-6 md:p-7 space-y-4">
+                      <div className="space-y-1">
+                        <p className="text-sm uppercase tracking-wider text-foreground/70 font-playfair">Rôle</p>
+                        <p className="text-base font-playfair text-foreground">{selectedMember.role}</p>
+                      </div>
+
+                      <div className="space-y-1">
+                        <p className="text-sm uppercase tracking-wider text-foreground/70 font-playfair">Signature artistique</p>
+                        <p className="text-base font-playfair text-muted-foreground">
+                          {selectedMember.name === "Stela Elena Stankovic" && "Hybridations danse-théâtre, musicalité des langues, précision dramaturgique."}
+                          {selectedMember.name === "Marie Dubois" && "Écritures organiques, corps musical, composition instantanée."}
+                          {selectedMember.name === "Thomas Müller" && "Poétique documentaire, architectures scéniques, minimalisme signifiant."}
+                        </p>
+                      </div>
+
+                      {/* Réseaux sociaux (gauche) */}
+                      <div className="pt-2">
+                        <p className="text-sm uppercase tracking-wider text-foreground/70 font-playfair mb-2">Réseaux</p>
+                        <div className="flex gap-4">
+                          {extendedDetails[selectedMember.name]?.links?.instagram && (
+                            <a
+                              href={extendedDetails[selectedMember.name].links?.instagram}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-muted-foreground hover:text-primary"
+                              aria-label="Instagram"
+                            >
+                              <FaInstagram size={20} />
+                            </a>
+                          )}
+                          {extendedDetails[selectedMember.name]?.links?.twitter && (
+                            <a
+                              href={extendedDetails[selectedMember.name].links?.twitter}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-muted-foreground hover:text-primary"
+                              aria-label="Twitter"
+                            >
+                              <FaTwitter size={20} />
+                            </a>
+                          )}
+                          {extendedDetails[selectedMember.name]?.links?.linkedin && (
+                            <a
+                              href={extendedDetails[selectedMember.name].links?.linkedin}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-muted-foreground hover:text-primary"
+                              aria-label="LinkedIn"
+                            >
+                              <FaLinkedin size={20} />
+                            </a>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* CTA Portfolio (gauche) */}
+                      {extendedDetails[selectedMember.name]?.portfolio && (
+                        <div className="pt-4">
+                          <MagneticButton
+                            href={extendedDetails[selectedMember.name].portfolio}
+                            variant="outline"
+                            label="Voir le portfolio"
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
 
-                <div className="md:col-span-3 space-y-4">
-                  <h3 className="text-3xl md:text-4xl font-corinthia">{selectedMember.name}</h3>
-                  <p className="text-lg font-playfair text-primary">{selectedMember.role}</p>
-
-                  <p className="text-base md:text-lg font-playfair text-muted-foreground">
-                    {extendedDetails[selectedMember.name]?.long ?? selectedMember.description}
-                  </p>
-
-                  <ul className="list-disc pl-5 space-y-1 text-sm md:text-base font-playfair text-muted-foreground/90">
-                    {extendedDetails[selectedMember.name]?.highlights?.map((h) => (
-                      <li key={h}>{h}</li>
-                    ))}
-                  </ul>
-
-                  {/* Réseaux sociaux */}
-                  <div className="flex gap-4 pt-4">
-                    {extendedDetails[selectedMember.name]?.links?.instagram && (
-                      <a
-                        href={extendedDetails[selectedMember.name].links?.instagram}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-primary"
-                      >
-                        <FaInstagram size={22} />
-                      </a>
-                    )}
-                    {extendedDetails[selectedMember.name]?.links?.twitter && (
-                      <a
-                        href={extendedDetails[selectedMember.name].links?.twitter}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-primary"
-                      >
-                        <FaTwitter size={22} />
-                      </a>
-                    )}
-                    {extendedDetails[selectedMember.name]?.links?.linkedin && (
-                      <a
-                        href={extendedDetails[selectedMember.name].links?.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-primary"
-                      >
-                        <FaLinkedin size={22} />
-                      </a>
-                    )}
-                  </div>
-
-                  {/* Bouton Portfolio */}
-                  {extendedDetails[selectedMember.name]?.portfolio && (
-                    <div className="pt-4 text-start">
-                      <MagneticButton
-                      label="Voir le portfolio"
-                      >
-                      <a
-                        href={extendedDetails[selectedMember.name].portfolio}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Voir le portfolio
-                      </a>
-                      </MagneticButton>
+                {/* Colonne droite */}
+                <div className="md:col-span-3 h-full overflow-y-auto">
+                  <div className="p-6 md:p-10 space-y-6">
+                    {/* En-tête visible immédiatement */}
+                    <div className="space-y-3">
+                      <h3 className="text-3xl md:text-4xl font-corinthia leading-tight">{selectedMember.name}</h3>
+                      {/* ➜ rôle TOUJOURS visible */}
+                      <p className="text-base md:text-lg font-playfair text-primary">{selectedMember.role}</p>
+                      <div className="w-16 h-px bg-primary" />
                     </div>
-                  )}
+
+                    {/* Paragraphe long */}
+                    <div className="text-base md:text-lg font-playfair text-muted-foreground leading-relaxed">
+                      <p>{extendedDetails[selectedMember.name]?.long ?? selectedMember.description}</p>
+                    </div>
+
+                    {/* Citation/accroche */}
+                    <div className="border-l-2 border-primary/60 pl-4 italic font-playfair text-foreground/90">
+                      {selectedMember.name === "Stela Elena Stankovic" && (
+                        <p>« Composer, c’est mettre le mouvement au service de la pensée et laisser le silence faire récit. »</p>
+                      )}
+                      {selectedMember.name === "Marie Dubois" && (
+                        <p>« L’écriture chorégraphique commence là où le souffle dessine le temps. »</p>
+                      )}
+                      {selectedMember.name === "Thomas Müller" && (
+                        <p>« Le plateau comme une page blanche où les corps écrivent ce que les mots taisent. »</p>
+                      )}
+                    </div>
+
+                    {/* Highlights */}
+                    {extendedDetails[selectedMember.name]?.highlights?.length ? (
+                      <div className="space-y-3">
+                        <h4 className="text-xl font-playfair text-foreground">Repères & temps forts</h4>
+                        <ul className="grid sm:grid-cols-2 gap-3">
+                          {extendedDetails[selectedMember.name].highlights.map((h) => (
+                            <li
+                              key={h}
+                              className="text-sm md:text-base font-playfair text-foreground/90 border border-border/60 px-3 py-2"
+                            >
+                              {h}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+
+                    <div className="pt-2 text-sm md:text-base font-playfair text-foreground/80">
+                      Disponible pour&nbsp;: créations, collaborations, ateliers & transmissions, conférences et accompagnements dramaturgiques.
+                    </div>
+                  </div>
                 </div>
               </div>
             </motion.div>
