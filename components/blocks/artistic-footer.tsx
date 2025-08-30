@@ -55,8 +55,12 @@ export default function ArtisticFooter() {
   return (
     <footer ref={footerRef} className="bg-background text-foreground py-24 px-8 overflow-hidden">
       {/* Logo */}
-      <div className="flex justify-center mb-16">
+      <div className="flex w-full justify-center mb-16">
+
+        <div className='flex flex-col gap-6'>
+        <Image src="/logo.svg" alt="Logo" width={100} height={100} />
         <Image src="/logo-stela.svg" alt="Logo" width={100} height={100} />
+        </div>
       </div>
 
       {/* Navigation */}

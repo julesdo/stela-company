@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation"
 
 const MENU_ITEMS = [
   { label: "À propos", href: "/about" },
-  { label: "Agenda", href: "/agenda" },
+  { label: "Ateliers", href: "/ateliers" },
   { label: "Equipe", href: "/equipe" },
   { label: "Contact", href: "/contact" },
 ]

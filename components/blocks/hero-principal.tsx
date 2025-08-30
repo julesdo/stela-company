@@ -92,7 +92,7 @@ export default function HeroPrincipal() {
             L'art sous toutes ses formes
           </h1>
           <p className="text-lg text-gray-600 mt-4 font-light">
-            Danse • Théâtre • Langue
+            Danse • Théâtre • Langues
           </p>
         </motion.div>
       </motion.div>
