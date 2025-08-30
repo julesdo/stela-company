@@ -61,8 +61,10 @@ async function getMemberBySlug(slug: string): Promise<TeamMemberArticle | null> 
 }
 
 // --- SEO ---
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const m = await getMemberBySlug(params.slug)
+export async function generateMetadata(  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await params
+  const m = await getMemberBySlug(slug)
   if (!m) return {}
   const description = m.article.join(" ").slice(0, 160)
   return {
@@ -87,8 +89,9 @@ function ratioClass(r?: GalleryItem["ratio"]) {
 }
 
 // --- Page article épurée + galerie finale ---
-export default async function MemberPage({ params }: { params: { slug: string } }) {
-  const m = await getMemberBySlug(params.slug)
+export default async function MemberPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const m = await getMemberBySlug(slug)
   if (!m) return notFound()
 
   // JSON-LD minimal

@@ -99,8 +99,10 @@ const fmtDate = (iso: string) =>
   }).format(new Date(iso))
 
 // ------------- Metadata -------------
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const a = await getAtelierBySlug(params.slug)
+export async function generateMetadata(  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await params
+  const a = await getAtelierBySlug(slug)
   if (!a) return {}
   const title = `${a.title} — Ateliers`
   const description = a.description.slice(0, 160)
@@ -113,8 +115,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 // ------------- Page -------------
-export default async function Page({ params }: { params: { slug: string } }) {
-  const a = await getAtelierBySlug(params.slug)
+export default async function Page(  { params }: { params: Promise<{ slug: string }> }
+) {
+  const { slug } = await params
+  const a = await getAtelierBySlug(slug)
   if (!a) return notFound()
 
   // JSON-LD (Course + instances si planning fourni)

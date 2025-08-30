@@ -104,8 +104,10 @@ async function getAllRepresentations(): Promise<RepresentationDetail[]> {
 }
 
 // ---------- Metadata ----------
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const data = await getRepresentationBySlug(params.slug)
+export async function generateMetadata(  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await params
+  const data = await getRepresentationBySlug(slug)
   if (!data) return {}
   const description = data.article.join(" ").slice(0, 160)
   return {
@@ -117,8 +119,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 // ---------- Page ----------
-export default async function RepresentationPage({ params }: { params: { slug: string } }) {
-  const data = await getRepresentationBySlug(params.slug)
+export default async function RepresentationPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const data = await getRepresentationBySlug(slug)
   if (!data) return notFound()
   const all = await getAllRepresentations()
   const suggestions = all.filter(r => r.slug !== data.slug).slice(0, 3)
