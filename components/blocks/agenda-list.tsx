@@ -112,7 +112,7 @@ export default function AgendaList({ events }: { events: Representation[] }) {
 
     return (
       <motion.li
-        variants={item}
+        variants={item as any}
         className="relative group px-4 py-5 md:px-6 md:py-6 rounded-2xl bg-white/60 border border-black/10 hover:border-black/20 transition"
       >
         <div className="pointer-events-none absolute left-2 top-0 bottom-0 w-px bg-black/10 md:left-3" />
@@ -130,7 +130,7 @@ export default function AgendaList({ events }: { events: Representation[] }) {
         variants={container}
       >
         {/* Tabs */}
-        <motion.div variants={item} className="mb-8 md:mb-10 flex items-end justify-between px-6 md:px-12 lg:pr-20">
+        <motion.div variants={item as any} className="mb-8 md:mb-10 flex items-end justify-between px-6 md:px-12 lg:pr-20">
           <div className="inline-flex rounded-full border border-black/10 overflow-hidden">
             <button
               onClick={() => setTab("upcoming")}
@@ -163,7 +163,7 @@ export default function AgendaList({ events }: { events: Representation[] }) {
                 className="space-y-4 md:space-y-5"
               >
                 {upcoming.length === 0 ? (
-                  <motion.div variants={item} className="text-black/60 text-sm md:text-base">
+                  <motion.div variants={item as any} className="text-black/60 text-sm md:text-base">
                     Prochaines dates bientôt annoncées.
                   </motion.div>
                 ) : (
@@ -179,7 +179,7 @@ export default function AgendaList({ events }: { events: Representation[] }) {
                 className="space-y-4 md:space-y-5"
               >
                 {past.length === 0 ? (
-                  <motion.div variants={item} className="text-black/60 text-sm md:text-base">
+                  <motion.div variants={item as any} className="text-black/60 text-sm md:text-base">
                     Aucune représentation passée pour le moment.
                   </motion.div>
                 ) : (

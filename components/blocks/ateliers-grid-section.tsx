@@ -86,7 +86,7 @@ export default function AteliersGridSection({
         variants={container}
       >
         {/* En-tête */}
-        <motion.div variants={card} className="mb-8 md:mb-10 flex items-end justify-between">
+        <motion.div variants={card as any} className="mb-8 md:mb-10 flex items-end justify-between">
           <div>
             <h1 className="text-3xl md:text-5xl font-light text-black tracking-wide">{heading}</h1>
             <div className="w-12 h-px bg-black mt-4 opacity-30" />
@@ -115,7 +115,7 @@ export default function AteliersGridSection({
           {filtered.map((it) => (
             <motion.article
               key={it.slug}
-              variants={card}
+              variants={card as any}
               className="group relative rounded-2xl border border-black/10 bg-white/80 hover:bg-white shadow-[0_1px_0_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition pb-20"
             >
               {/* Barre d’accent à gauche (s’élargit au hover) */}
