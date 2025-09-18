@@ -4,9 +4,12 @@ import React from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
+import type { Template } from "tinacms"
+import { tinaField } from "tinacms/dist/react"
+import { Section, sectionBlockSchemaField } from "../layout/section"
 
-export default function UniversSection() {
-  const univers = [
+export const UniversSection = ({ data }: { data: any }) => {
+  const univers = (data?.items ?? [
     {
       title: 'Créations',
       subtitle: 'Expression corporelle',
@@ -28,7 +31,7 @@ export default function UniversSection() {
       href: '/engagements',
       number: '03'
     }
-  ]
+  ]) as Array<{ title: string; subtitle: string; image: string; href: string; number: string }>
 
   const containerVariants = {
     hidden: {},
@@ -55,8 +58,10 @@ export default function UniversSection() {
     }
   }
 
+  const heading = data?.heading ?? 'Nos Univers'
+
   return (
-    <section className="py-32 px-6 md:px-12 lg:pr-20 bg-white">
+    <Section background={data?.background} className="py-32 px-6 md:px-12 lg:pr-20">
       <motion.div
         className="max-w-7xl mx-auto"
         initial="hidden"
@@ -69,14 +74,14 @@ export default function UniversSection() {
           className="mb-24"
           variants={itemVariants as any}
         >
-          <h2 className="text-3xl md:text-4xl font-light text-black tracking-wide">
-            Nos Univers
+          <h2 className="text-3xl md:text-4xl font-light tracking-wide" data-tina-field={tinaField(data, 'heading')}>
+            {heading}
           </h2>
           <div className="w-12 h-px bg-black mt-4 opacity-30" />
         </motion.div>
 
         {/* Layout vertical épuré */}
-        <div className="space-y-24 md:space-y-32">
+        <div className="space-y-24 md:space-y-32" data-tina-field={tinaField(data)}>
           {univers.map((item, index) => (
             <motion.div
               key={item.title}
@@ -130,10 +135,10 @@ export default function UniversSection() {
                       whileHover={{ x: index % 2 === 1 ? -5 : 5 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <h3 className="text-4xl md:text-5xl lg:text-6xl font-light text-black">
+                      <h3 className="text-4xl md:text-5xl lg:text-6xl font-light">
                         {item.title}
                       </h3>
-                      <p className="text-lg md:text-xl font-light text-black/60 mt-2 tracking-wide">
+                      <p className="text-lg md:text-xl font-light mt-2 tracking-wide">
                         {item.subtitle}
                       </p>
                     </motion.div>
@@ -183,6 +188,35 @@ export default function UniversSection() {
           ))}
         </div>
       </motion.div>
-    </section>
+    </Section>
   )
+}
+
+export const universSectionBlockSchema: Template = {
+  name: 'universSection',
+  label: 'Univers Section',
+  ui: {
+    previewSrc: '/blocks/features.png',
+  },
+  fields: [
+    sectionBlockSchemaField as any,
+    { type: 'string', name: 'heading', label: 'Heading' },
+    {
+      type: 'object',
+      name: 'items',
+      label: 'Items',
+      list: true,
+      fields: [
+        { type: 'string', name: 'title', label: 'Title' },
+        { type: 'string', name: 'subtitle', label: 'Subtitle' },
+        { type: 'image', name: 'image', label: 'Image' },
+        { type: 'string', name: 'href', label: 'Link' },
+        { type: 'string', name: 'number', label: 'Number' },
+      ],
+    },
+  ],
+}
+
+export default function UniversSectionLegacy() {
+  return <UniversSection data={{}} />
 }

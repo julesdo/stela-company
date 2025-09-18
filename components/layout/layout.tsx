@@ -25,11 +25,9 @@ export default async function Layout({ children, rawPageData }: LayoutProps) {
 
   return (
     <LayoutProvider globalSettings={globalData.global} pageData={rawPageData}>
-      <ArtisticNavbar />
-      <main className="relative overflow-x-hidden pt-20">
+      <main className="relative overflow-x-hidden">
         {children}
       </main>
-      <ArtisticFooter />
     </LayoutProvider>
   );
 }

@@ -1,5 +1,5 @@
 import { tinaField } from "tinacms/dist/react";
-import { Page, PageBlocks } from "../../tina/__generated__/types";
+import { Page } from "../../tina/__generated__/types";
 import { Hero } from "./hero";
 import { Content } from "./content";
 import { Features } from "./features";
@@ -8,6 +8,20 @@ import { Video } from "./video";
 import { Callout } from "./callout";
 import { Stats } from "./stats";
 import { CallToAction } from "./call-to-action";
+import { AboutHero } from "./about-hero";
+import { TeamSection } from "./team-section";
+import { RepresentationsSection } from "./representations-section";
+import { AboutTriptych } from "./about-triptych";
+import { RepresentationsGridSection } from "./representations-grid-section";
+import { HeroPrincipal } from "./hero-principal";
+import { UniversSection } from "./univers-section";
+import { AboutRapideSection } from "./about-rapide-section";
+import { AteliersList } from "./ateliers-list";
+import { ContactHero } from "./contact-hero";
+import { ContactInfo } from "./contact-info";
+import { ContactForm } from "./contact-form";
+import { PartnersCarousel } from "./partners-carousel";
+import AtelierDetail from "./atelier-detail";
 
 export const Blocks = (props: Omit<Page, "id" | "_sys" | "_values">) => {
   if (!props.blocks) return null;
@@ -24,7 +38,8 @@ export const Blocks = (props: Omit<Page, "id" | "_sys" | "_values">) => {
   );
 };
 
-const Block = (block: PageBlocks) => {
+// Temporarily use 'any' to allow newly added blocks before types are regenerated
+const Block = (block: any) => {
   switch (block.__typename) {
     case "PageBlocksVideo":
       return <Video data={block} />;
@@ -42,6 +57,35 @@ const Block = (block: PageBlocks) => {
       return <Testimonial data={block} />;
     case "PageBlocksCta":
       return <CallToAction data={block} />;
+    // Custom project blocks
+    case "PageBlocksAboutHero":
+      return <AboutHero data={block} />;
+    case "PageBlocksTeamSection":
+      return <TeamSection data={block} />;
+    case "PageBlocksRepresentationsSection":
+      return <RepresentationsSection data={block} />;
+    case "PageBlocksAboutTriptych":
+      return <AboutTriptych data={block} />;
+    case "PageBlocksRepresentationsGridSection":
+      return <RepresentationsGridSection data={block} />;
+    case "PageBlocksHeroPrincipal":
+      return <HeroPrincipal data={block} />;
+    case "PageBlocksUniversSection":
+      return <UniversSection data={block} />;
+    case "PageBlocksAboutRapideSection":
+      return <AboutRapideSection data={block} />;
+    case "PageBlocksAteliersList":
+      return <AteliersList data={block} />;
+    case "PageBlocksContactHero":
+      return <ContactHero data={block} />;
+    case "PageBlocksContactInfo":
+      return <ContactInfo data={block} />;
+    case "PageBlocksContactForm":
+      return <ContactForm data={block} />;
+    case "PageBlocksPartnersCarousel":
+      return <PartnersCarousel data={block} />;
+    case "PageBlocksAtelierDetail":
+      return <AtelierDetail data={block} />;
     default:
       return null;
   }

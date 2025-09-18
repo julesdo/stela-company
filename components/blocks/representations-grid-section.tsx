@@ -5,6 +5,9 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import MagneticButton from "@/components/ui/magnetic-button"
+import type { Template } from "tinacms"
+import { tinaField } from "tinacms/dist/react"
+import { Section, sectionBlockSchemaField } from "../layout/section"
 
 type RepresentationCard = {
   slug: string
@@ -15,17 +18,7 @@ type RepresentationCard = {
   city?: string
 }
 
-interface RepresentationsGridSectionProps {
-  items?: RepresentationCard[]
-  heading?: string
-  ctaHref?: string
-}
-
-export default function RepresentationsGridSection({
-  items,
-  heading = "Prochaine représentation",
-  ctaHref = "/representations",
-}: RepresentationsGridSectionProps) {
+export const RepresentationsGridSection = ({ data }: { data: any }) => {
   const sample: RepresentationCard[] = [
     {
       slug: "medee-acte-1",
@@ -43,17 +36,21 @@ export default function RepresentationsGridSection({
     },
   ]
 
-  const data = items?.length ? items : sample
+  const cards: RepresentationCard[] = data?.items?.length ? data.items : sample
 
   // on prend uniquement la première (mise en avant)
-  const featured = data[0]
+  const featured = cards[0]
   if (!featured) return null
 
   const container = { hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.06 } } }
   const fadeUp = { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } }
 
+  const heading = data?.heading ?? "Prochaine représentation"
+  const ctaHref = data?.ctaHref ?? "/representations"
+  const ctaLabel = data?.ctaLabel ?? "Voir les représentations"
+
   return (
-    <section className="py-24 md:py-28 px-6 md:px-12 lg:pr-20 bg-white">
+    <Section background={data?.background} className="py-24 md:py-28 px-6 md:px-12 lg:pr-20">
       <motion.div
         className="max-w-7xl mx-auto"
         initial="hidden"
@@ -63,7 +60,7 @@ export default function RepresentationsGridSection({
       >
         {/* Titre sobre */}
         <motion.div variants={fadeUp as any} className="mb-6 md:mb-8">
-          <h2 className="text-3xl md:text-4xl font-light text-black tracking-wide">{heading}</h2>
+          <h2 className="text-3xl md:text-4xl font-light tracking-wide" data-tina-field={tinaField(data, 'heading')}>{heading}</h2>
           <div className="w-12 h-px bg-black mt-4 opacity-30" />
         </motion.div>
 
@@ -127,8 +124,8 @@ export default function RepresentationsGridSection({
 
           {/* Bouton flèche magnétique — centré verticalement à droite (desktop) */}
           <motion.div variants={fadeUp as any} className="lg:col-span-2">
-            <div className="hidden lg:flex items-center justify-center h-full">
-              <MagneticButton href={ctaHref} variant="outline" label="Voir les représentations" />
+            <div className="hidden lg:flex items-center justify-center h-full" data-tina-field={tinaField(data, 'ctaLabel')}>
+              <MagneticButton href={ctaHref} variant="outline" label={ctaLabel} />
             </div>
 
             {/* Mobile : lien discret sous l’image */}
@@ -137,7 +134,7 @@ export default function RepresentationsGridSection({
                 href={ctaHref}
                 className="inline-flex items-center text-sm tracking-wider uppercase text-black/60 hover:text-black transition"
               >
-                Voir plus
+                {ctaLabel}
                 <svg className="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.25}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-6-6l6 6-6 6" />
                 </svg>
@@ -146,6 +143,43 @@ export default function RepresentationsGridSection({
           </motion.div>
         </div>
       </motion.div>
-    </section>
+    </Section>
   )
+}
+
+export const representationsGridSectionBlockSchema: Template = {
+  name: 'representationsGridSection',
+  label: 'Representations Grid',
+  ui: {
+    previewSrc: '/blocks/agenda.png',
+    defaultItem: {
+      heading: 'Prochaine représentation',
+      ctaHref: '/representations',
+      ctaLabel: 'Voir les représentations',
+    },
+  },
+  fields: [
+    sectionBlockSchemaField as any,
+    { type: 'string', name: 'heading', label: 'Heading' },
+    { type: 'string', name: 'ctaHref', label: 'CTA Link' },
+    { type: 'string', name: 'ctaLabel', label: 'CTA Label' },
+    {
+      type: 'object',
+      name: 'items',
+      label: 'Cards',
+      list: true,
+      fields: [
+        { type: 'string', name: 'slug', label: 'Slug' },
+        { type: 'string', name: 'title', label: 'Title' },
+        { type: 'string', name: 'excerpt', label: 'Excerpt', ui: { component: 'textarea' } },
+        { type: 'image', name: 'image', label: 'Image' },
+        { type: 'string', name: 'date', label: 'Date' },
+        { type: 'string', name: 'city', label: 'City' },
+      ],
+    },
+  ],
+}
+
+export default function RepresentationsGridSectionLegacy(props: { items?: RepresentationCard[]; heading?: string; ctaHref?: string }) {
+  return <RepresentationsGridSection data={props} />
 }

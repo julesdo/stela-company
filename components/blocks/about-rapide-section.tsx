@@ -5,8 +5,11 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import MagneticButton from "@/components/ui/magnetic-button"
+import type { Template } from "tinacms"
+import { tinaField } from "tinacms/dist/react"
+import { Section, sectionBlockSchemaField } from "../layout/section"
 
-export default function AboutRapideSection() {
+export const AboutRapideSection = ({ data }: { data: any }) => {
   const containerVariants = {
     hidden: {},
     visible: { 
@@ -41,8 +44,16 @@ export default function AboutRapideSection() {
     }
   }
 
+  const heading = data?.heading ?? 'La Stela Company'
+  const p1 = data?.p1 ?? "Stela Elena Stankovic tisse des ponts entre théâtre, danse, musique et langues. L'art devient un vecteur de connexion, de liberté et d'émotion partagée."
+  const p2 = data?.p2 ?? "Un laboratoire créatif en ébullition, reliant la France, l'Allemagne et la Serbie. Chaque discipline se nourrit des autres pour créer une expérience artistique unique."
+  const quote = data?.quote ?? "L'art n'a pas de frontières, il unit les âmes par-delà les mots."
+  const buttonHref = data?.buttonHref ?? '/about'
+  const buttonLabel = data?.buttonLabel ?? 'Notre histoire'
+  const portrait = data?.portrait ?? '/stela.png'
+
   return (
-    <section className="py-32 px-6 md:px-12 lg:pr-20 bg-white">
+    <Section background={data?.background} className="py-32 px-6 md:px-12 lg:pr-20">
         <motion.div
           className="max-w-7xl mx-auto"
           initial="hidden"
@@ -60,13 +71,13 @@ export default function AboutRapideSection() {
               {/* Titre artistique */}
               <div className="space-y-4">
                 <motion.h2 
-                  className="text-5xl md:text-6xl lg:text-7xl text-foreground leading-none font-caveat"
+                  className="text-5xl md:text-6xl lg:text-7xl leading-none font-caveat"
                   whileHover={{ 
                     scale: 1.02,
                     transition: { duration: 0.3 }
                   }}
                 >
-                  La Stela Company
+                  <span data-tina-field={tinaField(data, 'heading')}>{heading}</span>
                 </motion.h2>
                 
                 {/* Ligne artistique */}
@@ -82,16 +93,11 @@ export default function AboutRapideSection() {
               
               {/* Texte artistique */}
               <div className="space-y-6 text-lg md:text-xl leading-relaxed text-foreground/90 font-playfair font-light">
-                <p>
-                  <strong className="text-foreground font-medium">
-                    Stela Elena Stankovic
-                  </strong> tisse des ponts entre théâtre, danse, musique et langues. 
-                  L'art devient un vecteur de connexion, de liberté et d'émotion partagée.
+                <p data-tina-field={tinaField(data, 'p1')}>
+                  {p1}
                 </p>
-                
-                <p>
-                  Un laboratoire créatif en ébullition, reliant la France, l'Allemagne et la Serbie. 
-                  Chaque discipline se nourrit des autres pour créer une expérience artistique unique.
+                <p data-tina-field={tinaField(data, 'p2')}>
+                  {p2}
                 </p>
                 
                 {/* Citation élégante */}
@@ -99,8 +105,8 @@ export default function AboutRapideSection() {
                   className="border-l-2 border-primary/30 pl-6 py-4 font-playfair italic"
                   transition={{ duration: 0.4 }}
                 >
-                  <p className="text-muted-foreground text-xl">
-                    "L'art n'a pas de frontières, il unit les âmes par-delà les mots."
+                  <p className="text-muted-foreground text-xl" data-tina-field={tinaField(data, 'quote')}>
+                    "{quote}"
                   </p>
                 </motion.blockquote>
               </div>
@@ -111,11 +117,7 @@ export default function AboutRapideSection() {
                 whileHover={{ y: -2 }}
                 transition={{ duration: 0.3 }}
               >
-                <MagneticButton 
-                  href="/about" 
-                  variant="outline"
-                  label="Notre histoire"
-                />
+                <MagneticButton href={buttonHref} variant="outline" label={buttonLabel} />
               </motion.div>
             </motion.div>
 
@@ -133,8 +135,8 @@ export default function AboutRapideSection() {
                 >
                   <div className="aspect-[3/4] relative">
                     <Image
-                      src="/stela.png"
-                      alt="Stela Elena Stankovic"
+                      src={portrait}
+                      alt={heading}
                       fill
                       className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
                       sizes="(max-width: 768px) 100vw, 50vw"
@@ -167,6 +169,28 @@ export default function AboutRapideSection() {
             </motion.div>
           </div>
         </motion.div>
-      </section>
+      </Section>
   )
+}
+
+export const aboutRapideSectionBlockSchema: Template = {
+  name: 'aboutRapideSection',
+  label: 'About Rapide Section',
+  ui: {
+    previewSrc: '/blocks/features.png',
+  },
+  fields: [
+    sectionBlockSchemaField as any,
+    { type: 'string', name: 'heading', label: 'Heading' },
+    { type: 'string', name: 'p1', label: 'Paragraph 1', ui: { component: 'textarea' } },
+    { type: 'string', name: 'p2', label: 'Paragraph 2', ui: { component: 'textarea' } },
+    { type: 'string', name: 'quote', label: 'Quote', ui: { component: 'textarea' } },
+    { type: 'string', name: 'buttonLabel', label: 'Button Label' },
+    { type: 'string', name: 'buttonHref', label: 'Button Link' },
+    { type: 'image', name: 'portrait', label: 'Portrait Image' },
+  ],
+}
+
+export default function AboutRapideSectionLegacy() {
+  return <AboutRapideSection data={{}} />
 }

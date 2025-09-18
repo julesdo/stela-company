@@ -11,10 +11,12 @@ import { motion } from 'framer-motion';
 gsap.registerPlugin(ScrollTrigger);
 
 const NAV_LINKS = [
-  { label: 'ACCUEIL', href: '/' },
-  { label: 'COURS', href: '/cours' },
-  { label: 'REPRÉSENTATIONS', href: '/rep' },
-  { label: 'CONTACT', href: '/contact' },
+  { label: 'Accueil', href: '/' },
+  { label: 'À propos', href: '/about' },
+  { label: 'Ateliers', href: '/ateliers' },
+  { label: 'Représentations', href: '/representations' },
+  { label: 'Équipe', href: '/equipe' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 const SOCIAL_LINKS = [
@@ -30,14 +32,14 @@ export default function ArtisticFooter() {
     const links = footerRef.current!.querySelectorAll<HTMLElement>('.footer-item');
 
     gsap.from(links, {
-      y: 60,
+      y: 30,
       opacity: 0,
-      stagger: 0.2,
-      duration: 0.8,
-      ease: 'power3.out',
+      stagger: 0.1,
+      duration: 0.6,
+      ease: 'power2.out',
       scrollTrigger: {
         trigger: footerRef.current,
-        start: 'top bottom-=100',
+        start: 'top bottom-=50',
         toggleActions: 'play none none none',
       },
     });
@@ -45,62 +47,78 @@ export default function ArtisticFooter() {
     links.forEach((el) => {
       const link = el.querySelector('a')!;
       const tl = gsap.timeline({ paused: true });
-      tl.to(el, { backgroundColor: 'rgba(255,255,255,0.1)', duration: 0.3 });
-      tl.to(link, { color: 'var(--color-accent)', duration: 0.3 }, 0);
+      tl.to(el, { backgroundColor: 'rgba(249, 250, 251, 1)', duration: 0.2 });
+      tl.to(link, { color: '#000000', duration: 0.2 }, 0);
       el.addEventListener('mouseenter', () => tl.play());
       el.addEventListener('mouseleave', () => tl.reverse());
     });
   }, []);
 
   return (
-    <footer ref={footerRef} className="bg-background text-foreground py-24 px-8 overflow-hidden">
-      {/* Logo */}
-      <div className="flex w-full justify-center mb-16">
-
-        <div className='flex flex-col gap-6'>
-        <Image src="/logo.svg" alt="Logo" width={100} height={100} />
-        <Image src="/logo-stela.svg" alt="Logo" width={100} height={100} />
-        </div>
-      </div>
-
-      {/* Navigation */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        {NAV_LINKS.map((link) => (
-          <div key={link.href} className="footer-item p-4 rounded-lg transition-colors">
-            <Link className='text-4xl font-cinzel uppercase tracking-wide' href={link.href}>
-            <h2>{link.label}</h2>
-            </Link>
+    <footer ref={footerRef} className="bg-white border-t border-gray-100 py-20 px-6 overflow-hidden">
+      <div className="max-w-6xl mx-auto">
+        {/* Logo */}
+        <div className="flex w-full justify-center mb-16">
+          <div className='flex flex-col items-center gap-4'>
+            <Image src="/logo.svg" alt="La Stela Company" width={80} height={80} className="opacity-80" />
+            <Image src="/logo-stela.svg" alt="Stela Elena Stankovic" width={120} height={40} className="opacity-70" />
           </div>
-        ))}
-      </div>
+        </div>
 
-      {/* Socials */}
-      <div className="flex justify-center mt-12 space-x-6">
-        {SOCIAL_LINKS.map((soc) => (
-          <motion.a
-            key={soc.href}
-            href={soc.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-2xl uppercase tracking-wide"
-            whileHover={{ color: 'var(--color-accent)', scale: 1.1 }}
-            transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-          >
-            {soc.label}
-          </motion.a>
-        ))}
-      </div>
+        {/* Navigation */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-center mb-16">
+          {NAV_LINKS.map((link) => (
+            <div key={link.href} className="footer-item p-3 rounded-lg transition-all duration-300 hover:bg-gray-50">
+              <Link 
+                className='text-lg font-medium text-gray-700 hover:text-black transition-colors duration-300 block' 
+                href={link.href}
+              >
+                {link.label}
+              </Link>
+            </div>
+          ))}
+        </div>
 
-      {/* Copyright */}
-      <motion.div
-        className="mt-12 text-center text-sm text-muted-foreground"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-      >
-        © {new Date().getFullYear()} Stela Arts — Tous droits réservés.
-      </motion.div>
+        {/* Divider */}
+        <div className="border-t border-gray-200 mb-12"></div>
+
+        {/* Socials & Contact */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
+          {/* Social Links */}
+          <div className="flex justify-center space-x-8">
+            {SOCIAL_LINKS.map((soc) => (
+              <motion.a
+                key={soc.href}
+                href={soc.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium text-gray-600 hover:text-black transition-colors duration-300"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              >
+                {soc.label}
+              </motion.a>
+            ))}
+          </div>
+
+          {/* Contact Info */}
+          <div className="text-center md:text-right">
+            <p className="text-sm text-gray-600 mb-1">La Stela Company</p>
+            <p className="text-sm text-gray-500">Directrice artistique : Stela Elena Stankovic</p>
+          </div>
+        </div>
+
+        {/* Copyright */}
+        <motion.div
+          className="text-center text-xs text-gray-500 border-t border-gray-100 pt-8"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          © {new Date().getFullYear()} La Stela Company — Tous droits réservés.
+        </motion.div>
+      </div>
     </footer>
   );
 }

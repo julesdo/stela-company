@@ -10,7 +10,7 @@ export const Section: React.FC<SectionProps> = ({ className, children, backgroun
   return (
     <div className={background || "bg-default"}>
       <section
-        className={cn("py-12 mx-auto max-w-7xl px-6", className)}
+        className={cn(" mx-auto", className)}
         {...props}
       >
         {children}
@@ -20,7 +20,7 @@ export const Section: React.FC<SectionProps> = ({ className, children, backgroun
 };
 
 export const tailwindBackgroundOptions = [
-  { label: "Default", value: "bg-default" },
+  { label: "Default", value: "bg-white" },
   { label: "White", value: "bg-white/80" },
   { label: "Gray", value: "bg-gray-50/80" },
   { label: "Zinc", value: "bg-zinc-50" },

@@ -57,6 +57,7 @@ export const statsBlockSchema: Template = {
             type: "string",
             label: "Title",
             name: "title",
+            required: false,
         },
         {
             type: "string",

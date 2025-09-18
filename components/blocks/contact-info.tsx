@@ -2,14 +2,12 @@
 
 import React from "react"
 import { motion } from "framer-motion"
+import type { Template } from "tinacms"
+import { tinaField } from "tinacms/dist/react"
+import { Section, sectionBlockSchemaField } from "../layout/section"
+import { PageBlocksContactInfo } from "@/tina/__generated__/types"
 
-const contactDetails = [
-  { label: "Email", value: "hello@lastelacompany.com", type: "email" },
-  { label: "Téléphone", value: "+33 1 23 45 67 89", type: "tel" },
-  { label: "Adresse", value: "Paris • Berlin • Belgrade", type: "address" },
-]
-
-export default function ContactInfo() {
+export const ContactInfo = ({ data }: { data: PageBlocksContactInfo }) => {
   const containerVariants = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.3, delayChildren: 0.1 } }
@@ -21,7 +19,7 @@ export default function ContactInfo() {
   }
 
   return (
-    <section className="py-32 px-6 md:px-12 lg:pr-20" id="infos-pro">
+    <Section data={data as any} className="py-32 px-6 md:px-12 lg:pr-20">
       <motion.div
         className="max-w-5xl mx-auto"
         initial="hidden"
@@ -31,59 +29,168 @@ export default function ContactInfo() {
       >
         {/* Introduction */}
         <motion.div variants={itemVariants} className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-corinthia text-foreground mb-12 leading-none">
-            Restons Connectés
+          <h2 
+            className="text-5xl md:text-6xl font-corinthia text-foreground mb-12 leading-none"
+            data-tina-field={tinaField(data, 'heading')}
+          >
+            {data.heading}
           </h2>
-          <p className="text-xl md:text-2xl font-playfair font-light text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-            Un projet de représentation, une question sur nos cours, ou une envie de collaboration&nbsp;?
-            Écrivez-nous, nous revenons vers vous rapidement.
+          <p 
+            className="text-xl md:text-2xl font-playfair font-light text-muted-foreground leading-relaxed max-w-3xl mx-auto"
+            data-tina-field={tinaField(data, 'description')}
+          >
+            {data.description}
           </p>
         </motion.div>
 
         {/* Informations de contact */}
-        <motion.div variants={itemVariants} className="grid md:grid-cols-3 gap-16 text-center">
-          {contactDetails.map((detail) => (
-            <div key={detail.label} className="space-y-4">
-              <h3 className="text-2xl font-corinthia text-foreground">{detail.label}</h3>
-              {detail.type === "email" ? (
+        <motion.div variants={itemVariants} className="grid md:grid-cols-2 gap-16">
+          {/* Informations principales */}
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <h3 
+                className="text-2xl font-corinthia text-foreground"
+                data-tina-field={tinaField(data, 'name')}
+              >
+                {data.name}
+              </h3>
+              <p 
+                className="text-lg md:text-xl font-playfair text-muted-foreground"
+                data-tina-field={tinaField(data, 'role')}
+              >
+                {data.role}
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Téléphone</h4>
                 <a
-                  href={`mailto:${detail.value}`}
-                  className="text-lg md:text-xl font-playfair text-primary hover:text-accent transition-colors duration-300 block"
+                  href={`tel:${data.phone?.replace(/\s/g, '')}`}
+                  className="text-lg md:text-xl font-playfair text-foreground hover:text-muted-foreground transition-colors duration-300 block"
+                  data-tina-field={tinaField(data, 'phone')}
                 >
-                  {detail.value}
+                  {data.phone}
                 </a>
-              ) : detail.type === "tel" ? (
+              </div>
+
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Email</h4>
                 <a
-                  href={`tel:${detail.value.replace(/\s/g, '')}`}
-                  className="text-lg md:text-xl font-playfair text-primary hover:text-accent transition-colors duration-300 block"
+                  href={`mailto:${data.email}`}
+                  className="text-lg md:text-xl font-playfair text-foreground hover:text-muted-foreground transition-colors duration-300 block"
+                  data-tina-field={tinaField(data, 'email')}
                 >
-                  {detail.value}
+                  {data.email}
                 </a>
-              ) : (
-                <p className="text-lg md:text-xl font-playfair text-muted-foreground">{detail.value}</p>
+              </div>
+
+              {data.address && (
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Adresse</h4>
+                  <p 
+                    className="text-lg md:text-xl font-playfair text-muted-foreground"
+                    data-tina-field={tinaField(data, 'address')}
+                  >
+                    {data.address}
+                  </p>
+                </div>
               )}
             </div>
-          ))}
-        </motion.div>
-
-        {/* Notes ciblées */}
-        <motion.div variants={itemVariants} className="mt-20 grid md:grid-cols-2 gap-10" id="infos-cours">
-          <div className="border border-border/60 p-6 md:p-8 bg-background">
-            <h4 className="text-2xl font-corinthia text-foreground mb-3">Pour les cours & ateliers</h4>
-            <p className="font-playfair text-muted-foreground">
-              Précisez votre <span className="text-foreground/90">niveau</span>, vos <span className="text-foreground/90">disponibilités</span> et la <span className="text-foreground/90">ville</span> souhaitée.
-              Nous vous orienterons vers le bon format (initiation, régulier, intensif).
-            </p>
           </div>
-          <div className="border border-border/60 p-6 md:p-8 bg-background">
-            <h4 className="text-2xl font-corinthia text-foreground mb-3">Pour la programmation</h4>
-            <p className="font-playfair text-muted-foreground">
-              Indiquez <span className="text-foreground/90">le lieu</span>, la <span className="text-foreground/90">fenêtre de dates</span>, la <span className="text-foreground/90">jauge</span> et le <span className="text-foreground/90">dispositif technique</span> envisagé.
-              Dossier artistique & fiche technique disponibles sur demande.
-            </p>
+
+          {/* Informations complémentaires */}
+          <div className="space-y-8">
+            {data.socials && data.socials.length > 0 && (
+              <div className="space-y-4">
+                <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Réseaux sociaux</h4>
+                <div className="space-y-3">
+                  {data.socials.map((social, index) => (
+                    <a
+                      key={index}
+                      href={social?.url ?? ''}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-lg font-playfair text-foreground hover:text-muted-foreground transition-colors duration-300 block"
+                      data-tina-field={social ? tinaField(social, 'label') : ''}
+                    >
+                      {social?.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {data.hours && (
+              <div className="space-y-4">
+                <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Disponibilités</h4>
+                <p 
+                  className="text-lg font-playfair text-muted-foreground leading-relaxed"
+                  data-tina-field={tinaField(data, 'hours')}
+                >
+                  {data.hours}
+                </p>
+              </div>
+            )}
+
+            {data.note && (
+              <div className="space-y-4">
+                <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Note</h4>
+                <p 
+                  className="text-lg font-playfair text-muted-foreground leading-relaxed"
+                  data-tina-field={tinaField(data, 'note')}
+                >
+                  {data.note}
+                </p>
+              </div>
+            )}
           </div>
         </motion.div>
       </motion.div>
-    </section>
+    </Section>
   )
 }
+
+export const contactInfoBlockSchema: Template = {
+  name: "contactInfo",
+  label: "Contact Info",
+  ui: {
+    previewSrc: "/blocks/contact-info.png",
+    defaultItem: {
+      heading: "Restons Connectés",
+      description: "Un projet de représentation, une question sur nos cours, ou une envie de collaboration ? Écrivez-nous, nous revenons vers vous rapidement.",
+      name: "STELA ELENA STANKOVIC",
+      role: "Directrice artistique",
+      phone: "06 05 58 25 71",
+      email: "lastelacompany@gmail.com",
+      address: "Paris • Berlin • Belgrade",
+      hours: "Disponible du lundi au vendredi de 9h à 18h",
+      note: "Pour les projets artistiques et collaborations, n'hésitez pas à nous contacter directement."
+    },
+  },
+  fields: [
+    sectionBlockSchemaField as any,
+    { type: "string", label: "Heading", name: "heading" },
+    { type: "string", label: "Description", name: "description", ui: { component: "textarea" } },
+    { type: "string", label: "Name", name: "name" },
+    { type: "string", label: "Role", name: "role" },
+    { type: "string", label: "Phone", name: "phone" },
+    { type: "string", label: "Email", name: "email" },
+    { type: "string", label: "Address", name: "address", required: false },
+    { type: "string", label: "Hours", name: "hours", required: false },
+    { type: "string", label: "Note", name: "note", required: false, ui: { component: "textarea" } },
+    {
+      type: "object",
+      list: true,
+      name: "socials",
+      label: "Social Links",
+      required: false,
+      fields: [
+        { type: "string", name: "label", label: "Label" },
+        { type: "string", name: "url", label: "URL" },
+      ],
+    },
+  ],
+}
+
+export default ContactInfo

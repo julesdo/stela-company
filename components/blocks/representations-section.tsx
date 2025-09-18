@@ -3,6 +3,9 @@
 import React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
+import type { Template } from "tinacms"
+import { tinaField } from "tinacms/dist/react"
+import { Section, sectionBlockSchemaField } from "../layout/section"
 
 // Types
 type Representation = {
@@ -22,11 +25,7 @@ interface RepresentationsSectionProps {
   limitPast?: number
 }
 
-export default function RepresentationsSection({
-  events,
-  limitUpcoming = 5,
-  limitPast = 4,
-}: RepresentationsSectionProps) {
+export const RepresentationsSection = ({ data }: { data: any }) => {
   // --- Demo data (supprime si tu passes des props) ---
   const sample: Representation[] = [
     {
@@ -65,17 +64,21 @@ export default function RepresentationsSection({
     },
   ]
 
-  const data = (events && events.length ? events : sample).slice().sort((a, b) => {
+  const source: Representation[] = (data?.events && data.events.length ? (data.events as Representation[]) : sample)
+    .slice()
+    .sort((a: Representation, b: Representation) => {
     const da = new Date(a.date).getTime()
     const db = new Date(b.date).getTime()
     return da - db
   })
 
   const now = new Date().getTime()
-  const upcoming = data.filter(d => new Date(d.date).getTime() >= now)
-  const past = data.filter(d => new Date(d.date).getTime() < now).reverse()
+  const upcoming = source.filter((d: Representation) => new Date(d.date).getTime() >= now)
+  const past = source.filter((d: Representation) => new Date(d.date).getTime() < now).reverse()
 
   // Limites d’affichage
+  const limitUpcoming: number = data?.limitUpcoming ?? 5
+  const limitPast: number = data?.limitPast ?? 4
   const upcomingLimited = upcoming.slice(0, limitUpcoming)
   const pastLimited = past.slice(0, limitPast)
 
@@ -177,8 +180,10 @@ export default function RepresentationsSection({
     )
   }
 
+  const title = data?.title ?? "Notre agenda"
+
   return (
-    <section className="py-28 px-6 md:px-12 lg:pr-20 bg-white">
+    <Section background={data?.background} className="py-28 px-6 md:px-12 lg:pr-20">
       <motion.div
         className="max-w-7xl mx-auto"
         initial="hidden"
@@ -189,7 +194,7 @@ export default function RepresentationsSection({
         {/* En-tête épuré */}
         <motion.div variants={item as any} className="mb-10 md:mb-14 flex items-end justify-between">
           <div>
-            <h2 className="text-3xl md:text-4xl font-light text-black tracking-wide">Notre agenda</h2>
+            <h2 className="text-3xl md:text-4xl font-light tracking-wide" data-tina-field={tinaField(data, 'title')}>{title}</h2>
             <div className="w-12 h-px bg-black mt-4 opacity-30" />
           </div>
 
@@ -237,7 +242,7 @@ export default function RepresentationsSection({
                     Prochaines dates bientôt annoncées.
                   </motion.div>
                 ) : (
-                  upcomingLimited.map(e => <Row key={e.id} e={e} />)
+                  upcomingLimited.map((e: Representation) => <Row key={e.id} e={e} />)
                 )}
               </motion.div>
             ) : (
@@ -253,13 +258,60 @@ export default function RepresentationsSection({
                     Aucune représentation passée pour le moment.
                   </motion.div>
                 ) : (
-                  pastLimited.map(e => <Row key={e.id} e={e} />)
+                  pastLimited.map((e: Representation) => <Row key={e.id} e={e} />)
                 )}
               </motion.div>
             )}
           </AnimatePresence>
         </motion.ul>
       </motion.div>
-    </section>
+    </Section>
   )
+}
+
+export const representationsSectionBlockSchema: Template = {
+  name: 'representationsSection',
+  label: 'Representations Section',
+  ui: {
+    previewSrc: '/blocks/agenda.png',
+    defaultItem: {
+      title: 'Notre agenda',
+      limitUpcoming: 5,
+      limitPast: 4,
+    },
+  },
+  fields: [
+    sectionBlockSchemaField as any,
+    { type: 'string', label: 'Title', name: 'title' },
+    { type: 'number', label: 'Limit Upcoming', name: 'limitUpcoming' },
+    { type: 'number', label: 'Limit Past', name: 'limitPast' },
+    {
+      type: 'object',
+      label: 'Events',
+      name: 'events',
+      list: true,
+      fields: [
+        { type: 'string', name: 'id', label: 'ID' },
+        { type: 'string', name: 'title', label: 'Title', required: true },
+        { type: 'string', name: 'subtitle', label: 'Subtitle' },
+        { type: 'datetime', name: 'date', label: 'Date' },
+        { type: 'string', name: 'city', label: 'City' },
+        { type: 'string', name: 'venue', label: 'Venue' },
+        { type: 'string', name: 'href', label: 'Link' },
+        { type: 'image', name: 'image', label: 'Background Image' },
+      ],
+    },
+  ],
+}
+
+export default function RepresentationsSectionLegacy({
+  events,
+  limitUpcoming,
+  limitPast,
+}: {
+  events?: Representation[]
+  limitUpcoming?: number
+  limitPast?: number
+}) {
+  return <RepresentationsSection data={{ events, limitUpcoming, limitPast }} />
 }

@@ -1,8 +1,11 @@
-// components/TeamSection.tsx
+// components/blocks/team-section.tsx
 'use client';
 
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import type { Template } from 'tinacms';
+import { tinaField } from 'tinacms/dist/react';
+import { Section, sectionBlockSchemaField } from '../layout/section';
 
 interface Member {
   name: string;
@@ -79,7 +82,7 @@ assemble et patine pour faire surgir des peaux scéniques singulières. Son trav
 lumière et accompagne la métamorphose des interprètes au fil de la pièce.`,
 };
 
-export default function TeamSection() {
+export const TeamSection = ({ data }: { data: any }) => {
   const [hovered, setHovered] = useState<{ row: number; col: number } | null>(null);
   const [selected, setSelected] = useState<Member | null>(null);
 
@@ -120,10 +123,12 @@ export default function TeamSection() {
     return `${v} ${h}`;
   }
 
+  const title = data?.title ?? 'Notre Équipe';
+
   return (
-    <section className="py-24 bg-background text-foreground">
-      <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-4xl font-heading font-bold text-primary text-center mb-12">Notre Équipe</h2>
+    <Section background={data?.background} className="py-24 text-foreground">
+      <div className="max-w-6xl mx-auto px-6" data-tina-field={tinaField(data)}>
+        <h2 className="text-4xl font-heading font-bold text-primary text-center mb-12" data-tina-field={tinaField(data, 'title')}>{title}</h2>
         <div
           className="grid w-full h-[70vh] gap-4"
           style={{
@@ -132,7 +137,7 @@ export default function TeamSection() {
             transition: 'grid-template-rows 0.4s ease, grid-template-columns 0.4s ease',
           }}
         >
-          {team.map((member, idx) => (
+          {(data?.members ?? team).map((member: Member, idx: number) => (
             <motion.div
               key={idx}
               className="relative overflow-hidden shadow-2xl cursor-pointer group"
@@ -246,6 +251,38 @@ export default function TeamSection() {
           </>
         )}
       </AnimatePresence>
-    </section>
+    </Section>
   );
+}
+
+export const teamSectionBlockSchema: Template = {
+  name: 'teamSection',
+  label: 'Team Section',
+  ui: {
+    previewSrc: '/blocks/features.png',
+    defaultItem: {
+      title: 'Notre Équipe',
+      members: team,
+    },
+  },
+  fields: [
+    sectionBlockSchemaField as any,
+    {
+      type: 'string',
+      label: 'Title',
+      name: 'title',
+    },
+    {
+      type: 'object',
+      label: 'Members',
+      name: 'members',
+      list: true,
+      fields: [
+        { type: 'string', label: 'Name', name: 'name', required: true },
+        { type: 'string', label: 'Role', name: 'role' },
+        { type: 'string', label: 'Bio', name: 'bio', ui: { component: 'textarea' } },
+        { type: 'image', label: 'Photo', name: 'photo' },
+      ],
+    },
+  ],
 }

@@ -53,7 +53,7 @@ export default function TimelineStraight({ items }: { items: RepresentationItem[
 
       {/* Grille centrée : [col gauche | ligne | col droite] */}
       <motion.ul
-        className="grid grid-cols-[1fr,48px,1fr] gap-x-8 md:gap-x-12"
+        className="grid grid-cols-[1fr,80px,1fr] gap-x-8 md:gap-x-16"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.15 }}
@@ -65,34 +65,34 @@ export default function TimelineStraight({ items }: { items: RepresentationItem[
             <motion.li
               key={it.slug}
               variants={row as any}
-              className="relative group py-12 md:py-16"
+              className="relative group py-16 md:py-20"
             >
-              <div className="grid grid-cols-subgrid col-span-3 items-center">
+              <div className="grid grid-cols-subgrid col-span-3 items-center gap-8">
                 {/* Texte */}
-                <div className={left ? "col-start-1" : "col-start-3"}>
-                  <Link href={`/representations/${it.slug}`} className="block">
-                    <div className="max-w-xl">
-                      <p className="text-sm text-black/55">
+                <div className={`${left ? "col-start-1" : "col-start-3"} flex items-center`}>
+                  <Link href={`/representations/${it.slug}`} className="block group/link w-full">
+                    <div className="max-w-lg">
+                      <p className="text-sm text-black/60 mb-3">
                         <time dateTime={it.date}>{df(it.date)}</time>
-                        {it.city ? <> — <span>{it.city}</span></> : null}
+                        {it.city ? <> — <span className="font-medium">{it.city}</span></> : null}
                         {it.venue ? <> • <span className="font-light">{it.venue}</span></> : null}
                       </p>
-                      <h3 className="mt-2 text-2xl md:text-3xl font-light text-black leading-[1.1]">
+                      <h3 className="text-2xl md:text-4xl font-light text-black leading-[1.1] mb-4 group-hover/link:text-black/80 transition-colors">
                         {it.title}
                       </h3>
                       {it.excerpt && (
-                        <p className="mt-4 text-[16px] md:text-[17px] text-black/80 leading-relaxed">
+                        <p className="text-[16px] md:text-[18px] text-black/75 leading-relaxed mb-6">
                           {it.excerpt}
                         </p>
                       )}
-                      <span className="mt-5 inline-flex items-center text-xs tracking-wider uppercase text-black/50">
+                      <span className="inline-flex items-center text-xs tracking-wider uppercase text-black/60 group-hover/link:text-black transition-colors">
                         Découvrir
                         <svg
-                          className="ml-2 w-4 h-4 transition-transform duration-300 group-hover:translate-x-[3px]"
+                          className="ml-2 w-4 h-4 transition-transform duration-300 group-hover/link:translate-x-1"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
-                          strokeWidth={1.25}
+                          strokeWidth={1.5}
                         >
                           <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-6-6l6 6-6 6" />
                         </svg>
@@ -101,38 +101,48 @@ export default function TimelineStraight({ items }: { items: RepresentationItem[
                   </Link>
                 </div>
 
-                {/* Point + segment local éclairci au hover (très simple) */}
-                <div className="col-start-2 relative flex items-stretch justify-center">
-                  {/* Segment local qui s’éclaire au hover (sur la hauteur de l’item) */}
+                {/* Point + segment local éclairci au hover */}
+                <div className="col-start-2 relative flex items-center justify-center">
+                  {/* Segment local qui s'éclaire au hover */}
                   <span
                     aria-hidden
-                    className="absolute left-1/2 -translate-x-1/2 w-px h-full bg-transparent transition-colors duration-300 group-hover:bg-black/30"
+                    className="absolute left-1/2 -translate-x-1/2 w-px h-16 bg-transparent transition-all duration-500 group-hover:bg-black/40 group-hover:h-24"
                   />
-                  {/* Point minimaliste */}
-                  <span aria-hidden className="relative z-[1] self-center">
+                  {/* Point amélioré */}
+                  <span aria-hidden className="relative z-[1]">
                     <span
                       className="
-                        block w-2.5 h-2.5 rounded-full bg-black/70
-                        transition-transform duration-300
-                        group-hover:scale-110
+                        block w-3 h-3 rounded-full bg-black/80
+                        transition-all duration-500
+                        group-hover:scale-125 group-hover:bg-black
+                        shadow-sm
                       "
                     />
-                    {/* halo très léger (pas d’anneau “œil”) */}
+                    {/* Halo plus visible */}
                     <span
                       className="
                         pointer-events-none absolute inset-0 rounded-full
-                        bg-black/10 opacity-0 scale-100
-                        transition-all duration-300
-                        group-hover:opacity-100 group-hover:scale-125
+                        bg-black/20 opacity-0 scale-100
+                        transition-all duration-500
+                        group-hover:opacity-100 group-hover:scale-150
+                      "
+                    />
+                    {/* Anneau externe */}
+                    <span
+                      className="
+                        pointer-events-none absolute inset-0 rounded-full
+                        border border-black/20 opacity-0 scale-100
+                        transition-all duration-500
+                        group-hover:opacity-100 group-hover:scale-200
                       "
                     />
                   </span>
                 </div>
 
-                {/* Image */}
-                <div className={left ? "col-start-3" : "col-start-1"}>
-                  <Link href={`/representations/${it.slug}`} className="block">
-                    <div className="relative w-full h-72 md:h-[26rem] overflow-hidden">
+                {/* Image - centrée avec le point */}
+                <div className={`${left ? "col-start-3" : "col-start-1"} flex items-center`}>
+                  <Link href={`/representations/${it.slug}`} className="block group/image w-full">
+                    <div className="relative w-full h-80 md:h-96 overflow-hidden">
                       <Image
                         src={it.image}
                         alt={it.title}
@@ -141,10 +151,12 @@ export default function TimelineStraight({ items }: { items: RepresentationItem[
                         className={`
                           object-cover
                           grayscale
-                          ${prefersReduce ? "" : "transition-transform duration-[700ms] ease-out"}
-                          group-hover:grayscale-0 group-hover:scale-[1.012]
+                          ${prefersReduce ? "" : "transition-all duration-700 ease-out"}
+                          group-hover/image:grayscale-0 group-hover/image:scale-105
                         `}
                       />
+                      {/* Overlay subtil */}
+                      <div className="absolute inset-0 bg-black/0 group-hover/image:bg-black/10 transition-colors duration-700" />
                     </div>
                   </Link>
                 </div>

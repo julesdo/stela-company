@@ -5,6 +5,10 @@ import * as React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
+import type { Template } from "tinacms"
+import { tinaField } from "tinacms/dist/react"
+import { Section, sectionBlockSchemaField } from "../layout/section"
+import { ExperimentalGetTinaClient } from "@/tina/__generated__/types"
 
 export type AtelierListItem = {
   slug: string
@@ -15,18 +19,59 @@ export type AtelierListItem = {
   image: string
 }
 
-export default function AteliersList({ items }: { items: AtelierListItem[] }) {
+export const AteliersList = ({ data }: { data: any }) => {
+  const heading: string | undefined = data?.heading
+  const [items, setItems] = React.useState<AtelierListItem[]>([])
+
+  React.useEffect(() => {
+    let cancelled = false
+    async function fetchAteliersIfNeeded() {
+      if (items && items.length > 0) return
+      try {
+        const tina = ExperimentalGetTinaClient()
+        // fetch first 50 ateliers
+        const res: any = await tina.atelierConnection({ first: 50 })
+        const derived: AtelierListItem[] =
+          res?.data?.atelierConnection?.edges
+            ?.map((e: any) => e?.node)
+            .filter(Boolean)
+            .map((n: any) => ({
+              slug: n?._sys?.filename,
+              theme: n?.theme || n?.discipline || '',
+              title: n?.title || '',
+              excerpt: n?.description ? String(n.description).slice(0, 180) : '',
+              details: n?.dayTime || '',
+              image: n?.coverImage || '/about2.jpg',
+            })) || []
+        if (!cancelled) setItems(derived)
+      } catch (err) {
+        // silent fail; leave list empty
+      }
+    }
+    fetchAteliersIfNeeded()
+    return () => {
+      cancelled = true
+    }
+  }, [])
   const container = { hidden: {}, visible: { transition: { staggerChildren: 0.10, delayChildren: 0.04 } } }
   const row = { hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { duration: 0.40, ease: "easeOut" } } }
 
   return (
-    <motion.ul
-      className="w-full"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      variants={container}
-    >
+    <Section background={data?.background} className="pb-28 px-6 md:px-12 lg:pr-20">
+      <div className="max-w-7xl mx-auto">
+        {heading && (
+          <div className="text-center pt-28 pb-8" data-tina-field={tinaField(data, 'heading')}>
+            <h1 className="text-3xl md:text-5xl font-light tracking-wide">{heading}</h1>
+            <div className="mx-auto w-12 h-px bg-black mt-4 opacity-30" />
+          </div>
+        )}
+        <motion.ul
+          className="w-full"
+          initial="hidden"
+          animate="visible"
+          variants={container}
+          data-tina-field={tinaField(data)}
+        >
       {items.map((it, i) => (
         <motion.li
           key={it.slug}
@@ -101,6 +146,27 @@ export default function AteliersList({ items }: { items: AtelierListItem[] }) {
           </Link>
         </motion.li>
       ))}
-    </motion.ul>
+        </motion.ul>
+      </div>
+    </Section>
   )
+}
+
+export const ateliersListBlockSchema: Template = {
+  name: 'ateliersList',
+  label: 'Ateliers List',
+  ui: {
+    previewSrc: '/blocks/features.png',
+    defaultItem: {
+      heading: 'Ateliers',
+    },
+  },
+  fields: [
+    sectionBlockSchemaField as any,
+    { type: 'string', name: 'heading', label: 'Heading' },
+  ],
+}
+
+export default function AteliersListLegacy({ items }: { items: AtelierListItem[] }) {
+  return <AteliersList data={{ items, heading: 'Ateliers' }} />
 }

@@ -56,23 +56,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={cn(fontSans.variable, caveat.variable, playfair.variable, nunito.variable, corinthia.variable  )}>
-            <body className="min-h-screen bg-background font-serif antialiased">
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="light"
-        // enableSystem
-        disableTransitionOnChange
-      >
+            <body className="min-h-screen bg-white text-black font-serif antialiased">
 
         <VideoDialogProvider>
           <GrandioseCursor />
           <SidebarMenu />
-          <MobileMenu />
+          {/* <MobileMenu /> */}
           {children}
           <ArtisticFooter />
           <VideoDialog />
         </VideoDialogProvider>
-        </ThemeProvider>
       </body>
     </html>
   );

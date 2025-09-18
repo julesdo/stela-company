@@ -5,6 +5,9 @@ import Post from "./collection/post";
 import Global from "./collection/global";
 import Author from "./collection/author";
 import Page from "./collection/page";
+import Atelier from "./collection/atelier";
+import Representation from "./collection/representation";
+import Team from "./collection/team";
 import Tag from "./collection/tag";
 
 const config = defineConfig({
@@ -32,7 +35,7 @@ const config = defineConfig({
     basePath: nextConfig.basePath?.replace(/^\//, '') || '', // The base path of the app (could be /blog)
   },
   schema: {
-    collections: [Page, Post, Author, Tag, Global],
+    collections: [Page, Post, Author, Tag, Global, Atelier, Representation, Team],
   },
 });
 

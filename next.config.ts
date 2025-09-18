@@ -37,10 +37,34 @@ const nextConfig: NextConfig = {
         value: "frame-ancestors 'self'",
       },
     ];
+    
+    const videoHeaders = [
+      {
+        key: 'Cache-Control',
+        value: 'public, max-age=31536000, immutable',
+      },
+      {
+        key: 'Content-Type',
+        value: 'video/mp4',
+      },
+    ];
+
     return [
       {
         source: '/(.*)',
         headers,
+      },
+      {
+        source: '/hero-video.mov',
+        headers: videoHeaders,
+      },
+      {
+        source: '/hero-video-2.mp4',
+        headers: videoHeaders,
+      },
+      {
+        source: '/spectacle.mp4',
+        headers: videoHeaders,
       },
     ];
   },
