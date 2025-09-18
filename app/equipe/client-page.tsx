@@ -3,23 +3,10 @@ import { useTina } from "tinacms/dist/react";
 import Link from "next/link";
 import Image from "next/image";
 import ErrorBoundary from "@/components/error-boundary";
+import { TeamConnectionQuery } from "../../tina/__generated__/types";
 
 export interface ClientTeamPageProps {
-  data: {
-    teamConnection: {
-      edges: Array<{
-        node: {
-          id: string;
-          name: string;
-          role: string;
-          portrait: string;
-          _sys: {
-            breadcrumbs: string[];
-          };
-        };
-      }>;
-    };
-  };
+  data: TeamConnectionQuery;
   variables: {};
   query: string;
 }
@@ -31,7 +18,9 @@ export default function TeamClientPage(props: ClientTeamPageProps) {
     return <div>Aucun membre d'équipe trouvé</div>;
   }
 
-  const teamMembers = data.teamConnection.edges.map(edge => edge.node);
+  const teamMembers = data.teamConnection.edges
+    ?.filter(edge => edge?.node)
+    .map(edge => edge!.node) || [];
 
   return (
     <ErrorBoundary>
@@ -53,31 +42,34 @@ export default function TeamClientPage(props: ClientTeamPageProps) {
         <section className="px-6 md:px-12 lg:pr-20 pb-24">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {teamMembers.map((member) => (
-                <Link
-                  key={member.id}
-                  href={`/equipe/${member._sys.breadcrumbs.join('/')}`}
-                  className="group block"
-                >
-                  <div className="relative aspect-[3/4] overflow-hidden mb-4">
-                    <Image
-                      src={member.portrait}
-                      alt={member.name}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-light text-black mb-1">
-                      {member.name}
-                    </h3>
-                    <p className="text-sm text-black/60">
-                      {member.role}
-                    </p>
-                  </div>
-                </Link>
-              ))}
+              {teamMembers.map((member) => {
+                if (!member) return null;
+                return (
+                  <Link
+                    key={member.id}
+                    href={`/equipe/${member._sys.breadcrumbs.join('/')}`}
+                    className="group block"
+                  >
+                    <div className="relative aspect-[3/4] overflow-hidden mb-4">
+                      <Image
+                        src={member.portrait ?? ''}
+                        alt={member.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
+                      />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-light text-black mb-1">
+                        {member.name}
+                      </h3>
+                      <p className="text-sm text-black/60">
+                        {member.role}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </section>

@@ -1,5 +1,5 @@
 import React from 'react';
-import client from '@/tina/__generated__/client';
+import client from '../../../tina/__generated__/client';
 import Layout from '@/components/layout/layout';
 import TeamClientPage from './client-page';
 import { notFound } from 'next/navigation';
@@ -9,9 +9,10 @@ export const revalidate = 300;
 export default async function TeamPage({
   params,
 }: {
-  params: { urlSegments: string[] };
+  params: Promise<{ urlSegments: string[] }>;
 }) {
-  const filepath = params.urlSegments.join('/');
+  const { urlSegments } = await params;
+  const filepath = urlSegments.join('/');
   let data;
   try {
     data = await client.queries.team({

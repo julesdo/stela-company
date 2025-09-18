@@ -29,6 +29,7 @@ export interface TeamDetailData {
   facts?: Fact[]
   socials?: Socials
   gallery?: GalleryItem[]
+  [key: string]: any
 }
 
 // Helper ratio → aspect class
@@ -65,7 +66,7 @@ export const TeamDetail = ({ data }: { data: TeamDetailData }) => {
   }
 
   return (
-    <Section data={{ background: "bg-white" }}>
+    <Section background="bg-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* HERO portrait plein cadre */}

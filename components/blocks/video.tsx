@@ -2,7 +2,7 @@
 import * as React from 'react';
 import dynamic from 'next/dynamic';
 import type { Template } from 'tinacms';
-import { PageBlocksVideo } from '@/tina/__generated__/types';
+import { PageBlocksVideo } from '../../tina/__generated__/types';
 import { Section } from '../layout/section';
 import { sectionBlockSchemaField } from '../layout/section';
 

@@ -36,10 +36,7 @@ export default function SidebarMenu() {
       const x = logoRect.left + logoRect.width / 2 - 50
       const y = logoRect.top + logoRect.height / 2 - 50
 
-      // Capturer le contenu derrière le logo
-      ctx.drawWindow = ctx.drawWindow || (ctx as any).drawImage
-      
-      // Utiliser html2canvas si disponible, sinon fallback
+      // Capturer le contenu derrière le logo avec html2canvas si disponible, sinon fallback
       if (typeof (window as any).html2canvas !== 'undefined') {
         const canvas2 = await (window as any).html2canvas(document.body, {
           x: x,

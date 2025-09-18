@@ -2,26 +2,10 @@
 import { useTina } from "tinacms/dist/react";
 import ErrorBoundary from "@/components/error-boundary";
 import TimelineStraight, { RepresentationItem } from "@/components/blocks/timeline-straight";
+import { RepresentationConnectionQuery } from "../../tina/__generated__/types";
 
 export interface ClientRepresentationsPageProps {
-  data: {
-    representationConnection: {
-      edges: Array<{
-        node: {
-          id: string;
-          title: string;
-          subtitle: string;
-          date: string;
-          city: string;
-          venue: string;
-          hero: string;
-          _sys: {
-            breadcrumbs: string[];
-          };
-        };
-      }>;
-    };
-  };
+  data: RepresentationConnectionQuery;
   variables: {};
   query: string;
 }
@@ -34,15 +18,17 @@ export default function RepresentationsClientPage(props: ClientRepresentationsPa
   }
 
   // Transformer les données pour le composant TimelineStraight
-  const timelineItems: RepresentationItem[] = data.representationConnection.edges.map(edge => ({
-    slug: edge.node._sys.breadcrumbs.join('/'),
-    title: edge.node.title,
-    excerpt: edge.node.subtitle,
-    image: edge.node.hero,
-    date: edge.node.date,
-    city: edge.node.city,
-    venue: edge.node.venue,
-  }));
+  const timelineItems: RepresentationItem[] = data.representationConnection.edges
+    ?.filter(edge => edge?.node)
+    .map(edge => ({
+      slug: edge!.node!._sys.breadcrumbs.join('/'),
+      title: edge!.node!.title,
+      excerpt: edge!.node!.subtitle || '',
+      image: edge!.node!.hero || '',
+      date: edge!.node!.date || '',
+      city: edge!.node!.city || '',
+      venue: edge!.node!.venue || '',
+    })) || [];
 
   // Trier par date (plus récent en premier)
   const sortedItems = timelineItems.sort((a, b) => {

@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import type { Template } from "tinacms"
 import { tinaField } from "tinacms/dist/react"
 import { Section, sectionBlockSchemaField } from "../layout/section"
-import { PageBlocksContactForm } from "@/tina/__generated__/types"
+import { PageBlocksContactForm } from "../../tina/__generated__/types"
 
 export const ContactForm = ({ data }: { data: PageBlocksContactForm }) => {
   const [formData, setFormData] = useState({
@@ -48,7 +48,7 @@ export const ContactForm = ({ data }: { data: PageBlocksContactForm }) => {
   }
 
   return (
-    <Section data={data} className="py-32 px-6 md:px-12">
+    <Section data={data as any} className="py-32 px-6 md:px-12">
       <motion.div
         className="max-w-4xl mx-auto"
         initial="hidden"

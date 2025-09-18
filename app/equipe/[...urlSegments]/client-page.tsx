@@ -1,7 +1,7 @@
 "use client";
 import { useTina } from "tinacms/dist/react";
 import TeamDetail from "@/components/blocks/team-detail";
-import { TeamQuery } from "@/tina/__generated__/types";
+import { TeamQuery } from "../../../tina/__generated__/types";
 import ErrorBoundary from "@/components/error-boundary";
 
 export interface ClientTeamProps {

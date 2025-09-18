@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import type { Template } from "tinacms"
 import { tinaField } from "tinacms/dist/react"
 import { Section, sectionBlockSchemaField } from "../layout/section"
-import { PageBlocksContactHero } from "@/tina/__generated__/types"
+import { PageBlocksContactHero } from "../../tina/__generated__/types"
 
 export const ContactHero = ({ data }: { data: PageBlocksContactHero }) => {
   const containerVariants = {
@@ -31,7 +31,7 @@ export const ContactHero = ({ data }: { data: PageBlocksContactHero }) => {
   }
 
   return (
-    <Section data={data} className="min-h-screen flex items-center py-24 px-6 md:px-12 lg:pr-20">
+    <Section data={data as any} className="min-h-screen flex items-center py-24 px-6 md:px-12 lg:pr-20">
       <motion.div
         className="max-w-6xl mx-auto w-full text-center"
         initial="hidden"
