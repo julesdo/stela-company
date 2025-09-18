@@ -8,7 +8,7 @@ import { motion } from "framer-motion"
 import type { Template } from "tinacms"
 import { tinaField } from "tinacms/dist/react"
 import { Section, sectionBlockSchemaField } from "../layout/section"
-import { ExperimentalGetTinaClient } from "@/tina/__generated__/types"
+import client from "@/tina/__generated__/client"
 
 export type AtelierListItem = {
   slug: string
@@ -28,9 +28,8 @@ export const AteliersList = ({ data }: { data: any }) => {
     async function fetchAteliersIfNeeded() {
       if (items && items.length > 0) return
       try {
-        const tina = ExperimentalGetTinaClient() as any
         // fetch first 50 ateliers
-        const res: any = await tina.atelierConnection({ first: 50 })
+        const res: any = await client.queries.atelierConnection({ first: 50 })
         const derived: AtelierListItem[] =
           res?.data?.atelierConnection?.edges
             ?.map((e: any) => e?.node)
