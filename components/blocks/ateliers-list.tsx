@@ -8,7 +8,7 @@ import { motion } from "framer-motion"
 import type { Template } from "tinacms"
 import { tinaField } from "tinacms/dist/react"
 import { Section, sectionBlockSchemaField } from "../layout/section"
-import { ExperimentalGetTinaClient } from "../../tina/__generated__/types"
+import { ExperimentalGetTinaClient } from "@/tina/__generated__/types"
 
 export type AtelierListItem = {
   slug: string

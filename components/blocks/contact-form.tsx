@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import type { Template } from "tinacms"
 import { tinaField } from "tinacms/dist/react"
 import { Section, sectionBlockSchemaField } from "../layout/section"
-import { PageBlocksContactForm } from "../../tina/__generated__/types"
+import { PageBlocksContactForm } from "@/tina/__generated__/types"
 
 export const ContactForm = ({ data }: { data: PageBlocksContactForm }) => {
   const [formData, setFormData] = useState({

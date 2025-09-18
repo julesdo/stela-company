@@ -3,7 +3,7 @@ import { useTina } from "tinacms/dist/react";
 import Link from "next/link";
 import Image from "next/image";
 import ErrorBoundary from "@/components/error-boundary";
-import { TeamConnectionQuery } from "../../tina/__generated__/types";
+import { TeamConnectionQuery } from "@/tina/__generated__/types";
 
 export interface ClientTeamPageProps {
   data: TeamConnectionQuery;

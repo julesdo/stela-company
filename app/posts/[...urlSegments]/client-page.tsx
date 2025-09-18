@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { format } from 'date-fns';
 import { tinaField, useTina } from 'tinacms/dist/react';
 import { TinaMarkdown } from 'tinacms/dist/rich-text';
-import { PostQuery } from '../../../tina/__generated__/types';
+import { PostQuery } from '@/tina/__generated__/types';
 import { useLayout } from '@/components/layout/layout-context';
 import { Section } from '@/components/layout/section';
 import { components } from '@/components/mdx-components';

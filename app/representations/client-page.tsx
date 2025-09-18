@@ -2,7 +2,7 @@
 import { useTina } from "tinacms/dist/react";
 import ErrorBoundary from "@/components/error-boundary";
 import TimelineStraight, { RepresentationItem } from "@/components/blocks/timeline-straight";
-import { RepresentationConnectionQuery } from "../../tina/__generated__/types";
+import { RepresentationConnectionQuery } from "@/tina/__generated__/types";
 
 export interface ClientRepresentationsPageProps {
   data: RepresentationConnectionQuery;

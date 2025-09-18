@@ -1,6 +1,6 @@
 import type { Template } from "tinacms";
 import { tinaField } from "tinacms/dist/react";
-import { PageBlocksStats } from "../../tina/__generated__/types";
+import { PageBlocksStats } from "@/tina/__generated__/types";
 import { Section } from "../layout/section";
 import { sectionBlockSchemaField } from '../layout/section';
 

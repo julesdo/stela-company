@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
-import { PageBlocksCallout } from '../../tina/__generated__/types';
+import { PageBlocksCallout } from '@/tina/__generated__/types';
 import { ArrowRight } from 'lucide-react';
 import { AnimatedGroup } from '../motion-primitives/animated-group';
 import { Section, sectionBlockSchemaField } from '../layout/section';
