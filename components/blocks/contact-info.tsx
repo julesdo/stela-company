@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import type { Template } from "tinacms"
 import { tinaField } from "tinacms/dist/react"
 import { Section, sectionBlockSchemaField } from "../layout/section"
-import { PageBlocksContactInfo } from "../../lib/tina-types"
+import { PageBlocksContactInfo } from "@/tina/__generated__/types"
 
 export const ContactInfo = ({ data }: { data: PageBlocksContactInfo }) => {
   const containerVariants = {

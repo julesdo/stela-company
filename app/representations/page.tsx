@@ -1,5 +1,5 @@
 import React from 'react';
-import { client } from '../../lib/tina-types';
+import client from '@/tina/__generated__/client';
 import Layout from '@/components/layout/layout';
 import RepresentationsClientPage from './client-page';
 
