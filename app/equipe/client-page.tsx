@@ -21,6 +21,24 @@ export default function TeamClientPage(props: ClientTeamPageProps) {
   const teamMembers = data.teamConnection.edges
     ?.filter(edge => edge?.node)
     .map(edge => edge!.node) || [];
+  
+  // Réorganiser : Stela en premier, Jules Camille en dernier
+  const sortedTeamMembers = [...teamMembers].sort((a, b) => {
+    const aName = a?.name?.toLowerCase() || '';
+    const bName = b?.name?.toLowerCase() || '';
+    const aSlug = a?._sys?.breadcrumbs?.join('/')?.toLowerCase() || '';
+    const bSlug = b?._sys?.breadcrumbs?.join('/')?.toLowerCase() || '';
+    
+    // Stela en premier
+    if (aName.includes('stela') || aSlug.includes('stela-elena')) return -1;
+    if (bName.includes('stela') || bSlug.includes('stela-elena')) return 1;
+    
+    // Jules Camille en dernier
+    if (aName.includes('jules') || aSlug.includes('jules-camille')) return 1;
+    if (bName.includes('jules') || bSlug.includes('jules-camille')) return -1;
+    
+    return 0;
+  });
 
   return (
     <ErrorBoundary>
@@ -42,7 +60,7 @@ export default function TeamClientPage(props: ClientTeamPageProps) {
         <section className="px-6 md:px-12 lg:pr-20 pb-24">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {teamMembers.map((member) => {
+              {sortedTeamMembers.map((member) => {
                 if (!member) return null;
                 return (
                   <Link

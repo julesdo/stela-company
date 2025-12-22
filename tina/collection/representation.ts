@@ -6,9 +6,30 @@ const Representation: Collection = {
   path: 'content/representations',
   format: 'mdx',
   ui: {
-    router: ({ document }) => `/representations/${document._sys.breadcrumbs.join('/')}`,
+    router: ({ document }) => {
+      const filepath = document._sys.breadcrumbs.join('/');
+      const locale = (document as any).lang || 'fr';
+      const basePath = locale === 'fr' ? '' : `/${locale}`;
+      const cleanPath = filepath.replace(/\.(fr|de|en|sr)$/, '');
+      return `${basePath}/representations/${cleanPath}`;
+    },
   },
   fields: [
+    {
+      type: 'string',
+      name: 'lang',
+      label: 'Langue',
+      options: [
+        { value: 'fr', label: 'Français' },
+        { value: 'de', label: 'Deutsch' },
+        { value: 'en', label: 'English' },
+        { value: 'sr', label: 'Српски' },
+      ],
+      required: false,
+      ui: {
+        defaultValue: 'fr',
+      },
+    },
     { type: 'string', name: 'title', label: 'Title', isTitle: true, required: true },
     { type: 'string', name: 'subtitle', label: 'Subtitle' },
     { type: 'image', name: 'hero', label: 'Hero Image' },

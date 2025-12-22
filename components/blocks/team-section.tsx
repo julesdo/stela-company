@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
 import { Section, sectionBlockSchemaField } from '../layout/section';
+import client from '@/tina/__generated__/client';
 
 interface Member {
   name: string;
@@ -85,6 +86,40 @@ lumière et accompagne la métamorphose des interprètes au fil de la pièce.`,
 export const TeamSection = ({ data }: { data: any }) => {
   const [hovered, setHovered] = useState<{ row: number; col: number } | null>(null);
   const [selected, setSelected] = useState<Member | null>(null);
+  const [teamMembers, setTeamMembers] = useState<Member[]>(data?.members || team);
+
+  // Charger les membres depuis TinaCMS si aucun membre n'est fourni
+  useEffect(() => {
+    if (data?.members && data.members.length > 0) {
+      setTeamMembers(data.members);
+      return;
+    }
+    
+    async function loadTeamMembers() {
+      try {
+        const res = await client.queries.teamConnection({ first: 50 });
+        const members = res?.data?.teamConnection?.edges
+          ?.filter(edge => edge?.node)
+          .map(edge => {
+            const node = edge!.node;
+            return {
+              name: node?.name || '',
+              role: node?.role || '',
+              bio: node?.article?.[0] || '',
+              photo: node?.portrait || '',
+            };
+          }) || [];
+        
+        if (members.length > 0) {
+          setTeamMembers(members);
+        }
+      } catch (err) {
+        // Silently fail, use default team
+      }
+    }
+    
+    loadTeamMembers();
+  }, [data?.members]);
 
   // Fermeture au clavier (Échap)
   useEffect(() => {
@@ -96,8 +131,8 @@ export const TeamSection = ({ data }: { data: any }) => {
   }, []);
 
   const cols = 3;
-  const rows = Math.ceil(team.length / cols);
-  const total = team.length;
+  const rows = Math.ceil(teamMembers.length / cols);
+  const total = teamMembers.length;
 
   function getTemplateSizes(isRow: boolean) {
     if (!hovered) return isRow ? `repeat(${rows}, 1fr)` : `repeat(${cols}, 1fr)`;
@@ -137,7 +172,7 @@ export const TeamSection = ({ data }: { data: any }) => {
             transition: 'grid-template-rows 0.4s ease, grid-template-columns 0.4s ease',
           }}
         >
-          {(data?.members ?? team).map((member: Member, idx: number) => (
+          {teamMembers.map((member: Member, idx: number) => (
             <motion.div
               key={idx}
               className="relative overflow-hidden shadow-2xl cursor-pointer group"

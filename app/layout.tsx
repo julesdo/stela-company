@@ -1,6 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
-import { Caveat, Playfair_Display, Inter as FontSans, Nunito, Corinthia } from "next/font/google";
+import { Caveat, Playfair_Display, Inter as FontSans, Nunito, Corinthia, Dancing_Script } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { VideoDialogProvider } from "@/components/ui/VideoDialogContext";
 import VideoDialog from "@/components/ui/VideoDialog";
@@ -12,6 +12,7 @@ import { ThemeProvider } from "@/components/magicui/theme-provider";
 import ArtisticFooter from "@/components/blocks/artistic-footer";
 import SidebarMenu from "@/components/blocks/sidebar-menu";
 import MobileMenu from "@/components/blocks/mobile-menu";
+import { LanguageSwitcher } from "@/components/language-switcher";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -44,6 +45,13 @@ const playfair = Playfair_Display({
   style: ["normal", "italic"],
 });
 
+const dancing_script = Dancing_Script({
+  subsets: ["latin"],
+  variable: "--font-dancing-script",
+  weight: ["400", "500", "600", "700"],
+  style: ["normal"],
+});
+
 export const metadata: Metadata = {
   title: "La Stela Company",
   description: "La Stela Company - Danse contemporaine et théâtre",
@@ -55,12 +63,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn(fontSans.variable, caveat.variable, playfair.variable, nunito.variable, corinthia.variable  )}>
+    <html lang="en" className={cn(fontSans.variable, caveat.variable, playfair.variable, nunito.variable, corinthia.variable, dancing_script.variable  )}>
             <body className="min-h-screen bg-white text-black font-serif antialiased">
 
         <VideoDialogProvider>
           <GrandioseCursor />
           <SidebarMenu />
+          <LanguageSwitcher />
           {/* <MobileMenu /> */}
           {children}
           <ArtisticFooter />

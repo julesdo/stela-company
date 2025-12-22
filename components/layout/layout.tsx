@@ -11,20 +11,58 @@ type LayoutProps = PropsWithChildren & {
 };
 
 export default async function Layout({ children, rawPageData }: LayoutProps) {
-  const { data: globalData } = await client.queries.global({
-    relativePath: "index.json",
-  },
-    {
-      fetchOptions: {
-        next: {
-          revalidate: 60,
-        },
+  let globalSettings: any;
+  
+  try {
+    const result = await client.queries.global({
+      relativePath: "index.json",
+    });
+    globalSettings = result?.data?.global;
+  } catch (error: any) {
+    // Silently fallback to default settings
+    globalSettings = {
+      header: {
+        icon: { name: "Tina", color: "orange", style: "float" },
+        name: "La Stela Company",
+        color: "default",
+        nav: [
+          { href: "/", label: "Home" },
+          { href: "/about", label: "About" },
+        ]
+      },
+      footer: {
+        social: []
+      },
+      theme: {
+        color: "blue",
+        font: "sans",
+        darkMode: "light"
       }
-    }
-  );
+    };
+  }
+
+  // Ensure globalSettings is never undefined
+  if (!globalSettings) {
+    globalSettings = {
+      header: {
+        icon: { name: "Tina", color: "orange", style: "float" },
+        name: "La Stela Company",
+        color: "default",
+        nav: []
+      },
+      footer: {
+        social: []
+      },
+      theme: {
+        color: "blue",
+        font: "sans",
+        darkMode: "light"
+      }
+    };
+  }
 
   return (
-    <LayoutProvider globalSettings={globalData.global} pageData={rawPageData}>
+    <LayoutProvider globalSettings={globalSettings} pageData={rawPageData}>
       <main className="relative overflow-x-hidden">
         {children}
       </main>

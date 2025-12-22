@@ -6,6 +6,12 @@ import ClientRepresentation from './client-page';
 
 export const revalidate = 300;
 
+export async function generateStaticParams() {
+  // Cette fonction devrait être complétée avec les vraies représentations
+  // Pour l'instant, on retourne un tableau vide
+  return [];
+}
+
 export default async function RepresentationPage({
   params,
 }: {

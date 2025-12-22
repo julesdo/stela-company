@@ -7,8 +7,10 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import type { Template } from "tinacms"
 import { tinaField } from "tinacms/dist/react"
+import { usePathname } from "next/navigation"
 import { Section, sectionBlockSchemaField } from "../layout/section"
 import client from "@/tina/__generated__/client"
+import { locales, defaultLocale, type Locale } from "@/lib/i18n"
 
 export type AtelierListItem = {
   slug: string
@@ -22,6 +24,24 @@ export type AtelierListItem = {
 export const AteliersList = ({ data }: { data: any }) => {
   const heading: string | undefined = data?.heading
   const [items, setItems] = React.useState<AtelierListItem[]>([])
+  const pathname = usePathname()
+
+  // Détecter la locale actuelle depuis le pathname
+  const pathSegments = pathname.split('/').filter(Boolean)
+  const firstSegment = pathSegments[0]
+  const isValidLocale = firstSegment && locales.includes(firstSegment as Locale)
+  const currentLocale: Locale = isValidLocale ? (firstSegment as Locale) : defaultLocale
+
+  // Fonction pour générer le lien localisé vers un atelier
+  const getLocalizedAtelierHref = (slug: string): string => {
+    // Nettoyer le slug (enlever l'extension de langue si présente)
+    const cleanSlug = slug.replace(/\.(fr|de|en|sr)$/, '')
+    
+    if (currentLocale === defaultLocale) {
+      return `/ateliers/${cleanSlug}`
+    }
+    return `/${currentLocale}/ateliers/${cleanSlug}`
+  }
 
   React.useEffect(() => {
     let cancelled = false
@@ -34,14 +54,25 @@ export const AteliersList = ({ data }: { data: any }) => {
           res?.data?.atelierConnection?.edges
             ?.map((e: any) => e?.node)
             .filter(Boolean)
-            .map((n: any) => ({
-              slug: n?._sys?.filename,
-              theme: n?.theme || n?.discipline || '',
-              title: n?.title || '',
-              excerpt: n?.description ? String(n.description).slice(0, 180) : '',
-              details: n?.dayTime || '',
-              image: n?.coverImage || '/about2.jpg',
-            })) || []
+            // Filtrer les ateliers selon la langue actuelle
+            .filter((n: any) => {
+              const atelierLang = n?.lang || 'fr'
+              return atelierLang === currentLocale
+            })
+            .map((n: any) => {
+              // Nettoyer le slug pour enlever l'extension de langue
+              const filename = n?._sys?.filename || ''
+              const cleanSlug = filename.replace(/\.(fr|de|en|sr)$/, '')
+              
+              return {
+                slug: cleanSlug,
+                theme: n?.theme || n?.discipline || '',
+                title: n?.title || '',
+                excerpt: n?.description ? String(n.description).slice(0, 180) : '',
+                details: n?.dayTime || '',
+                image: n?.coverImage || '/about2.jpg',
+              }
+            }) || []
         if (!cancelled) setItems(derived)
       } catch (err) {
         // silent fail; leave list empty
@@ -51,7 +82,7 @@ export const AteliersList = ({ data }: { data: any }) => {
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [currentLocale])
   const container = { hidden: {}, visible: { transition: { staggerChildren: 0.10, delayChildren: 0.04 } } }
   const row = { hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { duration: 0.40, ease: "easeOut" } } }
 
@@ -77,7 +108,7 @@ export const AteliersList = ({ data }: { data: any }) => {
           variants={row as any}
           className="group border-t border-black/10 first:border-none"
         >
-          <Link href={`/ateliers/${it.slug}`} className="block focus:outline-none">
+          <Link href={getLocalizedAtelierHref(it.slug)} className="block focus:outline-none">
             <div className="grid lg:grid-cols-12 gap-6 md:gap-10 items-end py-12 md:py-16">
               {/* Texte — toujours à gauche pour le scan */}
               <div className="lg:col-span-5">

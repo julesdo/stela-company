@@ -22,6 +22,10 @@ import { ContactInfo } from "./contact-info";
 import { ContactForm } from "./contact-form";
 import { PartnersCarousel } from "./partners-carousel";
 import AtelierDetail from "./atelier-detail";
+import { EngagementsHero } from "./engagements-hero";
+import { EngagementsGrid } from "./engagements-grid";
+import { DonationSection } from "./donation-section";
+import { TeamList } from "./team-list";
 
 export const Blocks = (props: Omit<Page, "id" | "_sys" | "_values">) => {
   if (!props.blocks) return null;
@@ -86,6 +90,14 @@ const Block = (block: any) => {
       return <PartnersCarousel data={block} />;
     case "PageBlocksAtelierDetail":
       return <AtelierDetail data={block} />;
+    case "PageBlocksEngagementsHero":
+      return <EngagementsHero data={block} />;
+    case "PageBlocksEngagementsGrid":
+      return <EngagementsGrid data={block} />;
+    case "PageBlocksDonationSection":
+      return <DonationSection data={block} />;
+    case "PageBlocksTeamList":
+      return <TeamList data={block} />;
     default:
       return null;
   }

@@ -4,18 +4,75 @@ import React, { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { usePathname } from "next/navigation"
+import { locales, defaultLocale, type Locale } from "@/lib/i18n"
+
+// Traductions des labels du menu
+const menuTranslations: Record<Locale, Record<string, string>> = {
+  fr: {
+    about: "À propos",
+    ateliers: "Ateliers",
+    equipe: "Equipe",
+    engagements: "Engagements",
+    contact: "Contact",
+  },
+  de: {
+    about: "Über uns",
+    ateliers: "Workshops",
+    equipe: "Team",
+    engagements: "Engagement",
+    contact: "Kontakt",
+  },
+  en: {
+    about: "About",
+    ateliers: "Workshops",
+    equipe: "Team",
+    engagements: "Commitments",
+    contact: "Contact",
+  },
+  sr: {
+    about: "О нама",
+    ateliers: "Радионице",
+    equipe: "Тим",
+    engagements: "Ангажовање",
+    contact: "Контакт",
+  },
+}
 
 const MENU_ITEMS = [
-  { label: "À propos", href: "/about" },
-  { label: "Ateliers", href: "/ateliers" },
-  { label: "Equipe", href: "/equipe" },
-  { label: "Contact", href: "/contact" },
+  { key: "about", href: "/about" },
+  { key: "ateliers", href: "/ateliers" },
+  { key: "equipe", href: "/equipe" },
+  { key: "engagements", href: "/engagements" },
+  { key: "contact", href: "/contact" },
 ]
 
 export default function SidebarMenu() {
   const pathname = usePathname()
   const [isInverted, setIsInverted] = useState(false)
   const logoRef = useRef<HTMLDivElement>(null)
+
+  // Détecter la locale actuelle depuis le pathname
+  const pathSegments = pathname.split('/').filter(Boolean)
+  const firstSegment = pathSegments[0]
+  const isValidLocale = firstSegment && locales.includes(firstSegment as Locale)
+  const currentLocale: Locale = isValidLocale ? (firstSegment as Locale) : defaultLocale
+
+  // Fonction pour générer le lien localisé
+  const getLocalizedHref = (href: string): string => {
+    if (currentLocale === defaultLocale) {
+      return href
+    }
+    // Pour les autres langues, ajouter le préfixe de locale
+    return `/${currentLocale}${href}`
+  }
+
+  // Fonction pour obtenir le label traduit
+  const getTranslatedLabel = (key: string): string => {
+    return menuTranslations[currentLocale][key] || menuTranslations[defaultLocale][key]
+  }
+
+  // Lien vers la page d'accueil selon la locale
+  const homeHref = currentLocale === defaultLocale ? '/' : `/${currentLocale}`
 
   // Fonction pour détecter automatiquement le contraste du contenu derrière le logo
   const checkContrast = async () => {
@@ -217,7 +274,7 @@ export default function SidebarMenu() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <Link href="/">
+        <Link href={homeHref}>
           <motion.img 
             src="/logo-stela.svg" 
             alt="La Stela Company"
@@ -242,7 +299,10 @@ export default function SidebarMenu() {
       >
         <nav className="flex flex-col space-y-6">
           {MENU_ITEMS.map((item, index) => {
-            const isActive = pathname === item.href
+            const localizedHref = getLocalizedHref(item.href)
+            // Vérifier si le pathname correspond (avec ou sans locale)
+            const isActive = pathname === item.href || pathname === localizedHref || 
+              (isValidLocale && pathname === `/${currentLocale}${item.href}`)
             
             return (
               <motion.div
@@ -253,7 +313,7 @@ export default function SidebarMenu() {
                 animate={isActive ? "active" : "idle"}
               >
                 <Link
-                  href={item.href}
+                  href={localizedHref}
                   className="block relative"
                 >
                   <div className="relative flex flex-col items-center py-2">
@@ -284,7 +344,7 @@ export default function SidebarMenu() {
                         }
                       }}
                     >
-                      {item.label.toUpperCase()}
+                      {getTranslatedLabel(item.key).toUpperCase()}
                     </motion.span>
                     
                     {/* Barre gauche animée */}

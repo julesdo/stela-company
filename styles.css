@@ -44,7 +44,7 @@
 
 :root {
 
-  --font-sans: Corinthia, serif;
+  --font-sans: var(--font-dancing-script), serif;
   --font-serif: Playfair Display, serif;
   --font-mono: Nunito, monospace;
   --radius: 0.625rem;
@@ -162,7 +162,7 @@
     @apply border-border outline-ring/50;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-corinthia);
+    font-family: var(--font-dancing-script);
     font-weight: 600;
     line-height: 1.1;
   }

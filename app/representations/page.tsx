@@ -5,6 +5,10 @@ import RepresentationsClientPage from './client-page';
 
 export const revalidate = 300;
 
+export async function generateStaticParams() {
+  return [{ urlSegments: [] }];
+}
+
 export default async function RepresentationsPage() {
   let data;
   try {

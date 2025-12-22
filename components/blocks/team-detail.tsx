@@ -111,11 +111,54 @@ export const TeamDetail = ({ data }: { data: TeamDetailData }) => {
               data-tina-field={tinaField(data, 'article')}
             >
               {Array.isArray(data.article) ? (
-                data.article.map((paragraph: string, i: number) => (
-                  <p key={i} dangerouslySetInnerHTML={{ __html: paragraph }} />
-                ))
+                data.article.map((paragraph: string, i: number) => {
+                  // Nettoyer les espaces autour des astérisques markdown
+                  const cleanedMarkdown = paragraph
+                    .replace(/\*\*\s+/g, '**')
+                    .replace(/\s+\*\*/g, '**')
+                  // Conversion markdown basique en HTML
+                  let html = cleanedMarkdown
+                    .replace(/###\s+(.+)/g, '<h3>$1</h3>')
+                    .replace(/##\s+(.+)/g, '<h2>$1</h2>')
+                    .replace(/#\s+(.+)/g, '<h1>$1</h1>')
+                    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                    .split(/\n\n+/)
+                    .map(para => para.trim())
+                    .filter(para => para.length > 0)
+                    .map(para => {
+                      if (para.startsWith('<h')) return para
+                      return `<p>${para.replace(/\n/g, '<br />')}</p>`
+                    })
+                    .join('')
+                  return (
+                    <div 
+                      key={i} 
+                      dangerouslySetInnerHTML={{ __html: html }}
+                    />
+                  )
+                })
               ) : (
-                <p dangerouslySetInnerHTML={{ __html: data.article || '' }} />
+                (() => {
+                  const cleanedMarkdown = (data.article || '')
+                    .replace(/\*\*\s+/g, '**')
+                    .replace(/\s+\*\*/g, '**')
+                  let html = cleanedMarkdown
+                    .replace(/###\s+(.+)/g, '<h3>$1</h3>')
+                    .replace(/##\s+(.+)/g, '<h2>$1</h2>')
+                    .replace(/#\s+(.+)/g, '<h1>$1</h1>')
+                    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                    .split(/\n\n+/)
+                    .map(para => para.trim())
+                    .filter(para => para.length > 0)
+                    .map(para => {
+                      if (para.startsWith('<h')) return para
+                      return `<p>${para.replace(/\n/g, '<br />')}</p>`
+                    })
+                    .join('')
+                  return <div dangerouslySetInnerHTML={{ __html: html }} />
+                })()
               )}
             </article>
           </div>

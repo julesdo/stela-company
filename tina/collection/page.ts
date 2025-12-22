@@ -21,6 +21,10 @@ import { contactInfoBlockSchema } from '@/components/blocks/contact-info';
 import { contactFormBlockSchema } from '@/components/blocks/contact-form';
 import { partnersCarouselBlockSchema } from '@/components/blocks/partners-carousel';
 import { atelierDetailBlockSchema } from '@/components/blocks/atelier-detail';
+import { engagementsHeroBlockSchema } from '@/components/blocks/engagements-hero';
+import { engagementsGridBlockSchema } from '@/components/blocks/engagements-grid';
+import { donationSectionBlockSchema } from '@/components/blocks/donation-section';
+import { teamListBlockSchema } from '@/components/blocks/team-list';
 
 const Page: Collection = {
   label: 'Pages',
@@ -30,13 +34,34 @@ const Page: Collection = {
   ui: {
     router: ({ document }) => {
       const filepath = document._sys.breadcrumbs.join('/');
-      if (filepath === 'home') {
-        return '/';
+      const locale = (document as any).lang || 'fr';
+      const basePath = locale === 'fr' ? '' : `/${locale}`;
+      
+      // Nettoyer le nom de fichier des extensions de langue
+      const cleanPath = filepath.replace(/\.(fr|de|en|sr)$/, '');
+      
+      if (cleanPath === 'home') {
+        return basePath || '/';
       }
-      return `/${filepath}`;
+      return `${basePath}/${cleanPath}`;
     },
   },
   fields: [
+    {
+      type: 'string',
+      name: 'lang',
+      label: 'Langue',
+      options: [
+        { value: 'fr', label: 'Français' },
+        { value: 'de', label: 'Deutsch' },
+        { value: 'en', label: 'English' },
+        { value: 'sr', label: 'Српски' },
+      ],
+      required: false,
+      ui: {
+        defaultValue: 'fr',
+      },
+    },
     {
       type: 'object',
       list: true,
@@ -68,6 +93,10 @@ const Page: Collection = {
         contactFormBlockSchema,
         partnersCarouselBlockSchema,
         atelierDetailBlockSchema,
+        engagementsHeroBlockSchema,
+        engagementsGridBlockSchema,
+        donationSectionBlockSchema,
+        teamListBlockSchema,
       ],
     },
   ],

@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
@@ -8,6 +8,7 @@ import MagneticButton from "@/components/ui/magnetic-button"
 import type { Template } from "tinacms"
 import { tinaField } from "tinacms/dist/react"
 import { Section, sectionBlockSchemaField } from "../layout/section"
+import client from "@/tina/__generated__/client"
 
 type RepresentationCard = {
   slug: string
@@ -18,34 +19,87 @@ type RepresentationCard = {
   city?: string
 }
 
-export const RepresentationsGridSection = ({ data }: { data: any }) => {
-  const sample: RepresentationCard[] = [
-    {
-      slug: "medee-acte-1",
-      title: "Médée — Acte I",
-      excerpt:
-        "Création chorégraphique & vocale. Une traversée où langue, geste et souffle s’entrelacent.",
-      image: "/about1.jpg",
-    },
-    {
-      slug: "langues-en-scene",
-      title: "Langues en scène",
-      excerpt:
-        "Performance bilingue FR/DE : le texte se danse, les corps prennent la parole.",
-      image: "/about2.jpg",
-    },
-  ]
+type RepresentationsGridSectionProps = {
+  data: {
+    heading?: string
+    ctaHref?: string
+    ctaLabel?: string
+    items?: RepresentationCard[]
+  }
+}
 
-  const cards: RepresentationCard[] = data?.items?.length ? data.items : sample
+export const RepresentationsGridSection = ({ data }: RepresentationsGridSectionProps) => {
+  const [representations, setRepresentations] = useState<RepresentationCard[]>([])
+  const [loading, setLoading] = useState(true)
+
+  // Charger les représentations dynamiquement
+  useEffect(() => {
+    async function loadRepresentations() {
+      try {
+        const result = await client.queries.representationConnection({
+          first: 3, // On prend les 3 plus récentes
+        })
+
+        if (result?.data?.representationConnection?.edges) {
+          const loadedReps = result.data.representationConnection.edges
+            .filter(edge => edge?.node)
+            .map(edge => ({
+              slug: edge!.node!._sys.breadcrumbs.join('/'),
+              title: edge!.node!.title || '',
+              excerpt: edge!.node!.excerpt || edge!.node!.subtitle || '',
+              image: edge!.node!.hero || '',
+              date: edge!.node!.date || '',
+              city: edge!.node!.city || '',
+            }))
+            .sort((a, b) => {
+              if (!a.date || !b.date) return 0
+              return new Date(b.date).getTime() - new Date(a.date).getTime()
+            })
+          
+          setRepresentations(loadedReps)
+        }
+      } catch (error) {
+        console.error("Error loading representations:", error)
+        // En cas d'erreur, on utilise les items statiques du data si disponibles
+        if (data?.items?.length) {
+          setRepresentations(data.items)
+        }
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadRepresentations()
+  }, [data?.items])
+
+  // Utiliser les représentations dynamiques si disponibles, sinon fallback sur items statiques
+  let cards: RepresentationCard[] = []
+  
+  if (representations.length > 0) {
+    cards = representations
+  } else if (data?.items?.length) {
+    cards = data.items
+  }
 
   // on prend uniquement la première (mise en avant)
   const featured = cards[0]
-  if (!featured) return null
+  if (!featured && !loading) return null
+  if (loading && !data?.items?.length) {
+    return (
+      <Section background={data?.background} className="py-24 md:py-28 px-6 md:px-12 lg:pr-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center py-16">
+            <p className="text-black/60">Chargement des représentations...</p>
+          </div>
+        </div>
+      </Section>
+    )
+  }
 
   const container = { hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.06 } } }
   const fadeUp = { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } }
 
-  const heading = data?.heading ?? "Prochaine représentation"
+  const heading = data?.heading ?? "Dernières représentations"
   const ctaHref = data?.ctaHref ?? "/representations"
   const ctaLabel = data?.ctaLabel ?? "Voir les représentations"
 
@@ -153,7 +207,7 @@ export const representationsGridSectionBlockSchema: Template = {
   ui: {
     previewSrc: '/blocks/agenda.png',
     defaultItem: {
-      heading: 'Prochaine représentation',
+      heading: 'Dernières représentations',
       ctaHref: '/representations',
       ctaLabel: 'Voir les représentations',
     },
@@ -163,11 +217,15 @@ export const representationsGridSectionBlockSchema: Template = {
     { type: 'string', name: 'heading', label: 'Heading' },
     { type: 'string', name: 'ctaHref', label: 'CTA Link' },
     { type: 'string', name: 'ctaLabel', label: 'CTA Label' },
+    // Les items sont maintenant chargés dynamiquement, mais on garde le champ pour compatibilité/fallback
     {
       type: 'object',
       name: 'items',
-      label: 'Cards',
+      label: 'Cards (fallback)',
       list: true,
+      ui: {
+        description: 'Les représentations sont chargées automatiquement. Ce champ sert uniquement de fallback.',
+      },
       fields: [
         { type: 'string', name: 'slug', label: 'Slug' },
         { type: 'string', name: 'title', label: 'Title' },

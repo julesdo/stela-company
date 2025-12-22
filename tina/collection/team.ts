@@ -8,10 +8,29 @@ const Team: Collection = {
   format: 'mdx',
   ui: {
     router: ({ document }) => {
-      return `/equipe/${document._sys.breadcrumbs.join('/')}`;
+      const filepath = document._sys.breadcrumbs.join('/');
+      const locale = (document as any).lang || 'fr';
+      const basePath = locale === 'fr' ? '' : `/${locale}`;
+      const cleanPath = filepath.replace(/\.(fr|de|en|sr)$/, '');
+      return `${basePath}/equipe/${cleanPath}`;
     },
   },
   fields: [
+    {
+      type: 'string',
+      name: 'lang',
+      label: 'Langue',
+      options: [
+        { value: 'fr', label: 'Français' },
+        { value: 'de', label: 'Deutsch' },
+        { value: 'en', label: 'English' },
+        { value: 'sr', label: 'Српски' },
+      ],
+      required: false,
+      ui: {
+        defaultValue: 'fr',
+      },
+    },
     sectionBlockSchemaField as any,
     { type: 'string', name: 'name', label: 'Nom', isTitle: true, required: true },
     { type: 'string', name: 'role', label: 'Rôle' },

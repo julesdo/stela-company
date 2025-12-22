@@ -3,9 +3,9 @@ import React, { useState, useContext } from "react";
 import { GlobalQuery } from "../../tina/__generated__/types";
 
 interface LayoutState {
-  globalSettings: GlobalQuery["global"];
+  globalSettings: GlobalQuery["global"] | null | undefined;
   setGlobalSettings: React.Dispatch<
-    React.SetStateAction<GlobalQuery["global"]>
+    React.SetStateAction<GlobalQuery["global"] | null | undefined>
   >;
   pageData: {};
   setPageData: React.Dispatch<React.SetStateAction<{}>>;
@@ -30,7 +30,7 @@ export const useLayout = () => {
 
 interface LayoutProviderProps {
   children: React.ReactNode;
-  globalSettings: GlobalQuery["global"];
+  globalSettings: GlobalQuery["global"] | null | undefined;
   pageData: {};
 }
 
@@ -39,12 +39,16 @@ export const LayoutProvider: React.FC<LayoutProviderProps> = ({
   globalSettings: initialGlobalSettings,
   pageData: initialPageData,
 }) => {
-  const [globalSettings, setGlobalSettings] = useState<GlobalQuery["global"]>(
+  const [globalSettings, setGlobalSettings] = useState<GlobalQuery["global"] | null | undefined>(
     initialGlobalSettings
   );
   const [pageData, setPageData] = useState<{}>(initialPageData);
 
-  const theme = globalSettings.theme;
+  const theme = globalSettings?.theme || {
+    color: "blue",
+    font: "sans",
+    darkMode: "light"
+  };
 
   return (
     <LayoutContext.Provider

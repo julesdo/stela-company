@@ -16,6 +16,7 @@ const NAV_LINKS = [
   { label: 'Ateliers', href: '/ateliers' },
   { label: 'Représentations', href: '/representations' },
   { label: 'Équipe', href: '/equipe' },
+  { label: 'Engagements', href: '/engagements' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -29,29 +30,54 @@ export default function ArtisticFooter() {
   const footerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const links = footerRef.current!.querySelectorAll<HTMLElement>('.footer-item');
+    if (!footerRef.current) return;
+    
+    const links = footerRef.current.querySelectorAll<HTMLElement>('.footer-item');
+    
+    // S'assurer que les liens sont visibles par défaut (important pour Lenis)
+    links.forEach((el) => {
+      gsap.set(el, { opacity: 1, y: 0 });
+    });
 
-    gsap.from(links, {
+    // Attendre un peu pour que Lenis soit prêt, puis rafraîchir ScrollTrigger
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+
+    // Animation avec immediateRender: false pour éviter que les éléments restent invisibles
+    const animation = gsap.from(links, {
       y: 30,
       opacity: 0,
       stagger: 0.1,
       duration: 0.6,
       ease: 'power2.out',
+      immediateRender: false, // Important : ne pas rendre invisible au départ
       scrollTrigger: {
         trigger: footerRef.current,
         start: 'top bottom-=50',
         toggleActions: 'play none none none',
+        onRefresh: () => {
+          // S'assurer que les éléments sont visibles si le scroll est déjà passé le footer
+          if (window.scrollY + window.innerHeight > footerRef.current!.offsetTop) {
+            links.forEach((el) => {
+              gsap.set(el, { opacity: 1, y: 0 });
+            });
+          }
+        },
       },
     });
 
-    links.forEach((el) => {
-      const link = el.querySelector('a')!;
-      const tl = gsap.timeline({ paused: true });
-      tl.to(el, { backgroundColor: 'rgba(249, 250, 251, 1)', duration: 0.2 });
-      tl.to(link, { color: '#000000', duration: 0.2 }, 0);
-      el.addEventListener('mouseenter', () => tl.play());
-      el.addEventListener('mouseleave', () => tl.reverse());
-    });
+    // Plus d'effets GSAP au hover, juste le CSS pour le changement de couleur
+
+    return () => {
+      clearTimeout(timer);
+      animation?.kill();
+      ScrollTrigger.getAll().forEach(st => {
+        if (st.vars.trigger === footerRef.current) {
+          st.kill();
+        }
+      });
+    };
   }, []);
 
   return (
@@ -68,9 +94,9 @@ export default function ArtisticFooter() {
         {/* Navigation */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-center mb-16">
           {NAV_LINKS.map((link) => (
-            <div key={link.href} className="footer-item p-3 rounded-lg transition-all duration-300 hover:bg-gray-50">
+            <div key={link.href} className="footer-item">
               <Link 
-                className='text-lg font-medium text-gray-700 hover:text-black transition-colors duration-300 block' 
+                className='text-lg font-medium text-black/80 hover:text-black transition-colors duration-300 block' 
                 href={link.href}
               >
                 {link.label}
