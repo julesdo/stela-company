@@ -45,6 +45,7 @@ export const LayoutProvider: React.FC<LayoutProviderProps> = ({
   const [pageData, setPageData] = useState<{}>(initialPageData);
 
   const theme = globalSettings?.theme || {
+    __typename: "GlobalTheme" as const,
     color: "blue",
     font: "sans",
     darkMode: "light"

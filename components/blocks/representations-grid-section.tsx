@@ -25,6 +25,7 @@ type RepresentationsGridSectionProps = {
     ctaHref?: string
     ctaLabel?: string
     items?: RepresentationCard[]
+    background?: string
   }
 }
 

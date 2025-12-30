@@ -140,7 +140,9 @@ export const TeamDetail = ({ data }: { data: TeamDetailData }) => {
                 })
               ) : (
                 (() => {
-                  const cleanedMarkdown = (data.article || '')
+                  const articleValue = data.article as string[] | string | undefined;
+                  const articleText = Array.isArray(articleValue) ? articleValue.join('\n') : (String(articleValue || ''));
+                  const cleanedMarkdown = articleText
                     .replace(/\*\*\s+/g, '**')
                     .replace(/\s+\*\*/g, '**')
                   let html = cleanedMarkdown
@@ -150,9 +152,9 @@ export const TeamDetail = ({ data }: { data: TeamDetailData }) => {
                     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
                     .replace(/\*(.+?)\*/g, '<em>$1</em>')
                     .split(/\n\n+/)
-                    .map(para => para.trim())
-                    .filter(para => para.length > 0)
-                    .map(para => {
+                    .map((para: string) => para.trim())
+                    .filter((para: string) => para.length > 0)
+                    .map((para: string) => {
                       if (para.startsWith('<h')) return para
                       return `<p>${para.replace(/\n/g, '<br />')}</p>`
                     })

@@ -1,0 +1,22 @@
+diff --git a/dist/index.js b/dist/index.js
+index 39029f2d1916ff3f5fb029bf1ed4efb61696eff3..a6037f340077828f98f02f77d776586f7678c398 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -1946,11 +1946,13 @@ var createConfig = async ({
+        *  - `process.env.__NEXT_CROSS_ORIGIN`
+        *  - `process.env.__NEXT_I18N_SUPPORT`
+        *
+-       * Also, interestingly some of the advice for handling this doesn't work, references to replacing
+-       * `process.env` with `{}` are problematic, because browsers don't understand the `{}.` syntax,
+-       * but node does. This was a surprise, but using `new Object()` seems to do the trick.
++       * esbuild requires each environment variable to be defined individually as a JSON string literal.
++       * We map each variable from publicEnv to process.env.KEY format.
+        */
+-      "process.env": `new Object(${JSON.stringify(publicEnv)})`,
++      ...Object.keys(publicEnv).reduce((acc, key) => {
++        acc[`process.env.${key}`] = JSON.stringify(publicEnv[key]);
++        return acc;
++      }, {}),
+       // Used by picomatch https://github.com/micromatch/picomatch/blob/master/lib/utils.js#L4
+       "process.platform": `"${process.platform}"`,
+       __API_URL__: `"${apiURL}"`,

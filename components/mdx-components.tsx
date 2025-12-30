@@ -24,6 +24,10 @@ export const components: Components<{
     disclaimer?: TinaMarkdownContent;
   };
   video: PageBlocksVideo;
+  DownloadButton: {
+    href: string;
+    label: string;
+  };
 }> = {
   code_block: (props) => {
     if (!props) {

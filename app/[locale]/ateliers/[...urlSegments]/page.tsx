@@ -73,11 +73,11 @@ export async function generateStaticParams() {
         const cleanPath = filepath.replace(/\.(fr|de|en|sr)$/, '');
         
         return {
-          locale,
+          locale: locale as Locale,
           urlSegments: cleanPath.split('/'),
         };
       })
-      .filter((x): x is { locale: string; urlSegments: string[] } => x !== null);
+      .filter((x): x is { locale: Locale; urlSegments: string[] } => x !== null);
     
     if (atelierParams) {
       params.push(...atelierParams);
@@ -86,6 +86,7 @@ export async function generateStaticParams() {
 
   return params;
 }
+
 
 
 
