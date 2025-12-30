@@ -87,3 +87,5 @@ export async function generateStaticParams() {
   return params;
 }
 
+
+

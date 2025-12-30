@@ -107,5 +107,5 @@ These are rebuilt when your `tina` config changes.
 Licensed under the [Apache 2.0 license](./LICENSE).
 
 git add .
-git commit -m "maj 2.17 prod"
+git commit -m "maj 2.18 prod"
 git push -u origin main

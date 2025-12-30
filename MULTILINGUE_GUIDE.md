@@ -120,3 +120,5 @@ blocks:
 - Les fichiers français peuvent garder leur nom original (sans `.fr`)
 - Les fichiers traduits doivent avoir l'extension de langue : `.de.mdx`, `.en.mdx`, `.sr.mdx`
 
+
+
