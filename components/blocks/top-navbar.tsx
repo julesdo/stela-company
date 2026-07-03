@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils"
 const menuTranslations: Record<Locale, Record<string, string>> = {
   fr: {
     about: "À propos",
+    creations: "Créations",
     ateliers: "Ateliers",
     equipe: "Équipe",
     engagements: "Engagements",
@@ -17,6 +18,7 @@ const menuTranslations: Record<Locale, Record<string, string>> = {
   },
   de: {
     about: "Über uns",
+    creations: "Kreationen",
     ateliers: "Workshops",
     equipe: "Team",
     engagements: "Engagement",
@@ -24,6 +26,7 @@ const menuTranslations: Record<Locale, Record<string, string>> = {
   },
   en: {
     about: "About",
+    creations: "Creations",
     ateliers: "Workshops",
     equipe: "Team",
     engagements: "Commitments",
@@ -31,6 +34,7 @@ const menuTranslations: Record<Locale, Record<string, string>> = {
   },
   sr: {
     about: "О нама",
+    creations: "Креације",
     ateliers: "Радионице",
     equipe: "Тим",
     engagements: "Ангажовање",
@@ -38,11 +42,18 @@ const menuTranslations: Record<Locale, Record<string, string>> = {
   },
 }
 
+// Liens principaux (centre)
 const MENU_ITEMS = [
   { key: "about", href: "/about" },
+  { key: "creations", href: "/representations" },
   { key: "ateliers", href: "/ateliers" },
   { key: "equipe", href: "/equipe" },
   { key: "engagements", href: "/engagements" },
+]
+
+// Tous les items pour le menu mobile
+const ALL_ITEMS = [
+  ...MENU_ITEMS,
   { key: "contact", href: "/contact" },
 ]
 
@@ -74,6 +85,15 @@ export default function TopNavbar() {
     return menuTranslations[currentLocale][key] || menuTranslations[defaultLocale][key]
   }
 
+  const isLinkActive = (href: string): boolean => {
+    const localizedHref = getLocalizedHref(href)
+    return (
+      pathname === href ||
+      pathname === localizedHref ||
+      (isValidLocale && pathname === `/${currentLocale}${href}`)
+    )
+  }
+
   // Language switcher helpers
   const pathWithoutLocale = isValidLocale
     ? pathname.split("/").slice(2).join("/")
@@ -87,7 +107,6 @@ export default function TopNavbar() {
 
   useEffect(() => {
     const onScroll = () => {
-      // Bascule une fois qu'on a dépassé la hauteur du viewport (= fin du hero plein écran)
       setPastHero(window.scrollY > window.innerHeight - 80)
     }
     window.addEventListener("scroll", onScroll, { passive: true })
@@ -95,7 +114,6 @@ export default function TopNavbar() {
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileOpen(false)
   }, [pathname])
@@ -105,9 +123,15 @@ export default function TopNavbar() {
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      transition: { delay: 0.1 + i * 0.07, duration: 0.4, ease: "easeOut" },
+      transition: { delay: 0.08 + i * 0.06, duration: 0.4, ease: "easeOut" },
     }),
   }
+
+  const linkColor = isTransparent
+    ? "text-white/75 hover:text-white"
+    : "text-black/50 hover:text-black"
+  const linkActiveColor = isTransparent ? "text-white" : "text-black"
+  const underlineColor = isTransparent ? "bg-white" : "bg-black"
 
   return (
     <>
@@ -129,80 +153,73 @@ export default function TopNavbar() {
             <motion.img
               src="/logo-stela.svg"
               alt="La Stela Company"
-              className="h-12 w-auto hover:scale-105 transition-transform duration-300"
+              className="h-10 w-auto hover:opacity-80 transition-opacity duration-300"
               animate={{
-                filter: isTransparent
-                  ? "invert(1) brightness(2)"
-                  : "invert(0) brightness(1)",
+                filter: isTransparent ? "invert(1) brightness(2)" : "invert(0) brightness(1)",
               }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
             />
           </Link>
 
-          {/* Nav desktop */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {MENU_ITEMS.map((item, i) => {
-              const localizedHref = getLocalizedHref(item.href)
-              const isActive =
-                pathname === item.href ||
-                pathname === localizedHref ||
-                (isValidLocale && pathname === `/${currentLocale}${item.href}`)
-
-              return (
-                <motion.div
-                  key={item.href}
-                  custom={i}
-                  variants={navLinkVariants}
-                  initial="hidden"
-                  animate="visible"
+          {/* Nav desktop — centre */}
+          <nav className="hidden lg:flex items-center gap-7">
+            {MENU_ITEMS.map((item, i) => (
+              <motion.div key={item.href} custom={i} variants={navLinkVariants} initial="hidden" animate="visible">
+                <Link
+                  href={getLocalizedHref(item.href)}
+                  className={cn(
+                    "relative text-[11px] tracking-[0.2em] uppercase font-light transition-colors duration-300 group",
+                    isLinkActive(item.href) ? linkActiveColor : linkColor
+                  )}
                 >
-                  <Link
-                    href={localizedHref}
-                    className={cn(
-                      "relative text-xs tracking-[0.18em] uppercase font-light transition-colors duration-300 group",
-                      isTransparent
-                        ? isActive ? "text-white" : "text-white/70 hover:text-white"
-                        : isActive ? "text-black" : "text-black/50 hover:text-black"
-                    )}
-                  >
-                    {getTranslatedLabel(item.key)}
-                    <span
-                      className={cn(
-                        "absolute -bottom-1 left-0 h-px transition-all duration-300",
-                        isTransparent ? "bg-white" : "bg-black",
-                        isActive ? "w-full" : "w-0 group-hover:w-full"
-                      )}
-                    />
-                  </Link>
-                </motion.div>
-              )
-            })}
+                  {getTranslatedLabel(item.key)}
+                  <span className={cn(
+                    "absolute -bottom-0.5 left-0 h-px transition-all duration-300",
+                    underlineColor,
+                    isLinkActive(item.href) ? "w-full" : "w-0 group-hover:w-full"
+                  )} />
+                </Link>
+              </motion.div>
+            ))}
           </nav>
 
-          {/* Right side: language + hamburger */}
-          <div className="flex items-center gap-4">
+          {/* Droite : Contact · Lang · Burger */}
+          <div className="flex items-center gap-5">
+
+            {/* Contact — desktop only */}
+            <Link
+              href={getLocalizedHref("/contact")}
+              className={cn(
+                "hidden lg:inline-block text-[11px] tracking-[0.2em] uppercase font-light transition-colors duration-300",
+                isLinkActive("/contact") ? linkActiveColor : linkColor
+              )}
+            >
+              {getTranslatedLabel("contact")}
+            </Link>
+
+            {/* Séparateur vertical */}
+            <span className={cn(
+              "hidden lg:block w-px h-4 transition-colors duration-500",
+              isTransparent ? "bg-white/30" : "bg-black/15"
+            )} />
 
             {/* Language switcher */}
             <div
-              className="relative"
+              className="relative hidden lg:block"
               onMouseEnter={() => setLangOpen(true)}
               onMouseLeave={() => setLangOpen(false)}
             >
               <button
                 className={cn(
-                  "flex items-center gap-1.5 text-xs tracking-wider uppercase font-light transition-colors duration-300",
-                  isTransparent
-                    ? "text-white/80 hover:text-white"
-                    : "text-black/60 hover:text-black"
+                  "flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase font-light transition-colors duration-300",
+                  isTransparent ? "text-white/75 hover:text-white" : "text-black/50 hover:text-black"
                 )}
               >
-                <span>{localeFlags[currentLocale]}</span>
+                <span className="text-xs">{localeFlags[currentLocale]}</span>
                 <span>{currentLocale.toUpperCase()}</span>
                 <motion.svg
-                  className="w-2.5 h-2.5 opacity-60"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+                  className="w-2 h-2 opacity-50"
+                  fill="none" viewBox="0 0 24 24" stroke="currentColor"
                   animate={{ rotate: langOpen ? 180 : 0 }}
                   transition={{ duration: 0.25 }}
                 >
@@ -217,7 +234,7 @@ export default function TopNavbar() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -6, scale: 0.97 }}
                     transition={{ duration: 0.18 }}
-                    className="absolute top-full right-0 mt-3 bg-white/97 backdrop-blur-md border border-black/8 rounded-2xl shadow-lg overflow-hidden min-w-[140px]"
+                    className="absolute top-full right-0 mt-4 bg-white/98 backdrop-blur-md border border-black/8 rounded-2xl shadow-lg overflow-hidden min-w-[140px]"
                   >
                     {locales.map((loc) => {
                       const isActive = loc === currentLocale
@@ -229,7 +246,7 @@ export default function TopNavbar() {
                             "flex items-center gap-3 px-4 py-3 text-xs tracking-wide transition-all duration-200",
                             isActive
                               ? "bg-black/5 text-black font-medium"
-                              : "text-black/60 hover:bg-black/5 hover:text-black"
+                              : "text-black/55 hover:bg-black/4 hover:text-black"
                           )}
                         >
                           <span className="text-sm">{localeFlags[loc]}</span>
@@ -237,8 +254,7 @@ export default function TopNavbar() {
                           {isActive && (
                             <motion.div
                               className="ml-auto w-1.5 h-1.5 rounded-full bg-black"
-                              initial={{ scale: 0 }}
-                              animate={{ scale: 1 }}
+                              initial={{ scale: 0 }} animate={{ scale: 1 }}
                             />
                           )}
                         </Link>
@@ -251,13 +267,12 @@ export default function TopNavbar() {
 
             {/* Hamburger mobile */}
             <button
-              className="lg:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5"
+              className="lg:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px]"
               onClick={() => setMobileOpen(true)}
               aria-label="Ouvrir le menu"
             >
-              <span className={cn("block w-6 h-px transition-all duration-300", isTransparent ? "bg-white" : "bg-black")} />
-              <span className={cn("block w-4 h-px transition-all duration-300 self-end", isTransparent ? "bg-white" : "bg-black")} />
-              <span className={cn("block w-6 h-px transition-all duration-300", isTransparent ? "bg-white" : "bg-black")} />
+              <span className={cn("block w-5 h-px transition-all duration-300", isTransparent ? "bg-white" : "bg-black")} />
+              <span className={cn("block w-5 h-px transition-all duration-300", isTransparent ? "bg-white" : "bg-black")} />
             </button>
           </div>
         </div>
@@ -267,81 +282,74 @@ export default function TopNavbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="fixed inset-0 z-[60] bg-white lg:hidden"
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="fixed inset-0 z-[60] bg-white lg:hidden flex flex-col"
+            initial={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
+            animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
+            exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
+            transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
           >
-            <div className="flex flex-col h-full px-8 py-8">
-              {/* Header overlay */}
-              <div className="flex items-center justify-between mb-16">
-                <Link href={homeHref} onClick={() => setMobileOpen(false)}>
-                  <img src="/logo-stela.svg" alt="La Stela Company" className="h-10 w-auto" />
-                </Link>
-                <button
-                  onClick={() => setMobileOpen(false)}
-                  className="w-8 h-8 flex items-center justify-center text-black/60 hover:text-black transition-colors"
-                  aria-label="Fermer le menu"
-                >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
+            {/* Header */}
+            <div className="flex items-center justify-between px-8 h-20 border-b border-gray-100/60 flex-shrink-0">
+              <Link href={homeHref} onClick={() => setMobileOpen(false)}>
+                <img src="/logo-stela.svg" alt="La Stela Company" className="h-9 w-auto" />
+              </Link>
+              <button
+                onClick={() => setMobileOpen(false)}
+                className="w-8 h-8 flex items-center justify-center text-black/40 hover:text-black transition-colors"
+                aria-label="Fermer le menu"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
 
-              {/* Mobile nav links */}
-              <nav className="flex flex-col gap-6 flex-1">
-                {MENU_ITEMS.map((item, i) => {
-                  const localizedHref = getLocalizedHref(item.href)
-                  const isActive =
-                    pathname === item.href ||
-                    pathname === localizedHref ||
-                    (isValidLocale && pathname === `/${currentLocale}${item.href}`)
-
-                  return (
-                    <motion.div
-                      key={item.href}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.07, duration: 0.35, ease: "easeOut" }}
-                    >
-                      <Link
-                        href={localizedHref}
-                        onClick={() => setMobileOpen(false)}
-                        className={cn(
-                          "text-3xl font-light tracking-wide transition-colors duration-200",
-                          isActive ? "text-black" : "text-black/40 hover:text-black"
-                        )}
-                        style={{ fontFamily: "var(--font-dancing-script)" }}
-                      >
-                        {getTranslatedLabel(item.key)}
-                      </Link>
-                    </motion.div>
-                  )
-                })}
-              </nav>
-
-              {/* Language switcher mobile */}
-              <div className="flex gap-4 mt-8 pt-8 border-t border-gray-100">
-                {locales.map((loc) => {
-                  const isActive = loc === currentLocale
-                  return (
+            {/* Nav links */}
+            <nav className="flex flex-col justify-center flex-1 px-8 gap-2">
+              {ALL_ITEMS.map((item, i) => {
+                const isActive = isLinkActive(item.href)
+                return (
+                  <motion.div
+                    key={item.href}
+                    initial={{ opacity: 0, x: -16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + i * 0.06, duration: 0.35, ease: "easeOut" }}
+                  >
                     <Link
-                      key={loc}
-                      href={getLocaleHref(loc)}
+                      href={getLocalizedHref(item.href)}
                       onClick={() => setMobileOpen(false)}
                       className={cn(
-                        "flex items-center gap-1.5 text-xs tracking-widest uppercase transition-colors duration-200",
-                        isActive ? "text-black font-medium" : "text-black/40 hover:text-black"
+                        "block text-4xl font-light py-2 transition-colors duration-200",
+                        isActive ? "text-black" : "text-black/30 hover:text-black"
                       )}
+                      style={{ fontFamily: "var(--font-dancing-script)" }}
                     >
-                      <span>{localeFlags[loc]}</span>
-                      <span>{loc.toUpperCase()}</span>
+                      {getTranslatedLabel(item.key)}
                     </Link>
-                  )
-                })}
-              </div>
+                  </motion.div>
+                )
+              })}
+            </nav>
+
+            {/* Bottom: lang switcher */}
+            <div className="px-8 py-8 border-t border-gray-100/60 flex items-center gap-6">
+              {locales.map((loc) => {
+                const isActive = loc === currentLocale
+                return (
+                  <Link
+                    key={loc}
+                    href={getLocaleHref(loc)}
+                    onClick={() => setMobileOpen(false)}
+                    className={cn(
+                      "flex items-center gap-1.5 text-xs tracking-widest uppercase transition-colors duration-200",
+                      isActive ? "text-black font-medium" : "text-black/35 hover:text-black"
+                    )}
+                  >
+                    <span>{localeFlags[loc]}</span>
+                    <span>{loc.toUpperCase()}</span>
+                  </Link>
+                )
+              })}
             </div>
           </motion.div>
         )}
