@@ -9,41 +9,29 @@ import { tinaField } from "tinacms/dist/react"
 import { Section, sectionBlockSchemaField } from "../layout/section"
 
 export const HeroPrincipal = ({ data }: { data: any }) => {
-  // Animation variants
   const container = {
     hidden: {},
-    visible: { transition: { staggerChildren: 0.4 } }
+    visible: { transition: { staggerChildren: 0.18, delayChildren: 0.3 } }
   }
-  
-  const logoVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { 
-      opacity: 1, 
-      scale: 1, 
-      transition: { 
-        type: 'spring', 
-        stiffness: 150, 
-        damping: 25,
-        duration: 1.2 
-      } 
-    }
+
+  const kickerVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: 'easeOut' } }
   }
-  
-  const baselineVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.8, ease: 'easeOut' } 
-    }
+
+  const titleVariants = {
+    hidden: { opacity: 0, y: 18 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1.1, ease: 'easeOut' } }
   }
-  
-  const buttonVariants = {
-    hidden: { scale: 0 },
-    visible: { 
-      scale: 1, 
-      transition: { duration: 0.6, ease: 'easeOut' } 
-    }
+
+  const lineVariants = {
+    hidden: { opacity: 0, scaleX: 0 },
+    visible: { opacity: 1, scaleX: 1, transition: { duration: 0.8, ease: 'easeOut' } }
+  }
+
+  const scrollVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.8, delay: 0.2, ease: 'easeOut' } }
   }
 
 
@@ -92,37 +80,49 @@ export const HeroPrincipal = ({ data }: { data: any }) => {
       </div>
 
       <motion.div
-        className="relative z-10 text-center"
+        className="relative z-10 text-center px-8 max-w-5xl mx-auto"
         initial="hidden"
         animate="visible"
         variants={container}
       >
-        {/* Logo centré */}
-        <motion.div
-          className="mb-8"
-          variants={logoVariants as any}
+        {/* Kicker */}
+        <motion.p
+          variants={kickerVariants as any}
+          className="text-[10px] tracking-[0.55em] uppercase text-white/50 mb-8 font-light"
+          data-tina-field={tinaField(data, 'subline')}
         >
-          <Image
-            src="/logo.svg"
-            alt="La Stela Company"
-            width={200}
-            height={200}
-            className="mx-auto brightness-0 invert"
-            priority
-          />
-        </motion.div>
+          {subline}
+        </motion.p>
 
-        {/* Baseline */}
-        <motion.div
-          variants={baselineVariants as any}
-          className="mb-12"
+        {/* Titre principal */}
+        <motion.h1
+          variants={titleVariants as any}
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-white leading-[1.1] mb-10"
+          style={{ fontFamily: "var(--font-dancing-script)" }}
+          data-tina-field={tinaField(data, 'headline')}
         >
-          <h1 className="text-2xl md:text-8xl font-light text-white tracking-wide" data-tina-field={tinaField(data, 'headline')}>
-            {headline}
-          </h1>
-          <p className="text-lg text-white/70 mt-4 font-light" data-tina-field={tinaField(data, 'subline')}>
-            {subline}
-          </p>
+          {headline}
+        </motion.h1>
+
+        {/* Ligne fine */}
+        <motion.div
+          variants={lineVariants as any}
+          className="w-10 h-px bg-white/35 mx-auto mb-14 origin-center"
+        />
+
+        {/* Scroll indicator */}
+        <motion.div
+          variants={scrollVariants as any}
+          className="flex flex-col items-center gap-3"
+        >
+          <span className="text-[9px] tracking-[0.45em] uppercase text-white/35 font-light">
+            Défiler
+          </span>
+          <motion.div
+            className="w-px h-10 bg-white/25"
+            animate={{ scaleY: [1, 0.4, 1], opacity: [0.35, 0.7, 0.35] }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+          />
         </motion.div>
       </motion.div>
 
