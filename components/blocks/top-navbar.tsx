@@ -104,10 +104,10 @@ export default function TopNavbar() {
     <>
       <motion.header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-colors duration-500",
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
           scrolled
-            ? "bg-white/95 backdrop-blur-sm border-b border-gray-100/80"
-            : "bg-transparent"
+            ? "bg-white/95 backdrop-blur-sm border-b border-gray-100/80 shadow-sm"
+            : "bg-white/80 backdrop-blur-sm"
         )}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -117,16 +117,10 @@ export default function TopNavbar() {
 
           {/* Logo */}
           <Link href={homeHref} className="flex-shrink-0">
-            <motion.img
+            <img
               src="/logo-stela.svg"
               alt="La Stela Company"
               className="h-12 w-auto hover:scale-105 transition-transform duration-300"
-              animate={{
-                filter: scrolled
-                  ? "invert(0) brightness(1)"
-                  : "invert(1) brightness(0.9) contrast(1.1)",
-              }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
             />
           </Link>
 
@@ -151,16 +145,13 @@ export default function TopNavbar() {
                     href={localizedHref}
                     className={cn(
                       "relative text-xs tracking-[0.18em] uppercase font-light transition-colors duration-300 group",
-                      scrolled
-                        ? isActive ? "text-black" : "text-black/50 hover:text-black"
-                        : isActive ? "text-white" : "text-white/70 hover:text-white"
+                      isActive ? "text-black" : "text-black/50 hover:text-black"
                     )}
                   >
                     {getTranslatedLabel(item.key)}
                     <span
                       className={cn(
-                        "absolute -bottom-1 left-0 h-px transition-all duration-300",
-                        scrolled ? "bg-black" : "bg-white",
+                        "absolute -bottom-1 left-0 h-px bg-black transition-all duration-300",
                         isActive ? "w-full" : "w-0 group-hover:w-full"
                       )}
                     />
@@ -180,10 +171,7 @@ export default function TopNavbar() {
               onMouseLeave={() => setLangOpen(false)}
             >
               <button
-                className={cn(
-                  "flex items-center gap-1.5 text-xs tracking-wider uppercase font-light transition-colors duration-300",
-                  scrolled ? "text-black/60 hover:text-black" : "text-white/70 hover:text-white"
-                )}
+                className="flex items-center gap-1.5 text-xs tracking-wider uppercase font-light text-black/60 hover:text-black transition-colors duration-300"
               >
                 <span>{localeFlags[currentLocale]}</span>
                 <span>{currentLocale.toUpperCase()}</span>
@@ -240,16 +228,13 @@ export default function TopNavbar() {
 
             {/* Hamburger mobile */}
             <button
-              className={cn(
-                "lg:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5 transition-colors duration-300",
-                scrolled ? "text-black" : "text-white"
-              )}
+              className="lg:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5"
               onClick={() => setMobileOpen(true)}
               aria-label="Ouvrir le menu"
             >
-              <span className={cn("block w-6 h-px transition-all duration-300", scrolled ? "bg-black" : "bg-white")} />
-              <span className={cn("block w-4 h-px transition-all duration-300 self-end", scrolled ? "bg-black" : "bg-white")} />
-              <span className={cn("block w-6 h-px transition-all duration-300", scrolled ? "bg-black" : "bg-white")} />
+              <span className="block w-6 h-px bg-black transition-all duration-300" />
+              <span className="block w-4 h-px bg-black transition-all duration-300 self-end" />
+              <span className="block w-6 h-px bg-black transition-all duration-300" />
             </button>
           </div>
         </div>
