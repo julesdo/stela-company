@@ -66,7 +66,7 @@ export default function TopNavbar() {
   // Locale detection
   const pathSegments = pathname.split("/").filter(Boolean)
   const firstSegment = pathSegments[0]
-  const isValidLocale = firstSegment && locales.includes(firstSegment as Locale)
+  const isValidLocale = !!(firstSegment && locales.includes(firstSegment as Locale))
   const currentLocale: Locale = isValidLocale ? (firstSegment as Locale) : defaultLocale
   const homeHref = currentLocale === defaultLocale ? "/" : `/${currentLocale}`
 
