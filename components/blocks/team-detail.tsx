@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 import React from "react"
 import Image from "next/image"
 import Link from "next/link"
@@ -84,7 +84,7 @@ export const TeamDetail = ({ data }: { data: TeamDetailData }) => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent" />
 
           {/* Nom + rôle en overlay bas-gauche */}
-          <div className="absolute bottom-0 left-0 right-0 px-6 md:px-12 lg:pr-20 pb-8 md:pb-10">
+          <div className="absolute bottom-0 left-0 right-0 px-6 md:px-12 lg:px-20 pb-8 md:pb-10">
             <div>
               <p className="text-white/80 text-sm md:text-base" data-tina-field={tinaField(data, 'role')}>
                 {data.role}
@@ -98,7 +98,7 @@ export const TeamDetail = ({ data }: { data: TeamDetailData }) => {
       </section>
 
       {/* Layout article + colonne de faits */}
-      <section className="px-6 md:px-12 lg:pr-20">
+      <section className="px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-16">
           {/* Article (prose) */}
           <div className="lg:col-span-7">
@@ -195,7 +195,7 @@ export const TeamDetail = ({ data }: { data: TeamDetailData }) => {
 
       {/* GALERIE */}
       {data.gallery?.length ? (
-        <section className="px-6 md:px-12 lg:pr-20">
+        <section className="px-6 md:px-12 lg:px-20">
           <div className="max-w-7xl mx-auto mt-12">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6" data-tina-field={tinaField(data, 'gallery')}>
               {data.gallery.map((g, i) => (
@@ -216,7 +216,7 @@ export const TeamDetail = ({ data }: { data: TeamDetailData }) => {
       ) : null}
 
       {/* Retour minimal */}
-      <section className="pb-24 px-6 md:px-12 lg:pr-20">
+      <section className="pb-24 px-6 md:px-12 lg:px-20">
         <div className="max-w-5xl mx-auto">
           <Link href="/equipe" className="text-xs text-black/50 hover:text-black transition">retour à l'équipe →</Link>
         </div>

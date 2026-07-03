@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -72,7 +72,7 @@ export default function CharteElements() {
   }
 
   return (
-    <section className="py-32 px-6 md:px-12 lg:pr-20 bg-muted/5">
+    <section className="py-32 px-6 md:px-12 lg:px-20 bg-muted/5">
       <motion.div
         className="max-w-7xl mx-auto"
         initial="hidden"

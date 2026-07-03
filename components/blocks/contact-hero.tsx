@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -31,7 +31,7 @@ export const ContactHero = ({ data }: { data: PageBlocksContactHero }) => {
   }
 
   return (
-    <Section data={data as any} className="min-h-screen flex items-center py-24 px-6 md:px-12 lg:pr-20">
+    <Section data={data as any} className="min-h-screen flex items-center py-24 px-6 md:px-12 lg:px-20">
       <motion.div
         className="max-w-6xl mx-auto w-full text-center"
         initial="hidden"

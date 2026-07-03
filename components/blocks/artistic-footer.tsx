@@ -21,9 +21,7 @@ const NAV_LINKS = [
 ];
 
 const SOCIAL_LINKS = [
-  { label: 'Instagram', href: 'https://www.instagram.com/stela_arts/' },
-  { label: 'Facebook',  href: 'https://www.facebook.com/stela.arts' },
-  { label: 'X',   href: 'https://x.com/stela_arts' },
+  { label: 'Instagram', href: 'https://www.instagram.com/la_stela_company/' },
 ];
 
 export default function ArtisticFooter() {

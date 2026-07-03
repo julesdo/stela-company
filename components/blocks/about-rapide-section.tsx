@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -45,15 +45,15 @@ export const AboutRapideSection = ({ data }: { data: any }) => {
   }
 
   const heading = data?.heading ?? 'La Stela Company'
-  const p1 = data?.p1 ?? "Stela Elena Stankovic tisse des ponts entre théâtre, danse, musique et langues. L'art devient un vecteur de connexion, de liberté et d'émotion partagée."
-  const p2 = data?.p2 ?? "Un laboratoire créatif en ébullition, reliant la France, l'Allemagne et la Serbie. Chaque discipline se nourrit des autres pour créer une expérience artistique unique."
-  const quote = data?.quote ?? "L'art n'a pas de frontières, il unit les âmes par-delà les mots."
+  const p1 = data?.p1 ?? "Stela Elena Stankovic tisse des ponts entre théâtre, danse, musique et langues. Sa première création, Médée MEDEA, explore le lien entre le corps, la voix et la mémoire émotionnelle à travers le geste et les langues étrangères."
+  const p2 = data?.p2 ?? "La compagnie défend une vision de l'art qui rassemble la diversité des langues étrangères pour créer une œuvre commune — née de la rencontre entre la France, l'Allemagne et la Serbie."
+  const quote = data?.quote ?? "Le corps devient l'instrument d'une réécriture intime. De cette traversée émerge une langue universelle."
   const buttonHref = data?.buttonHref ?? '/about'
   const buttonLabel = data?.buttonLabel ?? 'Notre histoire'
   const portrait = data?.portrait ?? '/stela.png'
 
   return (
-    <Section background={data?.background} className="py-32 px-6 md:px-12 lg:pr-20">
+    <Section background={data?.background} className="py-32 px-6 md:px-12 lg:px-20">
         <motion.div
           className="max-w-7xl mx-auto"
           initial="hidden"

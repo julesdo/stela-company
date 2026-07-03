@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -94,7 +94,7 @@ export const TeamList = ({ data }: { data: any }) => {
     <Section background={data?.background} className="bg-white">
       <main className="bg-white">
         {/* Hero Section */}
-        <section className="px-6 md:px-12 lg:pr-20 py-16" data-tina-field={tinaField(data)}>
+        <section className="px-6 md:px-12 lg:px-20 py-16" data-tina-field={tinaField(data)}>
           <div className="max-w-7xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-light text-black mb-8" data-tina-field={tinaField(data, 'title')}>
               {data?.title || t.title}
@@ -106,7 +106,7 @@ export const TeamList = ({ data }: { data: any }) => {
         </section>
 
         {/* Team Grid */}
-        <section className="px-6 md:px-12 lg:pr-20 pb-24">
+        <section className="px-6 md:px-12 lg:px-20 pb-24">
           <div className="max-w-7xl mx-auto">
             {teamMembers.length === 0 ? (
               <div className="text-center py-12 text-black/60">Chargement des membres de l'équipe...</div>

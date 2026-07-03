@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -28,7 +28,7 @@ export default function AgendaHero() {
   }
 
   return (
-    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden lg:pr-20">
+    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden lg:px-20">
       {/* Arrière-plan artistique */}
       <div className="absolute inset-0 w-full h-full">
         <div className="relative w-full h-full bg-gradient-to-br from-background via-muted/20 to-primary/5">

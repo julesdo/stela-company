@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -27,7 +27,7 @@ export default function AboutEssence() {
   }
 
   return (
-    <section className="py-32 px-6 md:px-12 lg:pr-20">
+    <section className="py-32 px-6 md:px-12 lg:px-20">
       <motion.div
         className="max-w-5xl mx-auto"
         initial="hidden"
@@ -45,8 +45,8 @@ export default function AboutEssence() {
           </h2>
           
           <blockquote className="text-2xl md:text-3xl font-playfair font-light text-foreground leading-relaxed">
-            "L'art véritable naît dans l'espace où se rencontrent 
-            la technique et l'émotion pure."
+            « En mêlant parole et geste, j'ouvre de nouvelles voies
+            à l'intérieur de mon intériorité. »
           </blockquote>
         </motion.div>
 
@@ -93,16 +93,15 @@ export default function AboutEssence() {
         >
           <div className="max-w-4xl mx-auto space-y-8 text-lg font-playfair text-muted-foreground leading-relaxed">
             <p>
-              Chaque création de La Stela Company naît d'une collaboration 
-              authentique entre artistes de différents horizons. 
-              Nous explorons de nouvelles formes d'expression, 
-              mélangeant traditions et innovations.
+              La Stela Company est une association Loi 1901, née en mars 2024
+              et basée à Paris V. Elle rassemble théâtre, danse, musique
+              et langues au sein d'un espace commun de créativité.
             </p>
-            
+
             <p className="text-foreground">
-              Notre mission est de créer des expériences artistiques 
-              transformatrices qui révèlent la beauté 
-              de notre humanité commune.
+              La compagnie défend une vision de l'art qui permet de rassembler
+              la diversité des langues étrangères afin de créer une œuvre commune,
+              portée en résonance avec les origines franco-serbo-allemandes de sa fondatrice.
             </p>
           </div>
         </motion.div>

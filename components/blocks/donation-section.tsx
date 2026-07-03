@@ -1,4 +1,4 @@
-// components/blocks/donation-section.tsx
+﻿// components/blocks/donation-section.tsx
 "use client"
 
 import React from "react"
@@ -39,7 +39,7 @@ export const DonationSection = ({
   }
 
   return (
-    <Section background={data?.background} className="py-20 md:py-28 px-6 md:px-12 lg:pr-20">
+    <Section background={data?.background} className="py-20 md:py-28 px-6 md:px-12 lg:px-20">
       <motion.div
         className="max-w-4xl mx-auto text-center"
         initial="hidden"

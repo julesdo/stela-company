@@ -1,14 +1,12 @@
-"use client"
+﻿"use client"
 
 import React, { useState } from "react"
 import { motion } from "framer-motion"
 
-// Données d'exemple pour le calendrier
 const calendarEvents = {
-  "2024-02-15": [{ title: "Corps en Mouvement", type: "danse", time: "20h30" }],
-  "2024-02-22": [{ title: "Fragments de Mémoire", type: "theatre", time: "19h00" }],
-  "2024-03-05": [{ title: "Atelier Voix & Mouvement", type: "atelier", time: "14h00" }],
-  "2024-03-12": [{ title: "Soirée Multilingue", type: "langue", time: "18h30" }],
+  "2025-09-20": [{ title: "Médée MEDEA — Extrait", type: "danse", time: "à préciser" }],
+  "2026-01-29": [{ title: "Médée MEDEA — Extrait", type: "danse", time: "à préciser" }],
+  "2026-11-13": [{ title: "Médée MEDEA — Première", type: "danse", time: "à préciser" }],
 }
 
 export default function AgendaCalendar() {
@@ -95,7 +93,7 @@ export default function AgendaCalendar() {
   }
 
   return (
-    <section className="py-24 px-6 md:px-12 lg:pr-20 bg-muted/20">
+    <section className="py-24 px-6 md:px-12 lg:px-20 bg-muted/20">
       <motion.div
         className="max-w-6xl mx-auto"
         initial="hidden"

@@ -1,4 +1,4 @@
-// components/blocks/engagements-grid.tsx
+﻿// components/blocks/engagements-grid.tsx
 "use client"
 
 import React from "react"
@@ -19,7 +19,7 @@ export const EngagementsGrid = ({
   const items = Array.isArray(data?.items) ? data.items : []
 
   return (
-    <Section background={data?.background} className="py-16 md:py-20 px-6 md:px-12 lg:pr-20">
+    <Section background={data?.background} className="py-16 md:py-20 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto">
         {heading && (
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-black mb-6 md:mb-8" data-tina-field={tinaField(data, 'heading')}>

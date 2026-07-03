@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React, { useEffect, useState } from "react"
 import Image from "next/image"
@@ -25,7 +25,7 @@ export const PartnersCarousel = ({ data }: { data: any }) => {
 
   return (
     <Section data={data} className="py-16 md:py-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:pr-20">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
         {/* Titre */}
         <div className="text-center mb-12">
           <h2 

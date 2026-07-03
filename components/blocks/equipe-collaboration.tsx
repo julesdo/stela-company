@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -28,7 +28,7 @@ export default function EquipeCollaboration() {
   }
 
   return (
-    <section className="py-32 px-6 md:px-12 lg:pr-20 bg-muted/5">
+    <section className="py-32 px-6 md:px-12 lg:px-20 bg-muted/5">
       <motion.div
         className="max-w-5xl mx-auto text-center"
         initial="hidden"
@@ -46,8 +46,7 @@ export default function EquipeCollaboration() {
           </h2>
           
           <blockquote className="text-2xl md:text-3xl font-playfair font-light text-foreground leading-relaxed max-w-4xl mx-auto">
-            "Chaque création naît de la rencontre entre des univers artistiques différents, 
-            créant ensemble quelque chose de plus grand que la somme de nos talents individuels."
+            « En mêlant parole et geste, j'ouvre de nouvelles voies à l'intérieur de mon intériorité. »
           </blockquote>
         </motion.div>
 
@@ -58,15 +57,14 @@ export default function EquipeCollaboration() {
         >
           <div className="max-w-4xl mx-auto space-y-8 text-lg font-playfair text-muted-foreground leading-relaxed">
             <p>
-              Au-delà de notre équipe permanente, nous collaborons régulièrement 
-              avec des musiciens, des plasticiens, des écrivains et des artistes 
-              de toutes disciplines pour enrichir nos créations.
+              Médée MEDEA est une création collective née de la rencontre entre danse,
+              théâtre, musique vivante et langues étrangères. Chaque artiste apporte
+              son univers propre pour tisser ensemble une œuvre commune.
             </p>
-            
+
             <p className="text-foreground">
-              Cette approche collaborative nous permet d'explorer 
-              constamment de nouveaux territoires artistiques 
-              et de repousser les limites de nos expressions.
+              La compagnie est ouverte aux collaborations artistiques,
+              aux projets de diffusion et aux partenariats institutionnels.
             </p>
           </div>
         </motion.div>

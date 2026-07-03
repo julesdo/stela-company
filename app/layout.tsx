@@ -10,9 +10,7 @@ import { TailwindIndicator } from "@/components/ui/breakpoint-indicator";
 import GrandioseCursor from "@/components/cursor";
 import { ThemeProvider } from "@/components/magicui/theme-provider";
 import ArtisticFooter from "@/components/blocks/artistic-footer";
-import SidebarMenu from "@/components/blocks/sidebar-menu";
-import MobileMenu from "@/components/blocks/mobile-menu";
-import { LanguageSwitcher } from "@/components/language-switcher";
+import TopNavbar from "@/components/blocks/top-navbar";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -68,9 +66,7 @@ export default function RootLayout({
 
         <VideoDialogProvider>
           <GrandioseCursor />
-          <SidebarMenu />
-          <LanguageSwitcher />
-          {/* <MobileMenu /> */}
+          <TopNavbar />
           {children}
           <ArtisticFooter />
           <VideoDialog />

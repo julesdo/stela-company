@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -81,7 +81,7 @@ export default function TheatreGallery() {
   }
 
   return (
-    <section className="py-32 px-6 md:px-12 lg:pr-20">
+    <section className="py-32 px-6 md:px-12 lg:px-20">
       <motion.div
         className="max-w-7xl mx-auto"
         initial="hidden"

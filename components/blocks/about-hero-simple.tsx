@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -28,7 +28,7 @@ export default function AboutHeroSimple() {
   }
 
   return (
-    <section className="min-h-screen flex items-center py-24 px-6 md:px-12 lg:pr-20">
+    <section className="min-h-screen flex items-center py-24 px-6 md:px-12 lg:px-20">
       <motion.div
         className="max-w-7xl mx-auto w-full"
         initial="hidden"
@@ -52,18 +52,18 @@ export default function AboutHeroSimple() {
             {/* Texte principal */}
             <div className="space-y-8 text-xl md:text-2xl leading-relaxed font-playfair font-light text-muted-foreground">
               <p>
-                <strong className="text-foreground font-medium">Stela Elena Stankovic</strong> 
-                crée des ponts entre théâtre, danse et langues. 
-                Née entre la France, l'Allemagne et la Serbie, 
-                elle puise dans cette richesse multiculturelle 
-                l'essence de son art.
+                Danseuse et comédienne serbe-allemande née à Munich,
+                <strong className="text-foreground font-medium"> Stela Elena Stankovic</strong>
+                enchaîne les concours de danse en Allemagne, intègre la
+                California Ballet Company de San Diego, étudie la sociologie
+                et la philosophie à Paris, puis travaille à Los Angeles
+                autour des méthodes de l'Actors Studio.
               </p>
-              
+
               <p>
-                La Stela Company est un laboratoire artistique 
-                où chaque discipline nourrit les autres, 
-                créant des expériences qui transcendent 
-                les frontières traditionnelles.
+                La Stela Company, association née en mars 2024 et basée à Paris V,
+                est née du besoin vital de rassembler théâtre, danse, musique
+                et langues au sein d'un espace commun de créativité.
               </p>
             </div>
           </motion.div>

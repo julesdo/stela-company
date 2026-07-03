@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import Image from "next/image"
@@ -70,7 +70,7 @@ export const AtelierDetail = ({ data }: { data: any }) => {
             />
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 px-6 md:px-12 lg:pr-20 pb-8 md:pb-10">
+          <div className="absolute bottom-0 left-0 right-0 px-6 md:px-12 lg:px-20 pb-8 md:pb-10">
             <h1 className="text-white font-light leading-[1.05] text-3xl md:text-5xl lg:text-6xl" data-tina-field={tinaField(data, 'title')}>
               {title}
             </h1>
@@ -91,7 +91,7 @@ export const AtelierDetail = ({ data }: { data: any }) => {
       </Section>
 
       {/* BODY */}
-      <Section className="py-16 md:py-20 px-6 md:px-12 lg:pr-20">
+      <Section className="py-16 md:py-20 px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-16">
           {/* article */}
           <div className="lg:col-span-7">
@@ -349,7 +349,7 @@ export const AtelierDetail = ({ data }: { data: any }) => {
         </div>
       </Section>
 
-      <Section className="pb-24 px-6 md:px-12 lg:pr-20">
+      <Section className="pb-24 px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto text-right">
           <Link href="/ateliers" className="text-xs text-black/50 hover:text-black transition">
             retour aux ateliers →

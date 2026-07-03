@@ -1,4 +1,4 @@
-// components/blocks/engagements-hero.tsx
+﻿// components/blocks/engagements-hero.tsx
 "use client"
 
 import { motion, useScroll, useTransform } from "framer-motion"
@@ -50,7 +50,7 @@ export const EngagementsHero = ({
 
           <motion.div
             style={{ y, opacity }}
-            className="relative z-10 px-6 md:px-12 lg:pr-20 py-16 md:py-24 w-full"
+            className="relative z-10 px-6 md:px-12 lg:px-20 py-16 md:py-24 w-full"
           >
             {kicker && (
               <div className="text-sm tracking-wider uppercase text-black/55 mb-4" data-tina-field={tinaField(data, 'kicker')}>{kicker}</div>

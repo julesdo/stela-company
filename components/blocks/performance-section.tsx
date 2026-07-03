@@ -11,10 +11,9 @@ interface Performance {
 }
 
 const performances: Performance[] = [
-  { date: "12 Sept. 2025", title: "Spectacle d'ouverture",   img: "/about1.jpg" },
-  { date: "03 Oct. 2025",  title: "Soirée contemporaine",    img: "/about2.jpg" },
-  { date: "21 Nov. 2025",  title: "Gala international",      img: "/about3.jpg" },
-  { date: "15 Déc. 2025",  title: "Performance de rue",      img: "/about1.jpg" },
+  { date: "20 Sept. 2025", title: "Médée MEDEA — Extrait (Festival du Saule)", img: "/about1.jpg" },
+  { date: "29 Jan. 2026",  title: "Médée MEDEA — Extrait (Théâtre Douze, Paris)", img: "/about2.jpg" },
+  { date: "13 Nov. 2026",  title: "Médée MEDEA — Première (Centre Sorano, Vincennes)", img: "/about3.jpg" },
 ];
 
 export default function HorizontalGallery() {

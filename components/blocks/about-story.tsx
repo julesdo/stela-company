@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -27,7 +27,7 @@ export default function AboutStory() {
   }
 
   return (
-    <section className="py-32 px-6 md:px-12 lg:pr-20 bg-muted/10">
+    <section className="py-32 px-6 md:px-12 lg:px-20 bg-muted/10">
       <motion.div
         className="max-w-5xl mx-auto"
         initial="hidden"
@@ -61,14 +61,14 @@ export default function AboutStory() {
                 </h3>
                 <div className="space-y-4 text-lg font-playfair leading-relaxed text-muted-foreground">
                   <p>
-                    Née entre <strong className="text-foreground">France, Allemagne et Serbie</strong>, 
-                    Stela Elena Stankovic puise dans cette richesse multiculturelle 
-                    l'essence même de son art. Chaque langue portée en elle devient 
-                    un instrument, chaque territoire un terrain d'exploration.
+                    Danseuse et comédienne serbe-allemande née à <strong className="text-foreground">Munich</strong>,
+                    Stela Elena Stankovic grandit entre la France, l'Allemagne et la Serbie.
+                    Chaque langue portée en elle devient un instrument,
+                    chaque territoire un terrain d'exploration artistique.
                   </p>
                   <p>
-                    Cette multiplicité identitaire forge une artiste unique, 
-                    capable de <span className="text-primary italic">transcender les barrières linguistiques</span> 
+                    Cette multiplicité identitaire forge une artiste unique,
+                    capable de <span className="text-primary italic">transcender les barrières linguistiques</span>
                     pour créer un langage universel fait de corps, de voix et d'émotions.
                   </p>
                 </div>
@@ -112,14 +112,14 @@ export default function AboutStory() {
                 </h3>
                 <div className="space-y-4 text-lg font-playfair leading-relaxed text-muted-foreground">
                   <p>
-                    Des conservatoires européens aux studios underground, 
-                    Stela forge sa technique dans la <strong className="text-foreground">discipline</strong> 
-                    et nourrit sa créativité dans l'<span className="text-accent italic">expérimentation</span>.
+                    Elle enchaîne les concours de danse en Allemagne,
+                    intègre la <strong className="text-foreground">California Ballet Company</strong> de San Diego,
+                    étudie la sociologie et la philosophie à Paris,
+                    puis travaille à Los Angeles autour des méthodes de l'<span className="text-accent italic">Actors Studio</span>.
                   </p>
                   <p>
-                    Chaque rencontre, chaque maître, chaque collaboration 
-                    devient une pierre supplémentaire dans l'édifice 
-                    de sa vision artistique pluridisciplinaire.
+                    Elle réalise également des documentaires pour ARTE en collaboration avec le collectif WALLIS,
+                    et conçoit des ateliers de danse-langue pour le jeune public.
                   </p>
                 </div>
               </div>
@@ -146,16 +146,15 @@ export default function AboutStory() {
                 </h3>
                 <div className="space-y-4 text-lg font-playfair leading-relaxed text-muted-foreground">
                   <p>
-                    En 2020, au cœur d'un monde en quête de connexion, 
-                    naît <strong className="text-primary">La Stela Company</strong>. 
-                    Plus qu'une compagnie, c'est un laboratoire vivant où 
-                    <span className="italic">théâtre, danse et langues</span> se rencontrent 
-                    et se réinventent.
+                    En mars 2024, naît <strong className="text-primary">La Stela Company</strong>,
+                    association Loi 1901 basée à Paris V. Née du besoin vital de rassembler
+                    <span className="italic"> théâtre, danse, musique et langues</span> au sein d'un espace
+                    commun de créativité.
                   </p>
                   <p>
-                    Chaque création devient une invitation au voyage, 
-                    chaque représentation un pont jeté entre les cultures, 
-                    chaque atelier une exploration des <span className="text-accent">possibles artistiques</span>.
+                    La première création, <span className="text-accent">Médée MEDEA</span>, explore
+                    le lien entre corps, voix et mémoire émotionnelle à travers le geste
+                    et les langues étrangères.
                   </p>
                 </div>
               </div>

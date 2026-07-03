@@ -1,78 +1,85 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
-import { FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa"
-import MagneticButton from "../ui/magnetic-button"
+import { FaInstagram } from "react-icons/fa"
 
 const teamMembers = [
   {
     name: "Stela Elena Stankovic",
-    role: "Fondatrice & Directrice Artistique",
-    description: "Artiste pluridisciplinaire franco-germano-serbe, elle orchestre la vision créative de la compagnie entre danse, théâtre et langues.",
+    role: "Chorégraphe & Directrice Artistique",
+    description: "Danseuse et comédienne serbe-allemande née à Munich, elle intègre la California Ballet Company de San Diego, étudie la sociologie et la philosophie à Paris, puis travaille à Los Angeles autour des méthodes de l'Actors Studio.",
     image: "/stela.png"
   },
   {
-    name: "Marie Dubois",
-    role: "Chorégraphe Associée",
-    description: "Spécialiste de la danse contemporaine, elle apporte sa sensibilité poétique aux créations de la compagnie.",
+    name: "Jean Guizerix",
+    role: "Avec la complicité de — Chorégraphie",
+    description: "Ancienne Étoile à l'Opéra de Paris, il a participé aux créations de Merce Cunningham, Rudolf Noureev et Karole Armitage. Grand Prix national de la Danse 1984, Chevalier de la Légion d'Honneur 2012.",
     image: "/stela.png"
   },
   {
-    name: "Thomas Müller",
-    role: "Metteur en Scène",
-    description: "Dramaturge et metteur en scène, il explore les territoires narratifs entre les langues et les cultures.",
+    name: "Mélen Constant",
+    role: "Danseur & Chorégraphe",
+    description: "Interprète français formé au Ballet Junior de Genève et à l'Ensemble Program SUB.LAB.PRO à Budapest. Fondateur de la compagnie ARAN, accompagné par La Fabrique de la Danse pour la saison 2025.",
+    image: "/stela.png"
+  },
+  {
+    name: "Matthieu Lecoq",
+    role: "Musicien en direct & Compositeur",
+    description: "Musique en direct mêlant improvisation et dialogue avec les danseurs. Recherche amorcée avec Jean-Jacques Lemêtre (Théâtre du Soleil) vers une musique organique entre théâtre et transe.",
     image: "/stela.png"
   }
 ]
 
-// Détails étoffés + liens
 const extendedDetails: Record<
   string,
-  { long: string; highlights: string[]; links?: { instagram?: string; twitter?: string; linkedin?: string }; portfolio?: string }
+  { long: string; highlights: string[]; signature: string; citation: string; links?: { instagram?: string } }
 > = {
   "Stela Elena Stankovic": {
     long:
-      "Formée entre Paris et Berlin, Stela tisse des ponts entre danse, théâtre et musicalité des langues. Elle dirige des projets multilingues où le geste devient une syntaxe et le silence, une respiration dramaturgique. Sa direction artistique se distingue par une exigence chorégraphique et une attention aux dramaturgies du corps, faisant dialoguer les scènes européennes autour d’esthétiques épurées et puissantes.",
+      "Danseuse et comédienne serbe-allemande née à Munich, Stela Elena Stankovic enchaîne les concours de danse en Allemagne, intègre la California Ballet Company de San Diego, étudie la sociologie et la philosophie à Paris, puis travaille à Los Angeles autour des méthodes de l’Actors Studio. Elle réalise également des documentaires engagés sur l’art et la culture pour ARTE et d’autres médias, en collaboration avec le collectif WALLIS. Elle conçoit et anime par ailleurs des ateliers de danse-langue pour le jeune public, alliant apprentissage corporel et acquisition de la langue allemande.",
     highlights: [
-      "Direction de 12 créations originales depuis 2016",
-      "Résidences : Radialsystem Berlin, CN D Pantin",
-      "Transmission : ateliers danse-théâtre bilingues (FR/DE)"
+      "California Ballet Company — San Diego",
+      "Documentaires ARTE & collectif WALLIS",
+      "Méthode danse-langue pour le jeune public"
     ],
-    links: {
-      instagram: "https://instagram.com/stela",
-      linkedin: "https://linkedin.com/in/stela"
-    },
-    portfolio: "https://stela-portfolio.com"
+    signature: "Hybridation corps-voix-langue, création Médée MEDEA.",
+    citation: "« Je pars, forte de cette douleur, déterminée à vivre. »",
+    links: { instagram: "https://www.instagram.com/la_stela_company/" }
   },
-  "Marie Dubois": {
+  "Jean Guizerix": {
     long:
-      "Chorégraphe de formation contemporaine, Marie mêle écriture précise et improvisation guidée. Elle sculpte des trajectoires organiques, joue des ruptures et des contrepoints pour faire émerger des images sensibles. Sa pratique cherche l’équilibre entre virtuosité et écoute, pour des pièces justes, incarnées et délicates.",
+      "Ancienne Étoile à l’Opéra de Paris, Jean Guizerix a participé aux créations de Merce Cunningham, Rudolf Noureev et Karole Armitage. Il reçoit le Grand Prix national de la Danse en 1984, devient Officier des Arts et des Lettres en 2001 et est élevé au rang de Chevalier de la Légion d’Honneur en 2012. Il apporte à Médée MEDEA une complicité chorégraphique d’une rare exigence, héritière des plus grands maîtres du XXe siècle.",
     highlights: [
-      "Lauréate Jeune Scène Chorégraphique 2022",
-      "Collab. : musiciens live & scénographes lumière",
-      "Pédagogie : ateliers corps-voix, composition instantanée"
+      "Grand Prix national de la Danse 1984",
+      "Officier des Arts et des Lettres 2001",
+      "Chevalier de la Légion d’Honneur 2012"
     ],
-    links: {
-      instagram: "https://instagram.com/marie",
-      twitter: "https://twitter.com/marie"
-    },
-    portfolio: "https://marie-dubois.com"
+    signature: "Héritage des grands maîtres du XXe siècle, complicité chorégraphique.",
+    citation: "« La danse est une langue universelle qui transcende toutes les frontières. »"
   },
-  "Thomas Müller": {
+  "Mélen Constant": {
     long:
-      "Dramaturge et metteur en scène, Thomas construit des architectures scéniques où texte, corps et espace dialoguent. Son approche documentaire-poétique puise dans la pluralité des cultures européennes et interroge nos récits communs. Il signe des dispositifs minimalistes à haute densité symbolique, pour une expérience scénique claire et mémorable.",
+      "Interprète français formé au Ballet Junior de Genève et à l’Ensemble Program SUB.LAB.PRO à Budapest, Mélen Constant est le fondateur de la compagnie ARAN, dont le solo NEVEN témoigne d’une écriture chorégraphique singulière. Il est accompagné par La Fabrique de la Danse pour la saison 2025. Dans Médée MEDEA, il interprète avec une précision technique et une présence corporelle nourries par ses expériences en danse contemporaine européenne.",
     highlights: [
-      "Adaptations multilingues (FR/DE/EN)",
-      "Recherche : théâtre postdramatique & chœur",
-      "Scénographies minimales à forte charge symbolique"
+      "Ballet Junior de Genève",
+      "La Fabrique de la Danse 2025",
+      "Compagnie ARAN — solo NEVEN"
     ],
-    links: {
-      linkedin: "https://linkedin.com/in/thomas",
-      twitter: "https://twitter.com/thomas"
-    },
-    portfolio: "https://thomas-muller.com"
+    signature: "Danse contemporaine européenne, précision technique, présence corporelle.",
+    citation: "« Chaque mouvement est une question posée à l’espace. »"
+  },
+  "Matthieu Lecoq": {
+    long:
+      "Musicien et compositeur, Matthieu Lecoq crée une musique en direct qui dialogue avec les corps en mouvement. Il a amorcé une recherche approfondie avec Jean-Jacques Lemêtre du Théâtre du Soleil, vers une musique organique qui se situe entre théâtre et transe. Dans Médée MEDEA, son travail sonore improvise en temps réel avec les danseurs, créant une partition vivante où chaque représentation est unique.",
+    highlights: [
+      "Recherche avec Jean-Jacques Lemêtre — Théâtre du Soleil",
+      "Improvisation & dialogue avec les danseurs",
+      "Composition en temps réel, musique en direct"
+    ],
+    signature: "Musique organique en direct, improvisation, dialogue corps-son.",
+    citation: "« La musique en direct est un dialogue vivant avec l’instant. »"
   }
 }
 
@@ -110,7 +117,7 @@ export default function EquipeMembers() {
   }
 
   return (
-    <section className="py-32 px-6 md:px-12 lg:pr-20">
+    <section className="py-32 px-6 md:px-12 lg:px-20">
       <motion.div
         className="max-w-6xl mx-auto"
         initial="hidden"
@@ -225,9 +232,7 @@ export default function EquipeMembers() {
                       <div className="space-y-1">
                         <p className="text-sm uppercase tracking-wider text-foreground/70 font-playfair">Signature artistique</p>
                         <p className="text-base font-playfair text-muted-foreground">
-                          {selectedMember.name === "Stela Elena Stankovic" && "Hybridations danse-théâtre, musicalité des langues, précision dramaturgique."}
-                          {selectedMember.name === "Marie Dubois" && "Écritures organiques, corps musical, composition instantanée."}
-                          {selectedMember.name === "Thomas Müller" && "Poétique documentaire, architectures scéniques, minimalisme signifiant."}
+                          {extendedDetails[selectedMember.name]?.signature}
                         </p>
                       </div>
 
@@ -246,41 +251,9 @@ export default function EquipeMembers() {
                               <FaInstagram size={20} />
                             </a>
                           )}
-                          {extendedDetails[selectedMember.name]?.links?.twitter && (
-                            <a
-                              href={extendedDetails[selectedMember.name].links?.twitter}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-muted-foreground hover:text-primary"
-                              aria-label="Twitter"
-                            >
-                              <FaTwitter size={20} />
-                            </a>
-                          )}
-                          {extendedDetails[selectedMember.name]?.links?.linkedin && (
-                            <a
-                              href={extendedDetails[selectedMember.name].links?.linkedin}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-muted-foreground hover:text-primary"
-                              aria-label="LinkedIn"
-                            >
-                              <FaLinkedin size={20} />
-                            </a>
-                          )}
                         </div>
                       </div>
 
-                      {/* CTA Portfolio (gauche) */}
-                      {extendedDetails[selectedMember.name]?.portfolio && (
-                        <div className="pt-4">
-                          <MagneticButton
-                            href={extendedDetails[selectedMember.name].portfolio}
-                            variant="outline"
-                            label="Voir le portfolio"
-                          />
-                        </div>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -303,15 +276,7 @@ export default function EquipeMembers() {
 
                     {/* Citation/accroche */}
                     <div className="border-l-2 border-primary/60 pl-4 italic font-playfair text-foreground/90">
-                      {selectedMember.name === "Stela Elena Stankovic" && (
-                        <p>« Composer, c’est mettre le mouvement au service de la pensée et laisser le silence faire récit. »</p>
-                      )}
-                      {selectedMember.name === "Marie Dubois" && (
-                        <p>« L’écriture chorégraphique commence là où le souffle dessine le temps. »</p>
-                      )}
-                      {selectedMember.name === "Thomas Müller" && (
-                        <p>« Le plateau comme une page blanche où les corps écrivent ce que les mots taisent. »</p>
-                      )}
+                      <p>{extendedDetails[selectedMember.name]?.citation}</p>
                     </div>
 
                     {/* Highlights */}

@@ -1,4 +1,4 @@
-// components/agenda/agenda-list.tsx
+﻿// components/agenda/agenda-list.tsx
 "use client"
 
 import React from "react"
@@ -130,7 +130,7 @@ export default function AgendaList({ events }: { events: Representation[] }) {
         variants={container}
       >
         {/* Tabs */}
-        <motion.div variants={item as any} className="mb-8 md:mb-10 flex items-end justify-between px-6 md:px-12 lg:pr-20">
+        <motion.div variants={item as any} className="mb-8 md:mb-10 flex items-end justify-between px-6 md:px-12 lg:px-20">
           <div className="inline-flex rounded-full border border-black/10 overflow-hidden">
             <button
               onClick={() => setTab("upcoming")}
@@ -152,7 +152,7 @@ export default function AgendaList({ events }: { events: Representation[] }) {
         </motion.div>
 
         {/* Liste */}
-        <motion.ul className="space-y-4 md:space-y-5 px-6 md:px-12 lg:pr-20" initial={false}>
+        <motion.ul className="space-y-4 md:space-y-5 px-6 md:px-12 lg:px-20" initial={false}>
           <AnimatePresence mode="wait">
             {tab === "upcoming" ? (
               <motion.div

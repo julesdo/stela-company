@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
@@ -87,7 +87,7 @@ export const RepresentationsGridSection = ({ data }: RepresentationsGridSectionP
   if (!featured && !loading) return null
   if (loading && !data?.items?.length) {
     return (
-      <Section background={data?.background} className="py-24 md:py-28 px-6 md:px-12 lg:pr-20">
+      <Section background={data?.background} className="py-24 md:py-28 px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto">
           <div className="text-center py-16">
             <p className="text-black/60">Chargement des représentations...</p>
@@ -105,7 +105,7 @@ export const RepresentationsGridSection = ({ data }: RepresentationsGridSectionP
   const ctaLabel = data?.ctaLabel ?? "Voir les représentations"
 
   return (
-    <Section background={data?.background} className="py-24 md:py-28 px-6 md:px-12 lg:pr-20">
+    <Section background={data?.background} className="py-24 md:py-28 px-6 md:px-12 lg:px-20">
       <motion.div
         className="max-w-7xl mx-auto"
         initial="hidden"

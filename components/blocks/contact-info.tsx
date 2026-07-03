@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -55,7 +55,7 @@ export const ContactInfo = ({ data }: { data: PageBlocksContactInfo }) => {
   }
 
   return (
-    <Section data={data as any} className="py-16 md:py-20 px-6 md:px-12 lg:pr-20">
+    <Section data={data as any} className="py-16 md:py-20 px-6 md:px-12 lg:px-20">
       <div className="max-w-4xl mx-auto">
         {/* Titre simple */}
         <h2 
@@ -134,7 +134,7 @@ export const contactInfoBlockSchema: Template = {
       role: "Directrice artistique",
       phone: "06 05 58 25 71",
       email: "lastelacompany@gmail.com",
-      address: "Paris • Berlin • Belgrade",
+      address: "Paris V",
       hours: "Disponible du lundi au vendredi de 9h à 18h",
       note: "Pour les projets artistiques et collaborations, n'hésitez pas à nous contacter directement."
     },

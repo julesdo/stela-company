@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -27,7 +27,7 @@ export default function EquipeHero() {
   }
 
   return (
-    <section className="min-h-screen flex items-center py-24 px-6 md:px-12 lg:pr-20">
+    <section className="min-h-screen flex items-center py-24 px-6 md:px-12 lg:px-20">
       <motion.div
         className="max-w-6xl mx-auto w-full text-center"
         initial="hidden"
@@ -50,8 +50,7 @@ export default function EquipeHero() {
           className="max-w-4xl mx-auto"
         >
           <p className="text-2xl md:text-3xl leading-relaxed font-playfair font-light text-muted-foreground">
-            Un collectif d'artistes passionnés unis par une vision commune : 
-            créer des expériences artistiques qui transcendent les frontières.
+            La Stela Company réunit danse, théâtre, musique et langues au sein d'un espace commun de créativité — portés par la première création Médée MEDEA.
           </p>
         </motion.div>
       </motion.div>

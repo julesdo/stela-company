@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -48,7 +48,7 @@ export default function AboutVision() {
   ]
 
   return (
-    <section className="py-32 px-6 md:px-12 lg:pr-20 bg-background">
+    <section className="py-32 px-6 md:px-12 lg:px-20 bg-background">
       <motion.div
         className="max-w-7xl mx-auto"
         initial="hidden"
@@ -66,8 +66,8 @@ export default function AboutVision() {
           </h2>
           <div className="w-16 h-px bg-primary mx-auto mb-8" />
           <p className="text-xl font-playfair text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Une approche artistique où chaque discipline enrichit les autres, 
-            créant une synergie unique qui transcende les frontières traditionnelles
+            Ce projet est né du besoin vital de rassembler différentes pratiques —
+            le théâtre, la danse, la musique et les langues — au sein d'un espace commun de créativité.
           </p>
         </motion.div>
 
@@ -83,8 +83,9 @@ export default function AboutVision() {
               transition={{ duration: 0.3 }}
             >
               <p className="mb-8">
-                "Dans un monde fragmenté, nous créons des <span className="text-primary italic">espaces de rencontre</span> 
-                où l'art devient le langage commun qui unit les âmes par-delà les différences."
+                « La compagnie défend une vision de l'art qui permet de rassembler
+                la <span className="text-primary italic">diversité des langues étrangères</span>
+                afin de créer une œuvre commune. »
               </p>
             </motion.blockquote>
           </div>
@@ -133,16 +134,15 @@ export default function AboutVision() {
           
           <div className="max-w-4xl mx-auto space-y-6 text-lg font-playfair text-muted-foreground leading-relaxed">
             <p>
-              Chaque projet de La Stela Company naît d'une <strong className="text-foreground">collaboration authentique</strong> 
-              entre artistes de différents horizons. Nous créons ensemble des œuvres 
-              qui portent en elles la richesse de nos différences.
+              La Stela Company réunit des artistes venus de la danse, du théâtre et de la musique
+              pour créer ensemble <strong className="text-foreground">Médée MEDEA</strong>,
+              une œuvre qui place le corps, la voix et la mémoire émotionnelle au cœur du geste.
             </p>
-            
+
             <p>
-              Notre laboratoire artistique explore sans cesse de nouvelles formes d'expression, 
-              mélangeant traditions et innovations pour créer un art 
-              <span className="text-primary italic">résolument contemporain</span> 
-              mais profondément enraciné dans l'humanité.
+              Portée par les origines franco-serbo-allemandes de sa fondatrice, la compagnie
+              crée des œuvres où les <span className="text-primary italic">langues étrangères</span>
+              deviennent un matériau artistique à part entière.
             </p>
           </div>
 

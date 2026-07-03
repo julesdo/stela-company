@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -28,7 +28,7 @@ export default function TheatreHero() {
   }
 
   return (
-    <section className="grid lg:grid-cols-2 items-center py-16 md:py-20 lg:py-24 px-6 md:px-12 lg:pr-20">
+    <section className="grid lg:grid-cols-2 items-center py-16 md:py-20 lg:py-24 px-6 md:px-12 lg:px-20">
       <motion.div
         className="space-y-12"
         initial="hidden"

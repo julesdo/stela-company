@@ -1,4 +1,4 @@
-// components/blocks/ateliers-list.tsx
+﻿// components/blocks/ateliers-list.tsx
 "use client"
 
 import * as React from "react"
@@ -87,7 +87,7 @@ export const AteliersList = ({ data }: { data: any }) => {
   const row = { hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { duration: 0.40, ease: "easeOut" } } }
 
   return (
-    <Section background={data?.background} className="pb-28 px-6 md:px-12 lg:pr-20">
+    <Section background={data?.background} className="pb-28 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto">
         {heading && (
           <div className="text-center pt-28 pb-8" data-tina-field={tinaField(data, 'heading')}>

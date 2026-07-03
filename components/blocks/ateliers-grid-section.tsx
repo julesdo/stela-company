@@ -1,4 +1,4 @@
-// components/sections/ateliers-grid-section.tsx
+﻿// components/sections/ateliers-grid-section.tsx
 "use client"
 
 import React from "react"
@@ -30,34 +30,34 @@ export default function AteliersGridSection({
 }: AteliersGridSectionProps) {
   const sample: AtelierCard[] = [
     {
-      slug: "atelier-danse-contemporaine",
-      title: "Danse contemporaine — Corps & souffle",
-      excerpt: "Explorer l’ancrage, la fluidité, la musicalité du geste dans un cadre bienveillant.",
+      slug: "atelier-danse-theatre",
+      title: "Danse-Théâtre & Expression corporelle",
+      excerpt: "Explorer le lien entre corps, langue et émotion. Un espace pour habiter le geste et libérer la présence scénique.",
       image: "/dance.jpg",
       discipline: "Danse",
       level: "Tous niveaux",
       duration: "1h30",
-      dayTime: "Lundi 19:00",
+      dayTime: "À préciser",
     },
     {
-      slug: "atelier-theatre-impro",
-      title: "Théâtre — Improvisation & présence",
-      excerpt: "Apprivoiser la scène : écoute, réponse, création avec l’autre.",
+      slug: "atelier-voix-interieure",
+      title: "Voix intérieure & Médée",
+      excerpt: "Libérer la voix via le mythe. Un espace cathartique pour explorer l’émotion, la mémoire et l’expression vocale.",
       image: "/dance1.jpg",
       discipline: "Théâtre",
-      level: "Débutant",
+      level: "Tous niveaux",
       duration: "2h",
-      dayTime: "Mercredi 18:30",
+      dayTime: "À préciser",
     },
     {
-      slug: "atelier-langues-en-scene",
-      title: "Langues en scène — FR/DE",
-      excerpt: "Diction, rythme, adresse : la langue qui se joue et se met en mouvement.",
+      slug: "atelier-langues-en-mouvement",
+      title: "Langues en mouvement — FR/DE",
+      excerpt: "Apprentissage de la langue allemande par le mouvement dansé. Le corps comme vecteur d’acquisition linguistique.",
       image: "/dance2.jpg",
       discipline: "Langues",
-      level: "Intermédiaire",
+      level: "Débutant",
       duration: "1h30",
-      dayTime: "Jeudi 19:30",
+      dayTime: "À préciser",
     },
   ]
 
@@ -77,7 +77,7 @@ export default function AteliersGridSection({
     d === "Danse" ? "bg-black text-white" : d === "Théâtre" ? "bg-neutral-800 text-white" : "bg-neutral-700 text-white"
 
   return (
-    <section className="py-28 px-6 md:px-12 lg:pr-20 bg-white">
+    <section className="py-28 px-6 md:px-12 lg:px-20 bg-white">
       <motion.div
         className="max-w-7xl mx-auto"
         initial="hidden"

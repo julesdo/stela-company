@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -28,7 +28,7 @@ export default function AboutContact() {
   }
 
   return (
-    <section className="py-32 px-6 md:px-12 lg:pr-20 bg-muted/5">
+    <section className="py-32 px-6 md:px-12 lg:px-20 bg-muted/5">
       <motion.div
         className="max-w-4xl mx-auto text-center"
         initial="hidden"
@@ -42,8 +42,7 @@ export default function AboutContact() {
           className="mb-16"
         >
           <p className="text-3xl md:text-4xl font-playfair font-light text-foreground leading-relaxed mb-8">
-            "L'art n'a pas de frontières, 
-            il unit les âmes par-delà les mots."
+            « Ma Médée ne fuit plus. Elle avance, les pieds dans la cendre, les yeux vers la lumière. »
           </p>
           <footer className="text-lg font-playfair text-muted-foreground">
             — Stela Elena Stankovic
@@ -76,7 +75,7 @@ export default function AboutContact() {
             Stela Elena Stankovic
           </p>
           <p className="text-sm font-playfair text-muted-foreground tracking-wider">
-            Fondatrice & Directrice Artistique
+            Chorégraphe & Directrice Artistique
           </p>
         </motion.div>
       </motion.div>

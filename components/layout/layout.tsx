@@ -63,7 +63,7 @@ export default async function Layout({ children, rawPageData }: LayoutProps) {
 
   return (
     <LayoutProvider globalSettings={globalSettings} pageData={rawPageData}>
-      <main className="relative overflow-x-hidden">
+      <main className="relative overflow-x-hidden pt-20">
         {children}
       </main>
     </LayoutProvider>

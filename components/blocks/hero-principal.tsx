@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -54,7 +54,7 @@ export const HeroPrincipal = ({ data }: { data: any }) => {
   const subline = data?.subline ?? "Danse • Théâtre • Langues"
 
   return (
-    <Section background={data?.background} className="relative w-full h-screen flex items-center justify-center overflow-hidden lg:pr-20">
+    <Section background={data?.background} className="relative w-full h-screen flex items-center justify-center overflow-hidden lg:px-20">
       {/* Arrière-plan vidéo/image */}
       <div className="absolute inset-0 w-full h-full" data-tina-field={tinaField(data)}>
         <video 

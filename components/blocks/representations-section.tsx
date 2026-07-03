@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -30,37 +30,27 @@ export const RepresentationsSection = ({ data }: { data: any }) => {
   const sample: Representation[] = [
     {
       id: "e1",
-      title: "Médée — Acte I",
-      subtitle: "Création chorégraphique & vocale",
-      date: "2025-09-18T20:00:00.000Z",
-      city: "Paris",
-      venue: "Théâtre de la Ville",
-      href: "/agenda/medee-acte-1",
+      title: "Médée MEDEA — Extrait",
+      subtitle: "Danse · Théâtre · Musique en direct",
+      date: "2025-09-20T20:00:00.000Z",
+      city: "France",
+      venue: "Festival du Saule",
     },
     {
       id: "e2",
-      title: "Langues en scène",
-      subtitle: "Performance bilingue FR/DE",
-      date: "2025-10-05T19:30:00.000Z",
-      city: "Berlin",
-      venue: "Sophiensaele",
+      title: "Médée MEDEA — Extrait",
+      subtitle: "Danse · Théâtre · Musique en direct",
+      date: "2026-01-29T20:00:00.000Z",
+      city: "Paris",
+      venue: "Théâtre Douze",
     },
     {
       id: "e3",
-      title: "Cartographie des corps",
-      subtitle: "Laboratoire public",
-      date: "2025-07-02T18:00:00.000Z",
-      city: "Bordeaux",
-      venue: "TNBA",
-      href: "/agenda/cartographie-des-corps",
-    },
-    {
-      id: "e4",
-      title: "Mosaïques",
-      subtitle: "Danse & langues",
-      date: "2025-06-11T20:30:00.000Z",
-      city: "Lyon",
-      venue: "Maison de la Danse",
+      title: "Médée MEDEA — Première",
+      subtitle: "Spectacle complet",
+      date: "2026-11-13T20:00:00.000Z",
+      city: "Vincennes",
+      venue: "Centre Culturel Daniel Sorano",
     },
   ]
 
@@ -183,7 +173,7 @@ export const RepresentationsSection = ({ data }: { data: any }) => {
   const title = data?.title ?? "Notre agenda"
 
   return (
-    <Section background={data?.background} className="py-28 px-6 md:px-12 lg:pr-20">
+    <Section background={data?.background} className="py-28 px-6 md:px-12 lg:px-20">
       <motion.div
         className="max-w-7xl mx-auto"
         initial="hidden"

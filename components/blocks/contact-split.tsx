@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -62,7 +62,7 @@ Au plaisir,`
   })
 
   return (
-    <section className="py-28 px-6 md:px-12 lg:pr-20">
+    <section className="py-28 px-6 md:px-12 lg:px-20">
       <motion.div
         className="max-w-6xl mx-auto"
         initial="hidden"

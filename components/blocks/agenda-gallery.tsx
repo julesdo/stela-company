@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -159,7 +159,7 @@ export default function AgendaGallery() {
   }, [selected])
 
   return (
-    <section className="py-24 px-6 md:px-12 lg:pr-20 bg-background">
+    <section className="py-24 px-6 md:px-12 lg:px-20 bg-background">
       <div className="max-w-7xl mx-auto">
         {/* Header + Filtres (shadcn) */}
         <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">

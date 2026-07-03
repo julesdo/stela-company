@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useTina } from "tinacms/dist/react";
 import Link from "next/link";
 import Image from "next/image";
@@ -44,7 +44,7 @@ export default function TeamClientPage(props: ClientTeamPageProps) {
     <ErrorBoundary>
       <main className="bg-white">
         {/* Hero Section */}
-        <section className="px-6 md:px-12 lg:pr-20 py-16">
+        <section className="px-6 md:px-12 lg:px-20 py-16">
           <div className="max-w-7xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-light text-black mb-8">
               Notre équipe
@@ -57,7 +57,7 @@ export default function TeamClientPage(props: ClientTeamPageProps) {
         </section>
 
         {/* Team Grid */}
-        <section className="px-6 md:px-12 lg:pr-20 pb-24">
+        <section className="px-6 md:px-12 lg:px-20 pb-24">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {sortedTeamMembers.map((member) => {

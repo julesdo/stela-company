@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -47,7 +47,7 @@ export default function AboutPhilosophy() {
   ]
 
   return (
-    <section className="py-32 px-6 md:px-12 lg:pr-20 bg-gradient-to-b from-muted/10 to-background">
+    <section className="py-32 px-6 md:px-12 lg:px-20 bg-gradient-to-b from-muted/10 to-background">
       <motion.div
         className="max-w-6xl mx-auto"
         initial="hidden"
@@ -73,9 +73,8 @@ export default function AboutPhilosophy() {
         >
           <blockquote className="text-2xl md:text-3xl font-playfair font-light text-foreground leading-relaxed max-w-4xl mx-auto">
             <p className="mb-8">
-              "L'art véritable naît dans l'espace sacré où se rencontrent 
-              <span className="text-primary italic"> la technique rigoureuse</span> 
-              et <span className="text-accent italic">l'émotion pure</span>."
+              « En mêlant parole et geste, j'ouvre de nouvelles voies
+              <span className="text-primary italic"> à l'intérieur de mon intériorité.</span> »
             </p>
           </blockquote>
         </motion.div>
@@ -127,16 +126,16 @@ export default function AboutPhilosophy() {
           
           <div className="max-w-4xl mx-auto space-y-6 text-lg font-playfair text-muted-foreground leading-relaxed mb-12">
             <p>
-              <strong className="text-foreground">Créer des expériences artistiques transformatrices</strong> 
-              qui révèlent la beauté de notre humanité commune. 
-              Nous explorons les territoires inexplorés de l'expression artistique 
-              pour offrir au public des moments de <span className="text-primary italic">révélation et d'émotion pure</span>.
+              <strong className="text-foreground">Rassembler théâtre, danse, musique et langues</strong>
+              au sein d'un espace commun de créativité. La compagnie défend une vision de l'art
+              qui permet de rassembler la diversité des langues étrangères afin de créer
+              une <span className="text-primary italic">œuvre commune et vivante</span>.
             </p>
-            
+
             <p>
-              À travers nos créations, nous aspirons à bâtir des ponts entre les communautés, 
-              à célébrer la diversité culturelle et à nourrir l'âme humaine 
-              par la <span className="text-accent">puissance transformatrice de l'art</span>.
+              À travers Médée MEDEA, la compagnie explore le lien entre le corps, la voix
+              et la mémoire émotionnelle — une langue universelle
+              née de la <span className="text-accent">rencontre entre cultures</span>.
             </p>
           </div>
 
@@ -171,7 +170,7 @@ export default function AboutPhilosophy() {
             <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-3/4 h-px bg-primary/30" />
           </div>
           <p className="text-sm font-playfair text-muted-foreground mt-4 tracking-wider">
-            Fondatrice & Directrice Artistique
+            Chorégraphe & Directrice Artistique
           </p>
         </motion.div>
       </motion.div>

@@ -1,4 +1,4 @@
-// components/blocks/about-hero.tsx
+﻿// components/blocks/about-hero.tsx
 "use client"
 
 import { motion, useScroll, useTransform } from "framer-motion"
@@ -45,7 +45,7 @@ export const AboutHero = ({
 
           <motion.div
             style={{ y, opacity }}
-            className="absolute bottom-0 left-0 right-0 px-6 md:px-12 lg:pr-20 pb-10 md:pb-16"
+            className="absolute bottom-0 left-0 right-0 px-6 md:px-12 lg:px-20 pb-10 md:pb-16"
           >
             {kicker && (
               <div className="text-sm tracking-wider uppercase text-black/55" data-tina-field={tinaField(data, 'kicker')}>{kicker}</div>

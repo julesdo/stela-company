@@ -1,44 +1,43 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 
-// Données d'exemple des événements
 const upcomingEvents = [
   {
     id: 1,
-    title: "Corps en Mouvement",
-    type: "Danse Contemporaine",
-    date: "2024-02-15",
-    time: "20h30",
-    venue: "Théâtre de la Renaissance, Paris",
-    description: "Une exploration poétique du corps et de l'espace, où la danse contemporaine rencontre la musique live.",
-    image: "/events/dance-1.jpg",
+    title: "Médée MEDEA — Extrait",
+    type: "Danse · Théâtre · Musique",
+    date: "2025-09-20",
+    time: "à préciser",
+    venue: "Festival du Saule",
+    description: "Première présentation publique d'un extrait de 30 minutes de Médée MEDEA.",
+    image: "",
     category: "danse"
   },
   {
     id: 2,
-    title: "Fragments de Mémoire",
-    type: "Théâtre",
-    date: "2024-02-22",
-    time: "19h00",
-    venue: "Studio Théâtral, Berlin",
-    description: "Un monologue introspectif sur l'identité et les racines, mêlant français, allemand et serbe.",
-    image: "/events/theatre-1.jpg",
-    category: "theatre"
+    title: "Médée MEDEA — Extrait",
+    type: "Danse · Théâtre · Musique",
+    date: "2026-01-29",
+    time: "à préciser",
+    venue: "Théâtre Douze, Paris",
+    description: "Présentation d'un extrait de 20 minutes de Médée MEDEA au Théâtre Douze.",
+    image: "",
+    category: "danse"
   },
   {
     id: 3,
-    title: "Atelier Voix & Mouvement",
-    type: "Atelier",
-    date: "2024-03-05",
-    time: "14h00 - 17h00",
-    venue: "Centre Culturel Belgrade",
-    description: "Découvrez l'harmonie entre voix, mouvement et langues dans un atelier immersif.",
-    image: "/events/workshop-1.jpg",
-    category: "atelier"
+    title: "Médée MEDEA — Première",
+    type: "Danse · Théâtre · Musique",
+    date: "2026-11-13",
+    time: "à préciser",
+    venue: "Centre Culturel Daniel Sorano, Vincennes",
+    description: "Première du spectacle complet Médée MEDEA.",
+    image: "",
+    category: "danse"
   }
 ]
 
@@ -68,7 +67,7 @@ export default function AgendaUpcoming() {
 
 
   return (
-    <section className="py-24 px-6 md:px-12 lg:pr-20 bg-background">
+    <section className="py-24 px-6 md:px-12 lg:px-20 bg-background">
       <motion.div
         className="max-w-7xl mx-auto"
         initial="hidden"

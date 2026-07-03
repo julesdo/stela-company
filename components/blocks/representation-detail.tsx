@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import Image from "next/image"
@@ -117,7 +117,7 @@ export const RepresentationDetail = ({ data }: { data: any }) => {
         </section>
       )}
 
-      <Section className="py-16 md:py-20 px-6 md:px-12 lg:pr-20">
+      <Section className="py-16 md:py-20 px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-16">
           <div className="lg:col-span-7">
             <h1 className="text-3xl md:text-5xl font-light" data-tina-field={tinaField(data, 'title')}>{title}</h1>
@@ -210,7 +210,7 @@ export const RepresentationDetail = ({ data }: { data: any }) => {
       </Section>
 
       {Array.isArray(gallery) && gallery.length > 0 && (
-        <Section className="px-6 md:px-12 lg:pr-20">
+        <Section className="px-6 md:px-12 lg:px-20">
           <div className="max-w-7xl mx-auto mt-6 md:mt-8">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {gallery.map((g, i) => (
@@ -224,7 +224,7 @@ export const RepresentationDetail = ({ data }: { data: any }) => {
       )}
 
       {Array.isArray(partners) && partners.length > 0 && (
-        <Section className="py-16 md:py-20 px-6 md:px-12 lg:pr-20">
+        <Section className="py-16 md:py-20 px-6 md:px-12 lg:px-20">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-sm tracking-wider uppercase text-black/50">{t.partenaires}</h2>
             <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8 md:gap-12 items-center">
@@ -244,7 +244,7 @@ export const RepresentationDetail = ({ data }: { data: any }) => {
         </Section>
       )}
 
-      <Section className="pb-24 px-6 md:px-12 lg:pr-20">
+      <Section className="pb-24 px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto text-right">
           <Link href={backUrl} className="text-xs text-black/50 hover:text-black transition">{t.retour}</Link>
         </div>

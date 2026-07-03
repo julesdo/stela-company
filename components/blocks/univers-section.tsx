@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import React from "react"
 import { motion } from "framer-motion"
@@ -61,7 +61,7 @@ export const UniversSection = ({ data }: { data: any }) => {
   const heading = data?.heading ?? 'Nos Univers'
 
   return (
-    <Section background={data?.background} className="py-32 px-6 md:px-12 lg:pr-20">
+    <Section background={data?.background} className="py-32 px-6 md:px-12 lg:px-20">
       <motion.div
         className="max-w-7xl mx-auto"
         initial="hidden"

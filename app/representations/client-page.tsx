@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useTina } from "tinacms/dist/react";
 import { usePathname } from "next/navigation";
 import ErrorBoundary from "@/components/error-boundary";
@@ -86,7 +86,7 @@ export default function RepresentationsClientPage(props: ClientRepresentationsPa
     <ErrorBoundary>
       <main className="bg-white">
         {/* Hero Section */}
-        <section className="px-6 md:px-12 lg:pr-20 py-16">
+        <section className="px-6 md:px-12 lg:px-20 py-16">
           <div className="max-w-7xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-light text-black mb-8">
               {t.title}
@@ -98,7 +98,7 @@ export default function RepresentationsClientPage(props: ClientRepresentationsPa
         </section>
 
         {/* Timeline Section */}
-        <section className="px-6 md:px-12 lg:pr-20 pb-24">
+        <section className="px-6 md:px-12 lg:px-20 pb-24">
           <div className="max-w-7xl mx-auto">
             {sortedItems.length > 0 ? (
               <TimelineStraight items={sortedItems} locale={currentLocale} />
