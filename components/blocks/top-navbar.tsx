@@ -113,10 +113,10 @@ export default function TopNavbar() {
     <>
       <motion.header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+          "fixed top-0 left-0 right-0 z-50 border-b transition-all duration-500",
           isTransparent
-            ? "bg-transparent"
-            : "bg-white/95 backdrop-blur-sm border-b border-gray-100/80 shadow-sm"
+            ? "bg-transparent border-transparent shadow-none"
+            : "bg-white/95 backdrop-blur-sm border-gray-100/80 shadow-sm"
         )}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
