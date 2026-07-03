@@ -48,7 +48,7 @@ const MENU_ITEMS = [
 
 export default function TopNavbar() {
   const pathname = usePathname()
-  const [scrolled, setScrolled] = useState(false)
+  const [pastHero, setPastHero] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
 
@@ -58,6 +58,12 @@ export default function TopNavbar() {
   const isValidLocale = firstSegment && locales.includes(firstSegment as Locale)
   const currentLocale: Locale = isValidLocale ? (firstSegment as Locale) : defaultLocale
   const homeHref = currentLocale === defaultLocale ? "/" : `/${currentLocale}`
+
+  // Transparent uniquement sur la homepage, au-dessus du hero
+  const isHome =
+    pathSegments.length === 0 ||
+    (pathSegments.length === 1 && locales.includes(pathSegments[0] as Locale))
+  const isTransparent = isHome && !pastHero
 
   const getLocalizedHref = (href: string): string => {
     if (currentLocale === defaultLocale) return href
@@ -80,7 +86,10 @@ export default function TopNavbar() {
   }
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
+    const onScroll = () => {
+      // Bascule une fois qu'on a dépassé la hauteur du viewport (= fin du hero plein écran)
+      setPastHero(window.scrollY > window.innerHeight - 80)
+    }
     window.addEventListener("scroll", onScroll, { passive: true })
     onScroll()
     return () => window.removeEventListener("scroll", onScroll)
@@ -105,9 +114,9 @@ export default function TopNavbar() {
       <motion.header
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-          scrolled
-            ? "bg-white/95 backdrop-blur-sm border-b border-gray-100/80 shadow-sm"
-            : "bg-white/80 backdrop-blur-sm"
+          isTransparent
+            ? "bg-transparent"
+            : "bg-white/95 backdrop-blur-sm border-b border-gray-100/80 shadow-sm"
         )}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -117,10 +126,16 @@ export default function TopNavbar() {
 
           {/* Logo */}
           <Link href={homeHref} className="flex-shrink-0">
-            <img
+            <motion.img
               src="/logo-stela.svg"
               alt="La Stela Company"
               className="h-12 w-auto hover:scale-105 transition-transform duration-300"
+              animate={{
+                filter: isTransparent
+                  ? "invert(1) brightness(2)"
+                  : "invert(0) brightness(1)",
+              }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
             />
           </Link>
 
@@ -145,13 +160,16 @@ export default function TopNavbar() {
                     href={localizedHref}
                     className={cn(
                       "relative text-xs tracking-[0.18em] uppercase font-light transition-colors duration-300 group",
-                      isActive ? "text-black" : "text-black/50 hover:text-black"
+                      isTransparent
+                        ? isActive ? "text-white" : "text-white/70 hover:text-white"
+                        : isActive ? "text-black" : "text-black/50 hover:text-black"
                     )}
                   >
                     {getTranslatedLabel(item.key)}
                     <span
                       className={cn(
-                        "absolute -bottom-1 left-0 h-px bg-black transition-all duration-300",
+                        "absolute -bottom-1 left-0 h-px transition-all duration-300",
+                        isTransparent ? "bg-white" : "bg-black",
                         isActive ? "w-full" : "w-0 group-hover:w-full"
                       )}
                     />
@@ -171,7 +189,12 @@ export default function TopNavbar() {
               onMouseLeave={() => setLangOpen(false)}
             >
               <button
-                className="flex items-center gap-1.5 text-xs tracking-wider uppercase font-light text-black/60 hover:text-black transition-colors duration-300"
+                className={cn(
+                  "flex items-center gap-1.5 text-xs tracking-wider uppercase font-light transition-colors duration-300",
+                  isTransparent
+                    ? "text-white/80 hover:text-white"
+                    : "text-black/60 hover:text-black"
+                )}
               >
                 <span>{localeFlags[currentLocale]}</span>
                 <span>{currentLocale.toUpperCase()}</span>
@@ -232,9 +255,9 @@ export default function TopNavbar() {
               onClick={() => setMobileOpen(true)}
               aria-label="Ouvrir le menu"
             >
-              <span className="block w-6 h-px bg-black transition-all duration-300" />
-              <span className="block w-4 h-px bg-black transition-all duration-300 self-end" />
-              <span className="block w-6 h-px bg-black transition-all duration-300" />
+              <span className={cn("block w-6 h-px transition-all duration-300", isTransparent ? "bg-white" : "bg-black")} />
+              <span className={cn("block w-4 h-px transition-all duration-300 self-end", isTransparent ? "bg-white" : "bg-black")} />
+              <span className={cn("block w-6 h-px transition-all duration-300", isTransparent ? "bg-white" : "bg-black")} />
             </button>
           </div>
         </div>

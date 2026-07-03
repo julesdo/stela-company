@@ -54,19 +54,17 @@ export const HeroPrincipal = ({ data }: { data: any }) => {
   const subline = data?.subline ?? "Danse • Théâtre • Langues"
 
   return (
-    <Section background={data?.background} className="relative w-full h-screen flex items-center justify-center overflow-hidden lg:px-20">
+    <Section background={data?.background} className="relative w-full h-screen flex items-center justify-center overflow-hidden -mt-20" data-hero-section>
       {/* Arrière-plan vidéo/image */}
       <div className="absolute inset-0 w-full h-full" data-tina-field={tinaField(data)}>
-        <video 
-          autoPlay 
-          muted 
-          loop 
+        <video
+          autoPlay
+          muted
+          loop
           playsInline
-          className="w-full h-full object-cover opacity-30"
+          className="w-full h-full object-cover"
           poster={poster}
           onError={(e) => {
-            console.warn('Erreur de chargement vidéo:', e);
-            // Fallback vers l'image poster si la vidéo ne charge pas
             const videoElement = e.target as HTMLVideoElement;
             videoElement.style.display = 'none';
           }}
@@ -74,14 +72,13 @@ export const HeroPrincipal = ({ data }: { data: any }) => {
           <source src={videoSrc} type="video/mp4" />
           <source src={videoSrc} type="video/quicktime" />
           <source src={videoSrc} type="video/webm" />
-          Votre navigateur ne supporte pas la lecture de vidéos.
         </video>
-        {/* Fallback image si la vidéo ne charge pas */}
+        {/* Fallback image */}
         <Image
           src={poster}
           alt="Arrière-plan"
           fill
-          className="w-full h-full object-cover opacity-30"
+          className="w-full h-full object-cover"
           style={{ display: 'none' }}
           onLoad={(e) => {
             const videoElement = document.querySelector('video');
@@ -90,7 +87,8 @@ export const HeroPrincipal = ({ data }: { data: any }) => {
             }
           }}
         />
-        <div className="absolute inset-0 bg-white/60" />
+        {/* Voile sombre minimal pour la lisibilité du texte */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60" />
       </div>
 
       <motion.div
@@ -104,12 +102,12 @@ export const HeroPrincipal = ({ data }: { data: any }) => {
           className="mb-8"
           variants={logoVariants as any}
         >
-          <Image 
-            src="/logo.svg" 
+          <Image
+            src="/logo.svg"
             alt="La Stela Company"
             width={200}
             height={200}
-            className="mx-auto"
+            className="mx-auto brightness-0 invert"
             priority
           />
         </motion.div>
@@ -119,10 +117,10 @@ export const HeroPrincipal = ({ data }: { data: any }) => {
           variants={baselineVariants as any}
           className="mb-12"
         >
-          <h1 className="text-2xl md:text-8xl font-light text-gray-800 tracking-wide" data-tina-field={tinaField(data, 'headline')}>
+          <h1 className="text-2xl md:text-8xl font-light text-white tracking-wide" data-tina-field={tinaField(data, 'headline')}>
             {headline}
           </h1>
-          <p className="text-lg text-gray-600 mt-4 font-light" data-tina-field={tinaField(data, 'subline')}>
+          <p className="text-lg text-white/70 mt-4 font-light" data-tina-field={tinaField(data, 'subline')}>
             {subline}
           </p>
         </motion.div>
