@@ -164,23 +164,25 @@ export default function TopNavbar({ tinaNav }: { tinaNav?: TinaNavItem[] | null 
         <div className="flex items-center justify-between px-8 h-20">
 
           {/* Logo */}
-          <Link href={homeHref} className="flex-shrink-0 flex items-center gap-3">
+          <Link href={homeHref} className="flex-shrink-0 flex items-center gap-2">
             <motion.img
-              src="/logo-stela.svg"
-              alt="La Stela Company"
-              className="h-10 w-auto hover:opacity-80 transition-opacity duration-300"
+              src="/logo.svg"
+              alt=""
+              className="h-9 w-9 flex-shrink-0"
               animate={{
                 filter: isTransparent ? "invert(1) brightness(2)" : "invert(0) brightness(1)",
               }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
             />
-            <motion.span
-              className="hidden sm:block text-[11px] tracking-[0.25em] uppercase font-light whitespace-nowrap"
-              animate={{ color: isTransparent ? "rgba(255,255,255,0.85)" : "rgba(0,0,0,0.65)" }}
+            <motion.img
+              src="/logo-stela.svg"
+              alt="La Stela Company"
+              className="h-8 w-auto hover:opacity-80 transition-opacity duration-300"
+              animate={{
+                filter: isTransparent ? "invert(1) brightness(2)" : "invert(0) brightness(1)",
+              }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
-            >
-              La Stela Company
-            </motion.span>
+            />
           </Link>
 
           {/* Nav desktop — centre */}
