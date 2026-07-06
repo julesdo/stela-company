@@ -317,6 +317,25 @@ export const AtelierDetail = ({ data }: { data: any }) => {
                   </div>
                 )}
 
+                {/* HelloAsso — inscription / paiement en ligne */}
+                {data?.helloassoUrl && (
+                  <div className="pt-6 border-t border-black/5">
+                    <div className="text-xs uppercase tracking-wider text-black/50 mb-3">Inscription & paiement</div>
+                    <a
+                      href={data.helloassoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-[#FF6B6B] hover:bg-[#e05555] text-white text-sm font-medium tracking-wide rounded-lg transition-colors duration-200"
+                    >
+                      <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                      </svg>
+                      S'inscrire sur HelloAsso
+                    </a>
+                    <p className="mt-2 text-[11px] text-black/40 text-center">Paiement sécurisé en ligne</p>
+                  </div>
+                )}
+
                 {/* Contact global (prend le premier contact trouvé dans les lieux) */}
                 {hasLieux && (() => {
                   const contactLieu = lieux.find(l => l.email || l.phone);

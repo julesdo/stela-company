@@ -9,16 +9,28 @@
     "color": "default",
     "nav": [
       {
-        "href": "/",
-        "label": "Home"
-      },
-      {
         "href": "/about",
-        "label": "About"
+        "label": "À propos"
       },
       {
-        "href": "/posts",
-        "label": "Blog"
+        "href": "/representations",
+        "label": "Créations"
+      },
+      {
+        "href": "/ateliers",
+        "label": "Ateliers"
+      },
+      {
+        "href": "/equipe",
+        "label": "Équipe"
+      },
+      {
+        "href": "/engagements",
+        "label": "Engagements"
+      },
+      {
+        "href": "/contact",
+        "label": "Contact"
       }
     ]
   },

@@ -7,6 +7,8 @@ import { usePathname } from "next/navigation"
 import { locales, localeNames, localeFlags, defaultLocale, type Locale } from "@/lib/i18n"
 import { cn } from "@/lib/utils"
 
+type TinaNavItem = { href: string; label?: string | null }
+
 const menuTranslations: Record<Locale, Record<string, string>> = {
   fr: {
     about: "À propos",
@@ -42,7 +44,7 @@ const menuTranslations: Record<Locale, Record<string, string>> = {
   },
 }
 
-// Liens principaux (centre)
+// Liens principaux (centre) — fallback statique
 const MENU_ITEMS = [
   { key: "about", href: "/about" },
   { key: "creations", href: "/representations" },
@@ -51,13 +53,26 @@ const MENU_ITEMS = [
   { key: "engagements", href: "/engagements" },
 ]
 
-// Tous les items pour le menu mobile
-const ALL_ITEMS = [
-  ...MENU_ITEMS,
-  { key: "contact", href: "/contact" },
-]
+const CONTACT_ITEM = { key: "contact", href: "/contact" }
 
-export default function TopNavbar() {
+function hrefToKey(href: string): string {
+  const segment = href.replace(/^\//, "").split("/")[0]
+  if (segment === "representations") return "creations"
+  if (!segment) return "home"
+  return segment
+}
+
+export default function TopNavbar({ tinaNav }: { tinaNav?: TinaNavItem[] | null } = {}) {
+  // Build menu items from Tina CMS or fallback to static
+  const dynamicMenuItems = tinaNav
+    ? tinaNav
+        .filter((item) => item.href !== "/contact")
+        .map((item) => ({ key: hrefToKey(item.href), href: item.href }))
+    : MENU_ITEMS
+
+  const dynamicAllItems = tinaNav
+    ? tinaNav.map((item) => ({ key: hrefToKey(item.href), href: item.href }))
+    : [...MENU_ITEMS, CONTACT_ITEM]
   const pathname = usePathname()
   const [pastHero, setPastHero] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -149,7 +164,7 @@ export default function TopNavbar() {
         <div className="flex items-center justify-between px-8 h-20">
 
           {/* Logo */}
-          <Link href={homeHref} className="flex-shrink-0">
+          <Link href={homeHref} className="flex-shrink-0 flex items-center gap-3">
             <motion.img
               src="/logo-stela.svg"
               alt="La Stela Company"
@@ -159,11 +174,18 @@ export default function TopNavbar() {
               }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
             />
+            <motion.span
+              className="hidden sm:block text-[11px] tracking-[0.25em] uppercase font-light whitespace-nowrap"
+              animate={{ color: isTransparent ? "rgba(255,255,255,0.85)" : "rgba(0,0,0,0.65)" }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+            >
+              La Stela Company
+            </motion.span>
           </Link>
 
           {/* Nav desktop — centre */}
           <nav className="hidden lg:flex items-center gap-7">
-            {MENU_ITEMS.map((item, i) => (
+            {dynamicMenuItems.map((item, i) => (
               <motion.div key={item.href} custom={i} variants={navLinkVariants} initial="hidden" animate="visible">
                 <Link
                   href={getLocalizedHref(item.href)}
@@ -306,7 +328,7 @@ export default function TopNavbar() {
 
             {/* Nav links */}
             <nav className="flex flex-col justify-center flex-1 px-8 gap-2">
-              {ALL_ITEMS.map((item, i) => {
+              {dynamicAllItems.map((item, i) => {
                 const isActive = isLinkActive(item.href)
                 return (
                   <motion.div
@@ -322,7 +344,7 @@ export default function TopNavbar() {
                         "block text-4xl font-light py-2 transition-colors duration-200",
                         isActive ? "text-black" : "text-black/30 hover:text-black"
                       )}
-                      style={{ fontFamily: "var(--font-dancing-script)" }}
+                      style={{ fontFamily: "var(--font-playfair)" }}
                     >
                       {getTranslatedLabel(item.key)}
                     </Link>

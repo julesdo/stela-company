@@ -40,6 +40,7 @@ const Atelier: Collection = {
     { type: 'string', name: 'language', label: 'Language' },
     { type: 'string', name: 'capacity', label: 'Capacity' },
     { type: 'string', name: 'priceInfo', label: 'Price Info' },
+    { type: 'string', name: 'helloassoUrl', label: 'Lien HelloAsso (inscription / paiement)' },
     { type: 'string', name: 'description', label: 'Description', ui: { component: 'textarea' } },
     {
       type: 'object',

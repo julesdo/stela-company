@@ -103,7 +103,7 @@ export default function ArtisticFooter() {
           rel="noopener noreferrer"
           className="text-[11px] tracking-[0.22em] uppercase font-light text-black/40 hover:text-black transition-colors duration-300"
         >
-          Instagram
+          @stelacompany
         </a>
 
         <a
