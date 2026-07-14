@@ -63,7 +63,7 @@ export const AteliersList = ({ data }: { data: any }) => {
               // Nettoyer le slug pour enlever l'extension de langue
               const filename = n?._sys?.filename || ''
               const cleanSlug = filename.replace(/\.(fr|de|en|sr)$/, '')
-              
+
               return {
                 slug: cleanSlug,
                 theme: n?.theme || n?.discipline || '',
@@ -72,7 +72,8 @@ export const AteliersList = ({ data }: { data: any }) => {
                 details: n?.dayTime || '',
                 image: n?.coverImage || '/about2.jpg',
               }
-            }) || []
+            })
+            .sort((a: AtelierListItem, b: AtelierListItem) => a.title.localeCompare(b.title, 'fr')) || []
         if (!cancelled) setItems(derived)
       } catch (err) {
         // silent fail; leave list empty
