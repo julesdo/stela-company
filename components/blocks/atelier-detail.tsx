@@ -71,7 +71,7 @@ export const AtelierDetail = ({ data }: { data: any }) => {
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 px-6 md:px-12 lg:px-20 pb-8 md:pb-10">
-            <h1 className="text-white font-light leading-[1.05] text-3xl md:text-5xl lg:text-6xl" data-tina-field={tinaField(data, 'title')}>
+            <h1 className="text-white font-medium leading-[1.05] text-3xl md:text-5xl lg:text-6xl" data-tina-field={tinaField(data, 'title')}>
               {title}
             </h1>
             {hasLieux ? (
@@ -316,6 +316,25 @@ export const AtelierDetail = ({ data }: { data: any }) => {
                     </ul>
                   </div>
                 )}
+
+                {/* Adhésion à l'association */}
+                <div className="pt-6 border-t border-black/5">
+                  <div className="text-xs uppercase tracking-wider text-black/50 mb-1">Adhésion 2025–2026</div>
+                  <p className="text-[12px] text-black/50 mb-3 leading-relaxed">
+                    Une adhésion est requise pour participer aux ateliers (20 € / 10 € tarif solidaire).
+                  </p>
+                  <a
+                    href="https://www.helloasso.com/associations/la-stela-company/adhesions/la-stela-company"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 w-full py-3 px-4 border border-black/20 hover:border-black text-black text-sm font-medium tracking-wide rounded-lg transition-colors duration-200"
+                  >
+                    <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Adhérer à l'association
+                  </a>
+                </div>
 
                 {/* HelloAsso — inscription / paiement en ligne */}
                 {data?.helloassoUrl && (

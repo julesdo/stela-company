@@ -129,7 +129,7 @@ export const RepresentationsSection = ({ data }: { data: any }) => {
 
         {/* Titre + méta */}
         <div className="col-span-9 sm:col-span-10 md:col-span-7 space-y-1">
-          <h4 className="text-xl md:text-2xl font-light text-black leading-tight">
+          <h4 className="text-xl md:text-2xl font-medium text-black leading-tight">
             {e.title}
           </h4>
           {e.subtitle && (
@@ -184,7 +184,7 @@ export const RepresentationsSection = ({ data }: { data: any }) => {
         {/* En-tête épuré */}
         <motion.div variants={item as any} className="mb-10 md:mb-14 flex items-end justify-between">
           <div>
-            <h2 className="text-3xl md:text-4xl font-light tracking-wide" data-tina-field={tinaField(data, 'title')}>{title}</h2>
+            <h2 className="text-3xl md:text-4xl font-medium tracking-wide" data-tina-field={tinaField(data, 'title')}>{title}</h2>
             <div className="w-12 h-px bg-black mt-4 opacity-30" />
           </div>
 

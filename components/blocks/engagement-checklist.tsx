@@ -1,4 +1,4 @@
-// components/blocks/engagement-checklist.tsx
+﻿// components/blocks/engagement-checklist.tsx
 "use client"
 
 import * as React from "react"
@@ -29,7 +29,7 @@ export default function EngagementChecklist({ items }: { items: EngagementItem[]
               className="absolute -left-10 md:-left-12 top-[10px] w-2.5 h-2.5 rounded-full bg-black/70 transition-transform duration-300 group-hover:scale-110"
             />
             <div className="max-w-3xl">
-              <h3 className="text-2xl md:text-3xl font-light text-black leading-[1.12]">{it.title}</h3>
+              <h3 className="text-2xl md:text-3xl font-medium text-black leading-[1.12]">{it.title}</h3>
               <p className="mt-3 text-[16px] md:text-[17px] text-black/80 leading-relaxed">
                 {it.text}
               </p>

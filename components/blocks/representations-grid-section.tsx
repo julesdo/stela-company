@@ -115,7 +115,7 @@ export const RepresentationsGridSection = ({ data }: RepresentationsGridSectionP
       >
         {/* Titre sobre */}
         <motion.div variants={fadeUp as any} className="mb-6 md:mb-8">
-          <h2 className="text-3xl md:text-4xl font-light tracking-wide" data-tina-field={tinaField(data, 'heading')}>{heading}</h2>
+          <h2 className="text-3xl md:text-4xl font-medium tracking-wide" data-tina-field={tinaField(data, 'heading')}>{heading}</h2>
           <div className="w-12 h-px bg-black mt-4 opacity-30" />
         </motion.div>
 
@@ -152,7 +152,7 @@ export const RepresentationsGridSection = ({ data }: RepresentationsGridSectionP
                 <div className="absolute bottom-0 left-0 p-6 md:p-9">
                   <h3
                     className="
-                      text-white font-light leading-[1.05]
+                      text-white font-medium leading-[1.05]
                       text-3xl md:text-5xl lg:text-6xl
                       drop-shadow-[0_1px_6px_rgba(0,0,0,0.35)]
                     "

@@ -1,4 +1,4 @@
-// components/blocks/contact-routes.tsx
+﻿// components/blocks/contact-routes.tsx
 "use client"
 
 import Image from "next/image"
@@ -39,7 +39,7 @@ export default function ContactRoutes({ left, right }: { left: Side; right: Side
 
       {/* Contenu */}
       <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
-        <h2 className="text-white text-2xl md:text-5xl font-light leading-[1.12]">
+        <h2 className="text-white text-2xl md:text-5xl font-medium leading-[1.12]">
           {data.title}
         </h2>
         {data.subtitle && (

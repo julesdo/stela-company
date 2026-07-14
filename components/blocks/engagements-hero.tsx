@@ -56,7 +56,7 @@ export const EngagementsHero = ({
               <div className="text-sm tracking-wider uppercase text-black/55 mb-4" data-tina-field={tinaField(data, 'kicker')}>{kicker}</div>
             )}
             {title && (
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-light text-black leading-[1.05]" data-tina-field={tinaField(data, 'title')}>
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium text-black leading-[1.05]" data-tina-field={tinaField(data, 'title')}>
                 {title}
               </h1>
             )}

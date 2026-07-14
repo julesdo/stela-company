@@ -59,7 +59,7 @@ export const ContactInfo = ({ data }: { data: PageBlocksContactInfo }) => {
       <div className="max-w-4xl mx-auto">
         {/* Titre simple */}
         <h2 
-          className="text-4xl md:text-5xl font-light text-black mb-12"
+          className="text-4xl md:text-5xl font-medium text-black mb-12"
           data-tina-field={tinaField(data, 'heading')}
         >
           {data.heading || 'Contact'}

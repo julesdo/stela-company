@@ -34,7 +34,7 @@ export const AboutTriptych = ({ data }: { data: any }) => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent opacity-90" />
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-7">
-                <h3 className="text-white text-2xl md:text-3xl font-light leading-tight" data-tina-field={tinaField({ ...it }, 'title')}>{it.title}</h3>
+                <h3 className="text-white text-2xl md:text-3xl font-medium leading-tight" data-tina-field={tinaField({ ...it }, 'title')}>{it.title}</h3>
                 <p className="mt-2 text-white/85 text-sm md:text-base max-w-sm" data-tina-field={tinaField({ ...it }, 'desc')}>{it.desc}</p>
               </div>
             </div>

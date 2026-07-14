@@ -49,7 +49,7 @@ export const DonationSection = ({
       >
         {title && (
           <motion.h2
-            className="text-3xl md:text-4xl lg:text-5xl font-light text-black mb-6 md:mb-8"
+            className="text-3xl md:text-4xl lg:text-5xl font-medium text-black mb-6 md:mb-8"
             variants={fadeUp}
             data-tina-field={tinaField(data, "title")}
           >
@@ -82,6 +82,15 @@ export const DonationSection = ({
                 className="w-full border-0"
                 style={{ width: "100%", height: "750px", border: "none" }}
                 title="Formulaire de don Hello Asso"
+                onLoad={() => {
+                  window.addEventListener("message", function (e: MessageEvent) {
+                    const dataHeight = (e.data as any)?.height
+                    const el = document.getElementById("haWidget") as HTMLIFrameElement | null
+                    if (el && dataHeight && dataHeight > parseFloat(el.style.height || "0")) {
+                      el.style.height = dataHeight + "px"
+                    }
+                  })
+                }}
               />
             </div>
           </motion.div>

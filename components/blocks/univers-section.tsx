@@ -74,7 +74,7 @@ export const UniversSection = ({ data }: { data: any }) => {
           className="mb-24"
           variants={itemVariants as any}
         >
-          <h2 className="text-3xl md:text-4xl font-light tracking-wide" data-tina-field={tinaField(data, 'heading')}>
+          <h2 className="text-3xl md:text-4xl font-medium tracking-wide" data-tina-field={tinaField(data, 'heading')}>
             {heading}
           </h2>
           <div className="w-12 h-px bg-black mt-4 opacity-30" />
@@ -135,7 +135,7 @@ export const UniversSection = ({ data }: { data: any }) => {
                       whileHover={{ x: index % 2 === 1 ? -5 : 5 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <h3 className="text-4xl md:text-5xl lg:text-6xl font-light">
+                      <h3 className="text-4xl md:text-5xl lg:text-6xl font-medium">
                         {item.title}
                       </h3>
                       <p className="text-lg md:text-xl font-light mt-2 tracking-wide">

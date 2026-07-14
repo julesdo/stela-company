@@ -1,4 +1,4 @@
-// components/blocks/timeline-straight.tsx
+﻿// components/blocks/timeline-straight.tsx
 "use client"
 
 import * as React from "react"
@@ -65,7 +65,7 @@ export default function TimelineStraight({ items, locale = 'fr' }: { items: Repr
                           {it.city ? <> — <span className="font-medium">{it.city}</span></> : null}
                           {it.venue ? <> • <span className="font-light">{it.venue}</span></> : null}
                         </p>
-                        <h3 className="text-2xl md:text-4xl font-light text-black leading-[1.1] mb-4 group-hover:text-black/80 transition-colors">
+                        <h3 className="text-2xl md:text-4xl font-medium text-black leading-[1.1] mb-4 group-hover:text-black/80 transition-colors">
                           {it.title}
                         </h3>
                         {it.excerpt && (
@@ -130,7 +130,7 @@ export default function TimelineStraight({ items, locale = 'fr' }: { items: Repr
                           {it.city ? <> — <span className="font-medium">{it.city}</span></> : null}
                           {it.venue ? <> • <span className="font-light">{it.venue}</span></> : null}
                         </p>
-                        <h3 className="text-2xl md:text-4xl font-light text-black leading-[1.1] mb-4 group-hover:text-black/80 transition-colors">
+                        <h3 className="text-2xl md:text-4xl font-medium text-black leading-[1.1] mb-4 group-hover:text-black/80 transition-colors">
                           {it.title}
                         </h3>
                         {it.excerpt && (

@@ -52,6 +52,10 @@ export const HeroPrincipal = ({ data }: { data: any }) => {
           playsInline
           className="w-full h-full object-cover"
           poster={poster}
+          onCanPlay={(e) => {
+            const v = e.target as HTMLVideoElement;
+            if (v.currentTime < 2) v.currentTime = 2;
+          }}
           onError={(e) => {
             const videoElement = e.target as HTMLVideoElement;
             videoElement.style.display = 'none';
@@ -97,8 +101,8 @@ export const HeroPrincipal = ({ data }: { data: any }) => {
         {/* Titre principal */}
         <motion.h1
           variants={titleVariants as any}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-white leading-[1.1] mb-10"
-          style={{ fontFamily: "var(--font-dancing-script)" }}
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white leading-[1.1] mb-10"
+          style={{ fontFamily: "var(--font-corinthia)" }}
           data-tina-field={tinaField(data, 'headline')}
         >
           {headline}

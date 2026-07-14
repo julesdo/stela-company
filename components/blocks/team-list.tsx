@@ -96,7 +96,7 @@ export const TeamList = ({ data }: { data: any }) => {
         {/* Hero Section */}
         <section className="px-6 md:px-12 lg:px-20 py-16" data-tina-field={tinaField(data)}>
           <div className="max-w-7xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-light text-black mb-8" data-tina-field={tinaField(data, 'title')}>
+            <h1 className="text-4xl md:text-6xl font-medium text-black mb-8" data-tina-field={tinaField(data, 'title')}>
               {data?.title || t.title}
             </h1>
             <p className="text-lg text-black/70 max-w-3xl" data-tina-field={tinaField(data, 'description')}>
@@ -133,7 +133,7 @@ export const TeamList = ({ data }: { data: any }) => {
                         />
                       </div>
                       <div>
-                        <h3 className="text-xl font-light text-black mb-1">
+                        <h3 className="text-xl font-medium text-black mb-1">
                           {member.name}
                         </h3>
                         <p className="text-sm text-black/60">

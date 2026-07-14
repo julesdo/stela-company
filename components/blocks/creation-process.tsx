@@ -1,4 +1,4 @@
-// components/blocks/creation-process.tsx
+﻿// components/blocks/creation-process.tsx
 "use client"
 
 import * as React from "react"
@@ -36,7 +36,7 @@ export default function CreationProcess({ steps }: { steps: ProcessStep[] }) {
             {/* contenu */}
             <div className="max-w-3xl">
               <div className="text-[12px] tracking-wider uppercase text-black/45">Étape {String(i + 1).padStart(2, "0")}</div>
-              <h3 className="mt-1.5 text-2xl md:text-3xl font-light text-black leading-[1.12]">{s.title}</h3>
+              <h3 className="mt-1.5 text-2xl md:text-3xl font-medium text-black leading-[1.12]">{s.title}</h3>
               <p className="mt-3 text-[16px] md:text-[17px] text-black/80 leading-relaxed">{s.text}</p>
             </div>
           </motion.li>

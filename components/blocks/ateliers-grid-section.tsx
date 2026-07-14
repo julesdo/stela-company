@@ -88,7 +88,7 @@ export default function AteliersGridSection({
         {/* En-tête */}
         <motion.div variants={card as any} className="mb-8 md:mb-10 flex items-end justify-between">
           <div>
-            <h1 className="text-3xl md:text-5xl font-light text-black tracking-wide">{heading}</h1>
+            <h1 className="text-3xl md:text-5xl font-medium text-black tracking-wide">{heading}</h1>
             <div className="w-12 h-px bg-black mt-4 opacity-30" />
           </div>
 
@@ -146,7 +146,7 @@ export default function AteliersGridSection({
                 {/* Corps : titre + meta + thumb ronde */}
                 <div className="mt-4 grid grid-cols-[1fr_auto] items-start gap-4">
                   <div>
-                    <h3 className="text-xl md:text-2xl font-light text-black leading-snug">{it.title}</h3>
+                    <h3 className="text-xl md:text-2xl font-medium text-black leading-snug">{it.title}</h3>
                     <p className="mt-1 text-sm text-black/60">
                       {(it.duration ? it.duration : "")}
                       {it.duration && it.level ? " • " : ""}

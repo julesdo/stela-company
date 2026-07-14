@@ -1,4 +1,4 @@
-// components/blocks/timeline-zigzag.tsx
+﻿// components/blocks/timeline-zigzag.tsx
 "use client"
 
 import * as React from "react"
@@ -135,7 +135,7 @@ export default function TimelineZigzag({ items }: { items: RepresentationItem[] 
                         {it.city ? <> — <span>{it.city}</span></> : null}
                         {it.venue ? <> • <span className="font-light">{it.venue}</span></> : null}
                       </p>
-                      <h3 className="mt-2 text-2xl md:text-3xl font-light text-black leading-[1.1]">
+                      <h3 className="mt-2 text-2xl md:text-3xl font-medium text-black leading-[1.1]">
                         {it.title}
                       </h3>
                       {it.excerpt && (

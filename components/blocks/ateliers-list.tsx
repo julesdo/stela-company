@@ -91,7 +91,7 @@ export const AteliersList = ({ data }: { data: any }) => {
       <div className="max-w-7xl mx-auto">
         {heading && (
           <div className="text-center pt-28 pb-8" data-tina-field={tinaField(data, 'heading')}>
-            <h1 className="text-3xl md:text-5xl font-light tracking-wide">{heading}</h1>
+            <h1 className="text-3xl md:text-5xl font-medium tracking-wide">{heading}</h1>
             <div className="mx-auto w-12 h-px bg-black mt-4 opacity-30" />
           </div>
         )}
@@ -120,7 +120,7 @@ export const AteliersList = ({ data }: { data: any }) => {
 
                   <h2
                     className="
-                      mt-2 text-[22px] md:text-[30px] font-light text-black leading-[1.12]
+                      mt-2 text-[22px] md:text-[30px] font-medium text-black leading-[1.12]
                       transition-transform duration-300 group-hover:translate-x-[2px]
                     "
                   >

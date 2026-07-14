@@ -120,7 +120,7 @@ export const RepresentationDetail = ({ data }: { data: any }) => {
       <Section className="py-16 md:py-20 px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-16">
           <div className="lg:col-span-7">
-            <h1 className="text-3xl md:text-5xl font-light" data-tina-field={tinaField(data, 'title')}>{title}</h1>
+            <h1 className="text-3xl md:text-5xl font-medium" data-tina-field={tinaField(data, 'title')}>{title}</h1>
             {subtitle && (
               <p className="mt-2 text-black/70" data-tina-field={tinaField(data, 'subtitle')}>{subtitle}</p>
             )}

@@ -22,7 +22,7 @@ export const EngagementsGrid = ({
     <Section background={data?.background} className="py-16 md:py-20 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto">
         {heading && (
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-black mb-6 md:mb-8" data-tina-field={tinaField(data, 'heading')}>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium text-black mb-6 md:mb-8" data-tina-field={tinaField(data, 'heading')}>
             {heading}
           </h2>
         )}
@@ -41,7 +41,7 @@ export const EngagementsGrid = ({
               data-tina-field={tinaField(data, `items.${index}`)}
             >
               {item.title && (
-                <h3 className="text-xl md:text-2xl font-light text-black" data-tina-field={tinaField(item, 'title')}>
+                <h3 className="text-xl md:text-2xl font-medium text-black" data-tina-field={tinaField(item, 'title')}>
                   {item.title}
                 </h3>
               )}

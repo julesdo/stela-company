@@ -89,7 +89,7 @@ export const TeamDetail = ({ data }: { data: TeamDetailData }) => {
               <p className="text-white/80 text-sm md:text-base" data-tina-field={tinaField(data, 'role')}>
                 {data.role}
               </p>
-              <h1 className="mt-1 text-white font-light leading-[1.05] text-3xl md:text-5xl lg:text-6xl" data-tina-field={tinaField(data, 'name')}>
+              <h1 className="mt-1 text-white font-medium leading-[1.05] text-3xl md:text-5xl lg:text-6xl" data-tina-field={tinaField(data, 'name')}>
                 {data.name}
               </h1>
             </div>

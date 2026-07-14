@@ -66,7 +66,7 @@ export default function TeamGridSection({
       >
         {/* En-tête simple */}
         <motion.div variants={row as any} className="mb-10 md:mb-14">
-          <h1 className="text-3xl md:text-5xl font-light text-black tracking-wide">{heading}</h1>
+          <h1 className="text-3xl md:text-5xl font-medium text-black tracking-wide">{heading}</h1>
           <div className="w-12 h-px bg-black mt-4 opacity-30" />
         </motion.div>
 
@@ -102,7 +102,7 @@ export default function TeamGridSection({
                   <div className="lg:col-span-6 order-2">
                     <div className="max-w-2xl">
                       <p className="text-sm text-black/55">{m.role}</p>
-                      <h3 className="mt-1 text-3xl md:text-4xl font-light text-black leading-[1.1]">
+                      <h3 className="mt-1 text-3xl md:text-4xl font-medium text-black leading-[1.1]">
                         {m.name}
                       </h3>
                       {m.description && (

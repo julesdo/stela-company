@@ -1,6 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
-import { Caveat, Playfair_Display, Inter as FontSans, Nunito, Corinthia, Dancing_Script } from "next/font/google";
+import { Caveat, Playfair_Display, Inter as FontSans, Nunito, Cormorant_Garamond, Dancing_Script } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { VideoDialogProvider } from "@/components/ui/VideoDialogContext";
 import VideoDialog from "@/components/ui/VideoDialog";
@@ -23,10 +23,11 @@ const nunito = Nunito({
   variable: "--font-nunito",
 });
 
-const corinthia = Corinthia({
+const corinthia = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-corinthia",
-  weight: ["400", "700"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
 // Font script manuscrite avec grain

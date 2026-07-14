@@ -81,7 +81,7 @@ export default function AgendaList({ events }: { events: Representation[] }) {
 
         {/* Titre + méta */}
         <div className="col-span-9 sm:col-span-10 md:col-span-7 space-y-1">
-          <h4 className="text-xl md:text-2xl font-light text-black leading-tight">
+          <h4 className="text-xl md:text-2xl font-medium text-black leading-tight">
             {e.title}
           </h4>
           {e.subtitle && (
