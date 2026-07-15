@@ -1,4 +1,5 @@
 import type { Collection } from 'tinacms';
+import { LangBannerField } from '../fields/lang-banner';
 
 const Atelier: Collection = {
   label: 'Ateliers',
@@ -8,7 +9,8 @@ const Atelier: Collection = {
   ui: {
     router: ({ document }) => {
       const filepath = document._sys.breadcrumbs.join('/');
-      const locale = (document as any).lang || 'fr';
+      const localeFromFilename = filepath.match(/\.(fr|de|en|sr)$/)?.[1];
+      const locale = localeFromFilename ?? (document as any).lang ?? 'fr';
       const basePath = locale === 'fr' ? '' : `/${locale}`;
       const cleanPath = filepath.replace(/\.(fr|de|en|sr)$/, '');
       return `${basePath}/ateliers/${cleanPath}`;
@@ -19,15 +21,11 @@ const Atelier: Collection = {
       type: 'string',
       name: 'lang',
       label: 'Langue',
-      options: [
-        { value: 'fr', label: 'Français' },
-        { value: 'de', label: 'Deutsch' },
-        { value: 'en', label: 'English' },
-        { value: 'sr', label: 'Српски' },
-      ],
       required: false,
       ui: {
         defaultValue: 'fr',
+        // @ts-ignore – wrapFieldsWithMeta type incompatible avec ui.component
+        component: LangBannerField,
       },
     },
     { type: 'string', name: 'title', label: 'Title', isTitle: true, required: true },
@@ -48,14 +46,13 @@ const Atelier: Collection = {
       label: 'Lieux',
       list: true,
       ui: {
-        itemProps: (item: any) => {
-          return { label: item?.nom || 'Nouveau lieu' };
-        },
+        itemProps: (item: any) => ({ label: item?.nom || 'Nouveau lieu' }),
+        defaultItem: { nom: '', city: '', venue: '' },
       },
       fields: [
-        { type: 'string', name: 'nom', label: 'Nom du lieu', required: true },
-        { type: 'string', name: 'city', label: 'Ville', required: true },
-        { type: 'string', name: 'venue', label: 'Lieu/Salle', required: true },
+        { type: 'string', name: 'nom', label: 'Nom du lieu' },
+        { type: 'string', name: 'city', label: 'Ville' },
+        { type: 'string', name: 'venue', label: 'Lieu/Salle' },
         { type: 'string', name: 'address', label: 'Adresse' },
         { type: 'string', name: 'dayTime', label: 'Jour/Horaire' },
         { type: 'string', name: 'duration', label: 'Durée' },
@@ -86,6 +83,10 @@ const Atelier: Collection = {
       name: 'instructors',
       label: 'Instructors',
       list: true,
+      ui: {
+        itemProps: (item: any) => ({ label: item?.name || 'Intervenant' }),
+        defaultItem: { name: '', role: '' },
+      },
       fields: [
         { type: 'string', name: 'name', label: 'Name' },
         { type: 'string', name: 'role', label: 'Role' },
@@ -97,6 +98,10 @@ const Atelier: Collection = {
       name: 'sessions',
       label: 'Sessions',
       list: true,
+      ui: {
+        itemProps: (item: any) => ({ label: item?.city || item?.venue || 'Session' }),
+        defaultItem: { city: '', venue: '', address: '' },
+      },
       fields: [
         { type: 'datetime', name: 'start', label: 'Start' },
         { type: 'datetime', name: 'end', label: 'End' },

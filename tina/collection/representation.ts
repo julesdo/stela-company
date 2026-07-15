@@ -1,4 +1,5 @@
 import type { Collection } from 'tinacms';
+import { LangBannerField } from '../fields/lang-banner';
 
 const Representation: Collection = {
   label: 'Représentations',
@@ -8,7 +9,8 @@ const Representation: Collection = {
   ui: {
     router: ({ document }) => {
       const filepath = document._sys.breadcrumbs.join('/');
-      const locale = (document as any).lang || 'fr';
+      const localeFromFilename = filepath.match(/\.(fr|de|en|sr)$/)?.[1];
+      const locale = localeFromFilename ?? (document as any).lang ?? 'fr';
       const basePath = locale === 'fr' ? '' : `/${locale}`;
       const cleanPath = filepath.replace(/\.(fr|de|en|sr)$/, '');
       return `${basePath}/representations/${cleanPath}`;
@@ -19,15 +21,11 @@ const Representation: Collection = {
       type: 'string',
       name: 'lang',
       label: 'Langue',
-      options: [
-        { value: 'fr', label: 'Français' },
-        { value: 'de', label: 'Deutsch' },
-        { value: 'en', label: 'English' },
-        { value: 'sr', label: 'Српски' },
-      ],
       required: false,
       ui: {
         defaultValue: 'fr',
+        // @ts-ignore – wrapFieldsWithMeta type incompatible avec ui.component
+        component: LangBannerField,
       },
     },
     { type: 'string', name: 'title', label: 'Title', isTitle: true, required: true },
@@ -50,6 +48,10 @@ const Representation: Collection = {
       name: 'credits',
       label: 'Credits',
       list: true,
+      ui: {
+        itemProps: (item: any) => ({ label: item?.name || item?.role || 'Crédit' }),
+        defaultItem: { role: '', name: '' },
+      },
       fields: [
         { type: 'string', name: 'role', label: 'Role' },
         { type: 'string', name: 'name', label: 'Name' },
@@ -60,6 +62,10 @@ const Representation: Collection = {
       name: 'gallery',
       label: 'Gallery',
       list: true,
+      ui: {
+        itemProps: (item: any) => ({ label: item?.alt || 'Photo' }),
+        defaultItem: { alt: '' },
+      },
       fields: [
         { type: 'image', name: 'src', label: 'Image' },
         { type: 'string', name: 'alt', label: 'Alt' },
@@ -70,6 +76,10 @@ const Representation: Collection = {
       name: 'partners',
       label: 'Partners',
       list: true,
+      ui: {
+        itemProps: (item: any) => ({ label: item?.name || 'Partenaire' }),
+        defaultItem: { name: '', url: '' },
+      },
       fields: [
         { type: 'string', name: 'name', label: 'Name' },
         { type: 'image', name: 'logo', label: 'Logo' },

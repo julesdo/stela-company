@@ -9,15 +9,16 @@ import type { Template } from "tinacms"
 import { tinaField } from "tinacms/dist/react"
 import { usePathname } from "next/navigation"
 import { Section, sectionBlockSchemaField } from "../layout/section"
+import { useLayout } from "../layout/layout-context"
 import client from "@/tina/__generated__/client"
 import { locales, defaultLocale, type Locale } from "@/lib/i18n"
 
 export type AtelierListItem = {
   slug: string
-  theme: string     // "Cours pour les enfants" | "Cours pour adulte 1" | "Cours pour adulte 2"
+  theme: string
   title: string
   excerpt: string
-  details?: string  // créneau / ville (très discret)
+  details?: string
   image: string
 }
 
@@ -25,6 +26,8 @@ export const AteliersList = ({ data }: { data: any }) => {
   const heading: string | undefined = data?.heading
   const [items, setItems] = React.useState<AtelierListItem[]>([])
   const pathname = usePathname()
+  const { globalSettings } = useLayout()
+  const orderedSlugs: string[] = ((globalSettings as any)?.ordering?.ateliers ?? '').split(',').filter(Boolean)
 
   // Détecter la locale actuelle depuis le pathname
   const pathSegments = pathname.split('/').filter(Boolean)
@@ -73,7 +76,14 @@ export const AteliersList = ({ data }: { data: any }) => {
                 image: n?.coverImage || '/about2.jpg',
               }
             })
-            .sort((a: AtelierListItem, b: AtelierListItem) => a.title.localeCompare(b.title, 'fr')) || []
+            .sort((a: AtelierListItem, b: AtelierListItem) => {
+              const aIdx = orderedSlugs.indexOf(a.slug)
+              const bIdx = orderedSlugs.indexOf(b.slug)
+              if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx
+              if (aIdx !== -1) return -1
+              if (bIdx !== -1) return 1
+              return a.title.localeCompare(b.title, 'fr')
+            }) || []
         if (!cancelled) setItems(derived)
       } catch (err) {
         // silent fail; leave list empty

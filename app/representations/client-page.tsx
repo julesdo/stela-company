@@ -5,6 +5,7 @@ import ErrorBoundary from "@/components/error-boundary";
 import TimelineStraight, { RepresentationItem } from "@/components/blocks/timeline-straight";
 import { RepresentationConnectionQuery } from "@/tina/__generated__/types";
 import { locales, defaultLocale, type Locale } from "@/lib/i18n";
+import { useLayout } from "@/components/layout/layout-context";
 
 export interface ClientRepresentationsPageProps {
   data: RepresentationConnectionQuery;
@@ -15,6 +16,8 @@ export interface ClientRepresentationsPageProps {
 export default function RepresentationsClientPage(props: ClientRepresentationsPageProps) {
   const { data } = useTina({ ...props });
   const pathname = usePathname();
+  const { globalSettings } = useLayout();
+  const orderedSlugs: string[] = ((globalSettings as any)?.ordering?.representations ?? '').split(',').filter(Boolean);
   
   // Détecter la locale depuis l'URL
   const pathSegments = pathname.split('/').filter(Boolean);
@@ -68,6 +71,7 @@ export default function RepresentationsClientPage(props: ClientRepresentationsPa
       const basePath = currentLocale === defaultLocale ? '' : `/${currentLocale}`;
       return {
         slug: `${basePath}/representations/${cleanSlug}`,
+        cleanSlug,
         title: edge!.node!.title,
         excerpt: edge!.node!.subtitle || '',
         image: edge!.node!.hero || '',
@@ -77,8 +81,13 @@ export default function RepresentationsClientPage(props: ClientRepresentationsPa
       };
     }) || [];
 
-  // Trier par date (plus récent en premier)
-  const sortedItems = timelineItems.sort((a, b) => {
+  // Tri : ordre global (Global TinaCMS) → date décroissante en fallback
+  const sortedItems = timelineItems.sort((a: any, b: any) => {
+    const aIdx = orderedSlugs.indexOf(a.cleanSlug);
+    const bIdx = orderedSlugs.indexOf(b.cleanSlug);
+    if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
+    if (aIdx !== -1) return -1;
+    if (bIdx !== -1) return 1;
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   });
 

@@ -35,6 +35,10 @@
     ]
   },
   "footer": {
+    "tagline": "Danse · Théâtre · Langues",
+    "email": "lastelacompany@gmail.com",
+    "instagramUrl": "https://www.instagram.com/la_stela_company/",
+    "instagramHandle": "@stelacompany",
     "social": [
       {
         "icon": {
@@ -43,6 +47,11 @@
         "url": "https://www.instagram.com/la_stela_company/"
       }
     ]
+  },
+  "ordering": {
+    "ateliers": "adultes-barre-asymetrique,enfants-danse-allemand,enfants-danse-allemand-5-7,coaching-personnel",
+    "representations": "medee-acte-1,medee-medea-sorano,saec-3",
+    "equipe": "stela-elena-stankovic,jean-guizerix,matthieu-lecoq,melen-constant,jules-camille-dore"
   },
   "theme": {
     "color": "blue",

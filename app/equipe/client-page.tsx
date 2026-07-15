@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import ErrorBoundary from "@/components/error-boundary";
 import { TeamConnectionQuery } from "@/tina/__generated__/types";
+import { useLayout } from "@/components/layout/layout-context";
 
 export interface ClientTeamPageProps {
   data: TeamConnectionQuery;
@@ -13,7 +14,9 @@ export interface ClientTeamPageProps {
 
 export default function TeamClientPage(props: ClientTeamPageProps) {
   const { data } = useTina({ ...props });
-  
+  const { globalSettings } = useLayout();
+  const orderedSlugs: string[] = ((globalSettings as any)?.ordering?.equipe ?? '').split(',').filter(Boolean);
+
   if (!data?.teamConnection?.edges) {
     return <div>Aucun membre d'équipe trouvé</div>;
   }
@@ -21,22 +24,15 @@ export default function TeamClientPage(props: ClientTeamPageProps) {
   const teamMembers = data.teamConnection.edges
     ?.filter(edge => edge?.node)
     .map(edge => edge!.node) || [];
-  
-  // Réorganiser : Stela en premier, Jules Camille en dernier
+
   const sortedTeamMembers = [...teamMembers].sort((a, b) => {
-    const aName = a?.name?.toLowerCase() || '';
-    const bName = b?.name?.toLowerCase() || '';
-    const aSlug = a?._sys?.breadcrumbs?.join('/')?.toLowerCase() || '';
-    const bSlug = b?._sys?.breadcrumbs?.join('/')?.toLowerCase() || '';
-    
-    // Stela en premier
-    if (aName.includes('stela') || aSlug.includes('stela-elena')) return -1;
-    if (bName.includes('stela') || bSlug.includes('stela-elena')) return 1;
-    
-    // Jules Camille en dernier
-    if (aName.includes('jules') || aSlug.includes('jules-camille')) return 1;
-    if (bName.includes('jules') || bSlug.includes('jules-camille')) return -1;
-    
+    const aSlug = (a?._sys?.filename ?? '').replace(/\.(fr|de|en|sr)$/, '');
+    const bSlug = (b?._sys?.filename ?? '').replace(/\.(fr|de|en|sr)$/, '');
+    const aIdx = orderedSlugs.indexOf(aSlug);
+    const bIdx = orderedSlugs.indexOf(bSlug);
+    if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
+    if (aIdx !== -1) return -1;
+    if (bIdx !== -1) return 1;
     return 0;
   });
 

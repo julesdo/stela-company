@@ -1,7 +1,7 @@
 import type { Collection } from "tinacms";
 import { ColorPickerInput } from "../fields/color";
 import { iconSchema } from "../fields/icon";
-import { icon } from "mermaid/dist/rendering-util/rendering-elements/shapes/icon.js";
+import { AtelierOrderField, RepresentationOrderField, TeamOrderField } from "../fields/sortable-order-field";
 
 const Global: Collection = {
   label: "Global",
@@ -67,8 +67,30 @@ const Global: Collection = {
       name: "footer",
       fields: [
         {
+          type: "string",
+          label: "Tagline",
+          name: "tagline",
+          ui: { description: 'Ex : "Danse · Théâtre · Langues"' },
+        },
+        {
+          type: "string",
+          label: "Email de contact",
+          name: "email",
+        },
+        {
+          type: "string",
+          label: "URL Instagram",
+          name: "instagramUrl",
+        },
+        {
+          type: "string",
+          label: "Handle Instagram",
+          name: "instagramHandle",
+          ui: { description: 'Ex : "@stelacompany"' },
+        },
+        {
           type: "object",
-          label: "Social Links",
+          label: "Liens sociaux (icônes)",
           name: "social",
           list: true,
           ui: {
@@ -84,6 +106,40 @@ const Global: Collection = {
               name: "url",
             },
           ],
+        },
+      ],
+    },
+    {
+      type: "object",
+      label: "Ordre d'affichage",
+      name: "ordering",
+      fields: [
+        {
+          type: "string",
+          name: "ateliers",
+          label: "Ateliers — ordre d'affichage",
+          ui: {
+            // @ts-ignore – wrapFieldsWithMeta type incompatible avec ui.component
+            component: AtelierOrderField,
+          },
+        },
+        {
+          type: "string",
+          name: "representations",
+          label: "Représentations — ordre d'affichage",
+          ui: {
+            // @ts-ignore – wrapFieldsWithMeta type incompatible avec ui.component
+            component: RepresentationOrderField,
+          },
+        },
+        {
+          type: "string",
+          name: "equipe",
+          label: "Équipe — ordre d'affichage",
+          ui: {
+            // @ts-ignore – wrapFieldsWithMeta type incompatible avec ui.component
+            component: TeamOrderField,
+          },
         },
       ],
     },

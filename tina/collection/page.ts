@@ -1,4 +1,5 @@
 import type { Collection } from 'tinacms';
+import { LangBannerField } from '../fields/lang-banner';
 import { heroBlockSchema } from '@/components/blocks/hero';
 import { contentBlockSchema } from '@/components/blocks/content';
 import { testimonialBlockSchema } from '@/components/blocks/testimonial';
@@ -34,12 +35,12 @@ const Page: Collection = {
   ui: {
     router: ({ document }) => {
       const filepath = document._sys.breadcrumbs.join('/');
-      const locale = (document as any).lang || 'fr';
+      // Dériver la locale du nom de fichier en priorité (plus fiable que le champ lang)
+      const localeFromFilename = filepath.match(/\.(fr|de|en|sr)$/)?.[1];
+      const locale = localeFromFilename ?? (document as any).lang ?? 'fr';
       const basePath = locale === 'fr' ? '' : `/${locale}`;
-      
-      // Nettoyer le nom de fichier des extensions de langue
       const cleanPath = filepath.replace(/\.(fr|de|en|sr)$/, '');
-      
+
       if (cleanPath === 'home') {
         return basePath || '/';
       }
@@ -51,15 +52,11 @@ const Page: Collection = {
       type: 'string',
       name: 'lang',
       label: 'Langue',
-      options: [
-        { value: 'fr', label: 'Français' },
-        { value: 'de', label: 'Deutsch' },
-        { value: 'en', label: 'English' },
-        { value: 'sr', label: 'Српски' },
-      ],
       required: false,
       ui: {
         defaultValue: 'fr',
+        // @ts-ignore – wrapFieldsWithMeta type incompatible avec ui.component
+        component: LangBannerField,
       },
     },
     {

@@ -1,4 +1,5 @@
 import type { Collection } from 'tinacms';
+import { LangBannerField } from '../fields/lang-banner';
 import { sectionBlockSchemaField } from '@/components/layout/section';
 
 const Team: Collection = {
@@ -9,7 +10,8 @@ const Team: Collection = {
   ui: {
     router: ({ document }) => {
       const filepath = document._sys.breadcrumbs.join('/');
-      const locale = (document as any).lang || 'fr';
+      const localeFromFilename = filepath.match(/\.(fr|de|en|sr)$/)?.[1];
+      const locale = localeFromFilename ?? (document as any).lang ?? 'fr';
       const basePath = locale === 'fr' ? '' : `/${locale}`;
       const cleanPath = filepath.replace(/\.(fr|de|en|sr)$/, '');
       return `${basePath}/equipe/${cleanPath}`;
@@ -20,15 +22,11 @@ const Team: Collection = {
       type: 'string',
       name: 'lang',
       label: 'Langue',
-      options: [
-        { value: 'fr', label: 'Français' },
-        { value: 'de', label: 'Deutsch' },
-        { value: 'en', label: 'English' },
-        { value: 'sr', label: 'Српски' },
-      ],
       required: false,
       ui: {
         defaultValue: 'fr',
+        // @ts-ignore – wrapFieldsWithMeta type incompatible avec ui.component
+        component: LangBannerField,
       },
     },
     sectionBlockSchemaField as any,
@@ -41,6 +39,10 @@ const Team: Collection = {
       list: true,
       name: 'facts',
       label: 'Informations',
+      ui: {
+        itemProps: (item: any) => ({ label: item?.label || 'Info' }),
+        defaultItem: { label: '', value: '' },
+      },
       fields: [
         { type: 'string', name: 'label', label: 'Label' },
         { type: 'string', name: 'value', label: 'Valeur' },
@@ -63,13 +65,17 @@ const Team: Collection = {
       list: true,
       name: 'gallery',
       label: 'Galerie',
+      ui: {
+        itemProps: (item: any) => ({ label: item?.alt || 'Photo' }),
+        defaultItem: { alt: '', ratio: 'portrait' },
+      },
       fields: [
         { type: 'image', name: 'src', label: 'Image' },
         { type: 'string', name: 'alt', label: 'Texte alternatif' },
-        { 
-          type: 'string', 
-          name: 'ratio', 
-          label: 'Ratio', 
+        {
+          type: 'string',
+          name: 'ratio',
+          label: 'Ratio',
           options: [
             { value: 'portrait', label: 'Portrait' },
             { value: 'square', label: 'Carré' },
