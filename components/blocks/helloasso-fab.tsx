@@ -1,9 +1,22 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { usePathname } from "next/navigation"
+import { locales, defaultLocale, type Locale } from "@/lib/i18n"
+
+const labels: Record<Locale, { donate: string; close: string; ariaLabel: string }> = {
+  fr: { donate: "Faire un don", close: "Fermer", ariaLabel: "Faire un don à La Stela Company" },
+  en: { donate: "Donate", close: "Close", ariaLabel: "Donate to La Stela Company" },
+  de: { donate: "Spenden", close: "Schließen", ariaLabel: "An La Stela Company spenden" },
+  sr: { donate: "Донирај", close: "Затвори", ariaLabel: "Донирајте La Stela Company" },
+}
 
 export default function HelloAssoFab() {
   const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname()
+  const firstSegment = pathname.split("/").filter(Boolean)[0]
+  const currentLocale: Locale = firstSegment && locales.includes(firstSegment as Locale) ? (firstSegment as Locale) : defaultLocale
+  const t = labels[currentLocale]
 
   useEffect(() => {
     const handleMessage = (e: MessageEvent) => {
@@ -24,7 +37,7 @@ export default function HelloAssoFab() {
       <button
         id="openHaOverlay"
         onClick={() => setIsOpen(true)}
-        aria-label="Faire un don à La Stela Company"
+        aria-label={t.ariaLabel}
         style={{
           position: "fixed",
           bottom: "20px",
@@ -57,7 +70,7 @@ export default function HelloAssoFab() {
         <svg style={{ width: "16px", height: "16px", flexShrink: 0 }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
         </svg>
-        Faire un don
+        {t.donate}
       </button>
 
       {/* Overlay HelloAsso */}
@@ -73,7 +86,7 @@ export default function HelloAssoFab() {
           {/* Bouton fermer */}
           <button
             onClick={() => setIsOpen(false)}
-            aria-label="Fermer"
+            aria-label={t.close}
             style={{
               position: "absolute",
               top: "16px",
@@ -107,7 +120,7 @@ export default function HelloAssoFab() {
               height: "100%",
               border: "none",
             }}
-            title="Faire un don – La Stela Company"
+            title={t.ariaLabel}
           />
         </div>
       )}
