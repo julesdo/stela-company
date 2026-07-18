@@ -1,6 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import { Caveat, Playfair_Display, Inter as FontSans, Nunito, Cormorant_Garamond, Dancing_Script } from "next/font/google";
+import localFont from "next/font/local";
 import { cn } from "@/lib/utils";
 import { VideoDialogProvider } from "@/components/ui/VideoDialogContext";
 import VideoDialog from "@/components/ui/VideoDialog";
@@ -28,6 +29,12 @@ const corinthia = Cormorant_Garamond({
   variable: "--font-corinthia",
   weight: ["300", "400", "500", "600", "700"],
   style: ["normal", "italic"],
+});
+
+const tanAegean = localFont({
+  src: "./fonts/TanAegean.woff2",
+  variable: "--font-tan-aegean",
+  display: "swap",
 });
 
 // Font script manuscrite avec grain
@@ -63,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn(fontSans.variable, caveat.variable, playfair.variable, nunito.variable, corinthia.variable, dancing_script.variable  )}>
+    <html lang="en" className={cn(fontSans.variable, caveat.variable, playfair.variable, nunito.variable, corinthia.variable, dancing_script.variable, tanAegean.variable)}>
             <body className="min-h-screen bg-white text-black font-serif antialiased">
 
         <VideoDialogProvider>
