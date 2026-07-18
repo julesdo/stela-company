@@ -102,7 +102,7 @@ export const HeroPrincipal = ({ data }: { data: any }) => {
         <motion.h1
           variants={titleVariants as any}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white leading-[1.1] mb-10"
-          style={{ fontFamily: "var(--font-corinthia)" }}
+          style={{ fontFamily: "var(--font-tan-aegean)" }}
           data-tina-field={tinaField(data, 'headline')}
         >
           {headline}
