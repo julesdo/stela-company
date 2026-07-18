@@ -18,7 +18,7 @@ export default function ArtisticFooter() {
   const tagline = footer.tagline || 'Danse · Théâtre · Langues';
   const email = footer.email || 'lastelacompany@gmail.com';
   const instagramUrl = footer.instagramUrl || 'https://www.instagram.com/la_stela_company/';
-  const instagramHandle = footer.instagramHandle || '@stelacompany';
+  const instagramHandle = footer.instagramHandle || '@la_stela_company';
 
   useEffect(() => {
     if (!footerRef.current) return;
